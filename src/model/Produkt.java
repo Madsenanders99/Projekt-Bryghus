@@ -12,7 +12,7 @@ public class Produkt {
 		
 	}
 
-	// 1 Association til AktivPrisliste
+	// 1 association fra Produkt til AktivPrisliste
 
 	public AktivPrisliste getAktivPrisliste() {
 		return aktivPrisliste;
