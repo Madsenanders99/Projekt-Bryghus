@@ -19,4 +19,6 @@ public class Exceptions {
 				System.out.println("Indtast kun tal mellem 1 og 10");
 			}
 		}
+	//Hvad sker der?
+	
 }
