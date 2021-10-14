@@ -11,11 +11,26 @@ public class Kunde {
 	private String adresse;
 	private String tlf;
 	private String mail;
-	private ArrayList<Ordre> ordrer = new ArrayList<>();
+	private final ArrayList<Ordre> ordrer = new ArrayList<>();
 	
 	
 	public Kunde(String navn, String adresse) {
 		
 	}
-	
+	// 0..* Til Ordre association
+	public ArrayList<Ordre> getOrdre() {
+		return new ArrayList<>(ordrer);
+	}
+	public void addOrdre(Ordre ordre) {
+		if (!ordrer.contains(ordre)) {
+			ordrer.add(ordre);
+			ordre.setKunde(this);
+		}
+	}
+	public void removeOrdre (Ordre ordre) {
+		if (ordrer.contains(ordre)) {
+			ordrer.remove(ordre);
+			ordre.setKunde(null);
+		}
+	}
 }
