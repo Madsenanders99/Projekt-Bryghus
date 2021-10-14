@@ -12,5 +12,20 @@ public class Ordre {
 	private LocalDate betalt;
 	private Kunde kunde;
 	private ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
-	
+
+	public Kunde getKunde() {
+		return kunde;
+	}
+	public void setKunde(Kunde kunde) {
+		if (this.kunde != kunde) {
+			Kunde oldKunde = this.kunde;
+			if (oldKunde != null) {
+				oldKunde.removeOrdre(this);
+			}
+			this.kunde = kunde;
+			if (kunde != null) {
+				kunde.addOrdre(this);
+			}
+		}
+	}
 }
