@@ -3,7 +3,7 @@ package model;
 import java.util.HashMap;
 
 public class Prisliste {
-
+ 
 	private String navn;
 	import java.util.HashMap;
 	import java.util.Map;
