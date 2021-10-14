@@ -11,13 +11,13 @@ public class Kunde {
 	private String adresse;
 	private String tlf;
 	private String mail;
-	private ArrayList<Ordre> ordrer = new ArrayList<>();
+	private final ArrayList<Ordre> ordrer = new ArrayList<>();
 	
 	
 	public Kunde(String navn, String adresse) {
 		
 	}
-
+	// 0..* Til Ordre association
 	public ArrayList<Ordre> getOrdre() {
 		return new ArrayList<>(ordrer);
 	}

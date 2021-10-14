@@ -11,11 +11,14 @@ public class Ordre {
 	private double totalPris;
 	private LocalDate betalt;
 	private Kunde kunde;
-	private ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
+	private final ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
 
+
+	// 0..1 Til Kunde association
 	public Kunde getKunde() {
 		return kunde;
 	}
+
 	public void setKunde(Kunde kunde) {
 		if (this.kunde != kunde) {
 			Kunde oldKunde = this.kunde;
@@ -27,5 +30,15 @@ public class Ordre {
 				kunde.addOrdre(this);
 			}
 		}
+	}
+	// 	0..* Til Ordrelinjer komposition association
+	public ArrayList<Ordrelinje> getOrdrelinjer() {
+		return new ArrayList<>(ordrelinjer);
+	}
+
+	public Ordrelinje createOrdrelinje () {
+		Ordrelinje Ordrelinje = new Ordrelinje();
+		ordrelinjer.add(Ordrelinje);
+		return Ordrelinje;
 	}
 }
