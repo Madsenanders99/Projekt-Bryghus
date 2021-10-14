@@ -14,19 +14,19 @@ public class Kategori {
 		
 	}
 	
-	addProdukt(produkt){
-		
-	}
-	
-	removeProdukt(produkt){
-		
-	}
-	
-	addKategori(kategori){
-		
-	}
-	
-	removeKategori(kategori){
-		
-	}
+//	addProdukt(produkt){
+//
+//	}
+//
+//	removeProdukt(produkt){
+//
+//	}
+//
+//	addKategori(kategori){
+//
+//	}
+//
+//	removeKategori(kategori){
+//
+//	}
 }
