@@ -18,4 +18,15 @@ public class Pris {
 	public Pris(double pris, int klip) {
 		
 	}
+	public int getProduktID() {
+		return produktID;
+	}
+
+	public double getPris() {
+		return pris;
+	}
+
+	public int getKlip() {
+		return klip;
+	}
 }
