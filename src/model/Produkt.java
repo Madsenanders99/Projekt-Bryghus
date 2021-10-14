@@ -11,4 +11,10 @@ public class Produkt {
 	public Produkt(String navn, AktivPrisliste aktivPrisliste) {
 		
 	}
+
+	// 1 Association til AktivPrisliste
+
+	public AktivPrisliste getAktivPrisliste() {
+		return aktivPrisliste;
+	}
 }
