@@ -39,6 +39,7 @@ public class Kategori {
 	public ArrayList<Kategori> getKategorier() {
 		return new ArrayList<>(kategorier);
 	}
+
 	public Kategori createKategori (String navn) {
 		Kategori kategori = new Kategori (navn);
 		kategorier.add(kategori);
