@@ -4,7 +4,15 @@ public class AktivPrisliste {
 
 	private Prisliste prisliste;
 
+	// association --> 1 Prisliste
+	public Prisliste getPrisliste() {
+		return prisliste;
+	}
 
-	// Anders was here
-	// Congaz was here
+	public void setPrisliste(Prisliste prisliste) {
+		if(this.prisliste != prisliste) {
+			this.prisliste = prisliste;
+		}
+	}
+	
 }

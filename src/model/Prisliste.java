@@ -1,20 +1,34 @@
 package model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Prisliste {
 
 	private String navn;
-//	private Hashmap<Integer> produktID, Pris = new Hashmap<>();
-	
-//
-//	public Prisliste(String navn) {
-//
-//	}
-//
-//	public addPris(Pris pris) {
-//
-//	}
-//
-//	public removePris(Pris pris) {
-//
-//	}
+	// aggregering --> 0..* Pris
+
+
+
+	private HashMap<Integer, Pris> priser = new HashMap<>();
+
+	public Prisliste(String navn) {
+
+	}
+
+	public void addPris(int produktID, Pris pris) {
+		if (!priser.containsKey(produktID) && !priser.containsValue(pris)) {
+			priser.put(produktID, pris);
+		}
+	}
+
+	public void removePris(int produktID, Pris pris) {
+		if (priser.containsKey(produktID) && priser.containsValue(pris)) {
+			priser.remove(produktID, pris);
+		}
+	}
+
+	public String getNavn() {
+		return navn;
+	}
 }
