@@ -1,0 +1,34 @@
+/**
+*/
+.pane {
+    /*
+    -fx-background-image: url("images/yahtzee_22.jpg");
+    -fx-background-size: auto;
+    -fx-background-position: -75 -80;
+    -fx-background-repeat: no-repeat;
+    */
+    -fx-background-color: rgb(255, 255, 255);
+}
+
+.paneKat {
+    -fx-pref-width: 500;
+    -fx-font-size: 15pt;
+}
+
+.lblKat {
+    -fx-font-size: 20pt;
+}
+
+.btnKat {
+
+}
+
+.paneOrdre {
+    -fx-pref-width: 400;
+}
+
+
+
+.lblOrdre {
+    -fx-font-size: 20pt;
+}

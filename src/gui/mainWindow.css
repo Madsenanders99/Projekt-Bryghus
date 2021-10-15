@@ -1,0 +1,22 @@
+/**
+*/
+.pane {
+    /*
+    -fx-background-image: url("images/yahtzee_22.jpg");
+    -fx-background-size: auto;
+    -fx-background-position: -75 -80;
+    -fx-background-repeat: no-repeat;
+    */
+}
+
+/**
+ */
+.btnPrisliste {
+    -fx-font-size: 40pt;
+    -fx-cursor: hand;
+ }
+
+/**
+*/
+.btnPrisliste:hover {
+}
