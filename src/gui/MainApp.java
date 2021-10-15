@@ -64,7 +64,7 @@ public class MainApp extends Application
         this.stage.setResizable(true);
         this.stage.setMinWidth(400);
         this.stage.setMinHeight(400);
-        this.stage.setWidth(1100);
+        this.stage.setWidth(1175);
         this.stage.setHeight(600);
 
         // Set-up sceneStart
@@ -73,8 +73,8 @@ public class MainApp extends Application
         this.stage.show();
 
         // -------------------------
-        this.initSceneSalg();
-        this.stage.setScene(this.sceneSalg);
+        //this.initSceneSalg();
+        //this.stage.setScene(this.sceneSalg);
         // --------------------------
 
         //this.deltagereWindow = new DeltagereWindow("", this.stage);
@@ -83,7 +83,7 @@ public class MainApp extends Application
     }
 
     /**
-     * @param pane
+     *
      */
     private void initSceneStart()
     {
@@ -100,7 +100,7 @@ public class MainApp extends Application
         GridPane panePrislisteBtns = new GridPane();
         pane.add(panePrislisteBtns, 0, 0);
         panePrislisteBtns.setGridLinesVisible(false);
-        panePrislisteBtns.setPadding(new Insets(0, 30, 30, 30));
+        panePrislisteBtns.setPadding(new Insets(30, 30, 30, 30));
         panePrislisteBtns.setHgap(10);
         panePrislisteBtns.setVgap(30);
         //panePrislisteBtns.setPrefHeight(500);
@@ -126,7 +126,7 @@ public class MainApp extends Application
 
     /**
      *
-     * @param id
+     *
      */
     private void initSceneSalg()
     {
@@ -137,6 +137,9 @@ public class MainApp extends Application
         kategorier.add("Lyserød øl");
         kategorier.add("Spirit of Aarhus");
         kategorier.add("Merchandise");
+        kategorier.add("Malt øl");
+        kategorier.add("Gaveæsker");
+
 
 
         GridPane pane = new GridPane();
@@ -173,7 +176,7 @@ public class MainApp extends Application
             btn.setPrefWidth(200);
             btn.setPrefHeight(100);
             //btn.setMaxWidth(btnMaxWidth);
-            int btnsPrRow = 3;
+            int btnsPrRow = 4;
             paneKat.add(btn, i % btnsPrRow, i / btnsPrRow);
             btn.getStyleClass().add("btnKat");
             // Event listeners

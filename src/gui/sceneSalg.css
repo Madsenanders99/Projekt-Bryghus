@@ -8,10 +8,11 @@
     -fx-background-repeat: no-repeat;
     */
     -fx-background-color: rgb(255, 255, 255);
+
 }
 
 .paneKat {
-    -fx-pref-width: 500;
+    -fx-pref-width: 600;
     -fx-font-size: 15pt;
 }
 
@@ -24,7 +25,7 @@
 }
 
 .paneOrdre {
-    -fx-pref-width: 400;
+    -fx-pref-width: 500;
 }
 
 
