@@ -55,19 +55,4 @@ public class Kategori {
 			kategorier.remove(kategori);
 		}
 	}
-//	addProdukt(produkt){
-//
-//	}
-//
-//	removeProdukt(produkt){
-//
-//	}
-//
-//	addKategori(kategori){
-//
-//	}
-//
-//	removeKategori(kategori){
-//
-//	}
 }

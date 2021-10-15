@@ -15,7 +15,7 @@ public class Pris {
 		
 	}
 	
-	public Pris(double pris, int klip) {
+	public Pris(int produktID, int klip) {
 		
 	}
 	public int getProduktID() {
