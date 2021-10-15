@@ -42,6 +42,12 @@ public class Controller {
 
 
     public void createObjects() {
-
+        Prisliste prisliste = new Prisliste ("Fredagsbar");
+        opretPris (1, 2, 70.0, prisliste);
+        opretPris (2, 2, 70.0, prisliste);
+        opretPris (3, 2, 70.0, prisliste);
+        opretPris (4, 2, 70.0, prisliste);
+        opretPris (5, 2, 70.0, prisliste);
+        opretPris (6, 2, 70.0, prisliste);
     }
 }

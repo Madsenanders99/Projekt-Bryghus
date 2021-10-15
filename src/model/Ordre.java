@@ -36,8 +36,8 @@ public class Ordre {
 		return new ArrayList<>(ordrelinjer);
 	}
 
-	public Ordrelinje createOrdrelinje () {
-		Ordrelinje Ordrelinje = new Ordrelinje();
+	public Ordrelinje createOrdrelinje (int antal, Produkt produkt) {
+		Ordrelinje Ordrelinje = new Ordrelinje(antal, produkt);
 		ordrelinjer.add(Ordrelinje);
 		return Ordrelinje;
 	}

@@ -11,7 +11,7 @@ public class Produkt {
 	private ArrayList<Produkt> produkter = new ArrayList<>();
 	
 	public Produkt(String navn, AktivPrisliste aktivPrisliste) {
-		
+
 	}
 
 	public String getNavn() {
