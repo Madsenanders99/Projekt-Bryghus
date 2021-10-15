@@ -5,14 +5,15 @@ public class Ordrelinje {
 	private int id;
 	private int antal;
 	private double rabat;
+	private Produkt produkt;
 	
 	
-	public Ordrelinje() {
+	public Ordrelinje(int antal, Produkt produkt) {
 		
 	}
 	// 0..1 Association til Produkt
 
-	private Produkt produkt;
+
 
 	public Produkt getProdukt() {
 		return produkt;
