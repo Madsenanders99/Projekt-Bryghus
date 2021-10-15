@@ -13,6 +13,9 @@ public class Kategori {
 	public Kategori(String navn) {
 		
 	}
+	public String getNavn() {
+		return navn;
+	}
 	// 0..* association til produkt
 	public ArrayList<Produkt> getProdukter() {
 		return new ArrayList<>(produkter);

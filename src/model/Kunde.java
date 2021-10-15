@@ -17,6 +17,12 @@ public class Kunde {
 	public Kunde(String navn, String adresse) {
 		
 	}
+	public String getNavn() {
+		return navn;
+	}
+	public String getAdresse() {
+		return adresse;
+	}
 	// 0..* Til Ordre association
 	public ArrayList<Ordre> getOrdre() {
 		return new ArrayList<>(ordrer);

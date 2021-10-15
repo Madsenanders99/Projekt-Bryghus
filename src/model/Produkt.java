@@ -14,6 +14,9 @@ public class Produkt {
 		
 	}
 
+	public String getNavn() {
+		return navn;
+	}
 	// 1 association fra Produkt til AktivPrisliste
 
 	public AktivPrisliste getAktivPrisliste() {

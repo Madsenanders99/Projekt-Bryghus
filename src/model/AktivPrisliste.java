@@ -10,9 +10,9 @@ public class AktivPrisliste {
 	}
 
 	public void setPrisliste(Prisliste prisliste) {
-		if (this.prisliste != prisliste) {
+		if(this.prisliste != prisliste) {
 			this.prisliste = prisliste;
 		}
 	}
-
+	
 }
