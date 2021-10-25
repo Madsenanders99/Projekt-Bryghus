@@ -8,15 +8,19 @@ public class Pris {
 	
 	
 	public Pris(int produktID, double pris, int klip) {
-		
+		this.produktID = produktID;
+		this.pris = pris;
+		this.klip = klip;
 	}
 	
 	public Pris(int produktID, double pris) {
-		
+		this.produktID = produktID;
+		this.pris = pris;
 	}
 	
 	public Pris(int produktID, int klip) {
-		
+		this.produktID = produktID;
+		this.klip = klip;
 	}
 	public int getProduktID() {
 		return produktID;

@@ -46,21 +46,10 @@ public class Controller {
 
         Prisliste prisliste = new Prisliste ("Fredagsbar");
 
-        opretPris (1, 2, 70.0, prisliste);
-        opretPris (2, 2, 70.0, prisliste);
-        opretPris (3, 2, 70.0, prisliste);
-        opretPris (4, 2, 70.0, prisliste);
-        opretPris (5, 2, 70.0, prisliste);
-        opretPris (6, 2, 70.0, prisliste);
 
         Prisliste prisliste2 = new Prisliste ("Detailsalg");
 
-        opretPris (1, 0, 36.0, prisliste2);
-        opretPris (2, 0, 36.0, prisliste2);
-        opretPris (3, 0, 36.0, prisliste2);
-        opretPris (4, 0, 36.0, prisliste2);
-        opretPris (5, 0, 36.0, prisliste2);
-        opretPris (6, 0, 36.0, prisliste2);
+
 
         AktivPrisliste aktivPrisListe = new AktivPrisliste(null);
 
@@ -73,6 +62,20 @@ public class Controller {
         kategori2.createProdukt("Celebration", aktivPrisListe);
         kategori2.createProdukt("Blondie", aktivPrisListe);
         kategori2.createProdukt("Forårsbryg", aktivPrisListe);
+
+        opretPris (1, 0, 36.0, prisliste2);
+        opretPris (2, 0, 36.0, prisliste2);
+        opretPris (3, 0, 36.0, prisliste2);
+        opretPris (4, 0, 36.0, prisliste2);
+        opretPris (5, 0, 36.0, prisliste2);
+        opretPris (6, 0, 36.0, prisliste2);
+
+        opretPris (1, 2, 70.0, prisliste);
+        opretPris (2, 2, 70.0, prisliste);
+        opretPris (3, 2, 70.0, prisliste);
+        opretPris (4, 2, 70.0, prisliste);
+        opretPris (5, 2, 70.0, prisliste);
+        opretPris (6, 2, 70.0, prisliste);
 
         Kunde kunde1 = new Kunde ("Karl", "Karlsvej 30");
 

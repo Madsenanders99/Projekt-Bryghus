@@ -14,6 +14,8 @@ public class Produkt {
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
 	public Produkt(String navn, AktivPrisliste aktivPrisliste) {
+		this.navn = navn;
+		this.aktivPrisliste = aktivPrisliste;
 		id = idIncrement.incrementAndGet();
 	}
 

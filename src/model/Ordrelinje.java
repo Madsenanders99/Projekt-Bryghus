@@ -11,7 +11,10 @@ public class Ordrelinje {
 
 	private static AtomicInteger idIncrement = new AtomicInteger();
 	
-	public Ordrelinje(int antal, Produkt produkt) {
+	public Ordrelinje(int antal, Produkt produkt)
+	{
+		this.produkt = produkt;
+		this.antal = antal;
 		id = idIncrement.incrementAndGet();
 	}
 	// 0..1 Association til Produkt
@@ -45,7 +48,7 @@ public class Ordrelinje {
 	}
 
 	public double getRabat() {
-		return rabat;
+		return 1 - (rabat * 0.01);
 	}
 
 	public void setRabat(double rabat) {

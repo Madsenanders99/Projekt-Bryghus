@@ -17,6 +17,7 @@ public class Ordre {
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
 	public Ordre (LocalDateTime dato) {
+		this.dato = dato;
 		id = idIncrement.incrementAndGet();
 	}
 
@@ -68,10 +69,6 @@ public class Ordre {
 		return totalPris;
 	}
 
-	public void setTotalPris(double totalPris) {
-		this.totalPris = totalPris;
-	}
-
 	public LocalDate getBetalt() {
 		return betalt;
 	}
@@ -79,11 +76,17 @@ public class Ordre {
 	public void setBetalt(LocalDate betalt) {
 		this.betalt = betalt;
 	}
-//	public double setTotalPris () {
-//		int endeligPris = 0;
-//		for ( int i = 0; i < getOrdrelinjer().size(); i++) {
-//			getOrdrelinjer().get(i).getProdukt().getAktivPrisliste().getPrisliste()
-//			getOrdrelinjer().get(i).getAntal();
-//		}
-//	}
+	public void findTotalPris () {
+		double endeligPris = 0;
+		for (int i = 0; i < getOrdrelinjer().size(); i++) {
+			double tempPris;
+			double rabatPris;
+			Produkt produkt = getOrdrelinjer().get(i).getProdukt();
+			Prisliste prisliste = produkt.getAktivPrisliste().getPrisliste();
+			tempPris = prisliste.getPriser().get(getOrdrelinjer().get(i).getProdukt().getId()).getPris();
+			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
+			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
+		}
+		totalPris = endeligPris;
+	}
 }
