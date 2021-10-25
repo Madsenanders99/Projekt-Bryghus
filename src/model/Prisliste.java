@@ -12,6 +12,18 @@ public class Prisliste {
 
 	private HashMap<Integer, Pris> priser = new HashMap<>();
 
+	public void setNavn(String navn) {
+		this.navn = navn;
+	}
+
+	public HashMap<Integer, Pris> getPriser() {
+		return priser;
+	}
+
+	public void setPriser(HashMap<Integer, Pris> priser) {
+		this.priser = priser;
+	}
+
 	public Prisliste(String navn) {
 
 	}

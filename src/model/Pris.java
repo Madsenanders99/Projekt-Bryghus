@@ -29,4 +29,16 @@ public class Pris {
 	public int getKlip() {
 		return klip;
 	}
+
+	public void setProduktID(int produktID) {
+		this.produktID = produktID;
+	}
+
+	public void setPris(double pris) {
+		this.pris = pris;
+	}
+
+	public void setKlip(int klip) {
+		this.klip = klip;
+	}
 }

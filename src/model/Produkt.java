@@ -44,4 +44,31 @@ public class Produkt {
 		}
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setNavn(String navn) {
+		this.navn = navn;
+	}
+
+	public void setBeskrivelse(String beskrivelse) {
+		this.beskrivelse = beskrivelse;
+	}
+
+	public void setAktivPrisliste(AktivPrisliste aktivPrisliste) {
+		this.aktivPrisliste = aktivPrisliste;
+	}
+
+	public void setProdukter(ArrayList<Produkt> produkter) {
+		this.produkter = produkter;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getBeskrivelse() {
+		return beskrivelse;
+	}
 }

@@ -39,4 +39,56 @@ public class Kunde {
 			ordre.setKunde(null);
 		}
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCvr(String cvr) {
+		this.cvr = cvr;
+	}
+
+	public void setFirmanavn(String firmanavn) {
+		this.firmanavn = firmanavn;
+	}
+
+	public void setNavn(String navn) {
+		this.navn = navn;
+	}
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
+
+	public void setTlf(String tlf) {
+		this.tlf = tlf;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getCvr() {
+		return cvr;
+	}
+
+	public String getFirmanavn() {
+		return firmanavn;
+	}
+
+	public String getTlf() {
+		return tlf;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public ArrayList<Ordre> getOrdrer() {
+		return ordrer;
+	}
 }

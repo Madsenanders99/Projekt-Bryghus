@@ -25,6 +25,31 @@ public class Kategori {
 		produkter.add(produkt);
 		return produkt;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setNavn(String navn) {
+		this.navn = navn;
+	}
+
+	public String getBeskrivelse() {
+		return beskrivelse;
+	}
+
+	public void setBeskrivelse(String beskrivelse) {
+		this.beskrivelse = beskrivelse;
+	}
+
+	public void setProdukter(ArrayList<Produkt> produkter) {
+		this.produkter = produkter;
+	}
+
 	public void addProdukt (Produkt produkt) {
 		if (!produkter.contains(produkt)) {
 			produkter.add(produkt);

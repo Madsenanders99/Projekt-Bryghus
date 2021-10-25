@@ -44,4 +44,43 @@ public class Ordre {
 		ordrelinjer.add(Ordrelinje);
 		return Ordrelinje;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public LocalDateTime getDato() {
+		return dato;
+	}
+
+	public void setDato(LocalDateTime dato) {
+		this.dato = dato;
+	}
+
+	public double getTotalPris() {
+		return totalPris;
+	}
+
+	public void setTotalPris(double totalPris) {
+		this.totalPris = totalPris;
+	}
+
+	public LocalDate getBetalt() {
+		return betalt;
+	}
+
+	public void setBetalt(LocalDate betalt) {
+		this.betalt = betalt;
+	}
+//	public double setTotalPris () {
+//		int endeligPris = 0;
+//		for ( int i = 0; i < getOrdrelinjer().size(); i++) {
+//			getOrdrelinjer().get(i).getProdukt().getAktivPrisliste().getPrisliste()
+//			getOrdrelinjer().get(i).getAntal();
+//		}
+//	}
 }

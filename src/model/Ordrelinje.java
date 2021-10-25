@@ -24,4 +24,28 @@ public class Ordrelinje {
 			this.produkt = produkt;
 		}
 	}
+
+	public int getAntal() {
+		return antal;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setAntal(int antal) {
+		this.antal = antal;
+	}
+
+	public double getRabat() {
+		return rabat;
+	}
+
+	public void setRabat(double rabat) {
+		this.rabat = rabat;
+	}
 }
