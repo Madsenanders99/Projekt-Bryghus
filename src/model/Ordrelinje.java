@@ -1,15 +1,18 @@
 package model;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Ordrelinje {
 
 	private int id;
 	private int antal;
 	private double rabat;
 	private Produkt produkt;
-	
+
+	private static AtomicInteger idIncrement = new AtomicInteger();
 	
 	public Ordrelinje(int antal, Produkt produkt) {
-		
+		id = idIncrement.incrementAndGet();
 	}
 	// 0..1 Association til Produkt
 

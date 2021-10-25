@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Ordre {
 
@@ -13,8 +14,10 @@ public class Ordre {
 	private Kunde kunde;
 	private final ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
 
-	public Ordre (LocalDateTime dato) {
+	private static AtomicInteger idIncrement = new AtomicInteger();
 
+	public Ordre (LocalDateTime dato) {
+		id = idIncrement.incrementAndGet();
 	}
 
 	// 0..1 Til Kunde association

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Kategori {
 
@@ -8,9 +9,11 @@ public class Kategori {
 	private String navn;
 	private String beskrivelse;
 	private ArrayList<Produkt> produkter = new ArrayList<>();
-	
+
+	private static AtomicInteger idIncrement = new AtomicInteger();
+
 	public Kategori(String navn) {
-		
+		id = idIncrement.incrementAndGet();
 	}
 	public String getNavn() {
 		return navn;

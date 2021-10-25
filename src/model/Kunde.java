@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Kunde {
 
@@ -12,10 +13,10 @@ public class Kunde {
 	private String tlf;
 	private String mail;
 	private final ArrayList<Ordre> ordrer = new ArrayList<>();
-	
+	private static AtomicInteger idIncrement = new AtomicInteger();
 	
 	public Kunde(String navn, String adresse) {
-		
+		id = idIncrement.incrementAndGet();
 	}
 	public String getNavn() {
 		return navn;
