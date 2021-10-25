@@ -1,6 +1,6 @@
 /**
 */
-.pane {
+.paneSalg {
     /*
     -fx-background-image: url("images/yahtzee_22.jpg");
     -fx-background-size: auto;
@@ -22,7 +22,7 @@
     -fx-font-size: 15pt;
 }
 
-.lblKat {
+.lblKategoriHeadline {
     -fx-font-size: 20pt;
 }
 
@@ -46,12 +46,9 @@
 }
 
 /* --- Ordrelinje Legend --- */
-
-.lblLegendProduktnavn {
-}
-
-.lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
-   -fx-background-color: rgb(255, 255, 0);
+.lblLegendProduktnavn, .lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
+    -fx-font-size: 10pt;
+    -fx-font-weight: bold;
 }
 
 /* --- Ordrelinjer ---*/

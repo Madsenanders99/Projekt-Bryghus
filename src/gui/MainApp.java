@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -20,8 +21,10 @@ public class MainApp extends Application
     private Stage stage;
     private Scene scenePrisliste;
     private Scene sceneSalg;
-    private final ArrayList<Button> btnsPrisliste = new ArrayList<>();
-
+    private GridPane paneSalg;
+    private GridPane paneKategorier;
+    private GridPane paneProdukter;
+    private Label lblKategoriHeadline;
 
     @Override
     public void init() {
@@ -120,27 +123,35 @@ public class MainApp extends Application
      */
     private void initSceneSalg()
     {
-        GridPane pane = new GridPane();
-        this.sceneSalg = new Scene(pane);
+        this.paneSalg = new GridPane();
+        this.sceneSalg = new Scene(paneSalg);
         this.sceneSalg.getStylesheets().add("gui/sceneSalg.css");
-        pane.setGridLinesVisible(true);
-        pane.setPadding(new Insets(20));
-        pane.setHgap(10);
-        pane.setVgap(10);
-        pane.getStyleClass().add("pane");
+        paneSalg.setGridLinesVisible(true);
+        paneSalg.setPadding(new Insets(20));
+        paneSalg.setHgap(10);
+        paneSalg.setVgap(10);
+        paneSalg.getStyleClass().add("paneSalg");
         // pane.add(element, at col, at ro, extending columns, extending rows)
 
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(60);
+        ColumnConstraints col2 = new ColumnConstraints();
+        col2.setPercentWidth(40);
+        paneSalg.getColumnConstraints().addAll(col1, col2);
+
         // --- Kategorier ---
-        Label lblKat = new Label("Kategorier");
-        lblKat.getStyleClass().add("lblKat");
-        pane.add(lblKat, 0, 0);
-        pane.add(this.createKategorier(), 0, 1);
+        this.lblKategoriHeadline = new Label("Vælg kategori");
+        GridPane.setHalignment(this.lblKategoriHeadline, HPos.CENTER);
+        lblKategoriHeadline.getStyleClass().add("lblKategoriHeadline");
+        paneSalg.add(lblKategoriHeadline, 0, 0);
+        this.paneKategorier = this.createKategorier();
+        paneSalg.add(this.paneKategorier, 0, 1);
 
         // --- Ordre ---
         Label lblOrdre = new Label("Ordre");
         lblOrdre.getStyleClass().add("lblOrdre");
-        pane.add(lblOrdre, 1, 0);
-        pane.add(this.createOrdre(), 1, 1);
+        paneSalg.add(lblOrdre, 1, 0);
+        paneSalg.add(this.createOrdre(), 1, 1);
     }
 
     /**
@@ -179,10 +190,24 @@ public class MainApp extends Application
             btn.getStyleClass().add("btnKat");
             // Event listeners
             //btn.setOnAction(this::selectPrislisteAction);
-            //btn.setOnAction(event -> this.selectPrislisteAction(event));
+            btn.setOnAction(event -> this.selectKategoriAction(event));
         }
 
         return paneKat;
+    }
+
+    /**
+     *
+     * @param event
+     */
+    private void selectKategoriAction(ActionEvent event)
+    {
+        Button btn = (Button) event.getSource();
+        int id = Integer.parseInt(btn.getId());
+        System.out.println("Kategori id: " + id + " selected.");
+        this.paneSalg.getChildren().remove(this.paneKategorier);
+        this.lblKategoriHeadline.setText("Kategorinavn");
+
     }
 
     private GridPane createOrdre()
@@ -239,7 +264,7 @@ public class MainApp extends Application
         GridPane.setHalignment(lblLegendStkPris, HPos.RIGHT);
         lblLegendStkPris.getStyleClass().add("lblLegendStkPris");
 
-        Label lblLegendRabat = new Label("Rabat %");
+        Label lblLegendRabat = new Label("Rabat");
         paneOrdre.add(lblLegendRabat, ++col, row);
         GridPane.setHalignment(lblLegendRabat, HPos.RIGHT);
         lblLegendRabat.getStyleClass().add("lblLegendRabat");
@@ -274,8 +299,6 @@ public class MainApp extends Application
             paneOrdre.add(txtfSamletPris, ++col, row);
             txtfSamletPris.getStyleClass().add("txtfSamletPris");
         }
-
-
 
         return paneOrdre;
     }
