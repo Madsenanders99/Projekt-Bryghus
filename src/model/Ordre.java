@@ -87,6 +87,6 @@ public class Ordre {
 			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
 			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
 		}
-		totalPris = endeligPris; // hej
+		totalPris = endeligPris;
 	}
 }

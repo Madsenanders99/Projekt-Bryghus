@@ -20,7 +20,7 @@ public class Pris {
 	
 	public Pris(int produktID, int klip) {
 		this.produktID = produktID;
-		this.klip = klip; // hej
+		this.klip = klip;
 	}
 	public int getProduktID() {
 		return produktID;
