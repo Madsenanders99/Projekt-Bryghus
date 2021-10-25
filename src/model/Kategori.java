@@ -13,7 +13,7 @@ public class Kategori {
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
 	public Kategori(String navn) {
-		id = idIncrement.incrementAndGet();
+		id = idIncrement.incrementAndGet(); // hej
 	}
 	public String getNavn() {
 		return navn;

@@ -48,7 +48,7 @@ public class Ordrelinje {
 	}
 
 	public double getRabat() {
-		return 1 - (rabat * 0.01);
+		return 1 - (rabat * 0.01); // hej
 	}
 
 	public void setRabat(double rabat) {

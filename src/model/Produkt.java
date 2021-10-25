@@ -12,7 +12,7 @@ public class Produkt {
 	private ArrayList<Produkt> produkter = new ArrayList<>();
 
 	private static AtomicInteger idIncrement = new AtomicInteger();
-
+ // hej
 	public Produkt(String navn, AktivPrisliste aktivPrisliste) {
 		this.navn = navn;
 		this.aktivPrisliste = aktivPrisliste;

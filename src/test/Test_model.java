@@ -34,7 +34,7 @@ public class Test_model {
         AktivPrisliste aktivPrisListe = new AktivPrisliste(null);
 
         Prisliste prisliste = new Prisliste ("Fredagsbar");
-
+        // hej
         Prisliste prisliste2 = new Prisliste ("Detailsalg");
 
         aktivPrisListe.setPrisliste(prisliste);
