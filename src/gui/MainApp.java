@@ -206,7 +206,7 @@ public class MainApp extends Application
         int id = Integer.parseInt(btn.getId());
         System.out.println("Kategori id: " + id + " selected.");
         this.paneSalg.getChildren().remove(this.paneKategorier);
-        this.lblKategoriHeadline.setText("Kategorinavn");
+        this.lblKategoriHeadline.setText(btn.getText());
 
     }
 
@@ -301,6 +301,38 @@ public class MainApp extends Application
         }
 
         return paneOrdre;
+    }
+
+
+    private GridPane createProdukter()
+    {
+        // ------------------------------------
+        // tmpProdukter
+        ArrayList<tmpProdukt> produkter = new ArrayList<tmpProdukt>();
+
+        tmpProdukt p = new tmpProdukt();
+        p.setNavn("Klosterbryg");
+        p.setBeskrivelse("Bla bla bla");
+        p.setPris(57.50);
+
+        p.setNavn("Black Monster");
+        p.setBeskrivelse("Bla bla bla");
+        p.setPris(45.25);
+
+
+
+        // ------------------------------------
+
+
+        GridPane paneProdukter = new GridPane();
+        paneProdukter.setGridLinesVisible(true);
+        paneProdukter.setPadding(new Insets(20));
+        paneProdukter.setHgap(10);
+        paneProdukter.setVgap(10);
+        paneProdukter.getStyleClass().add("paneProdukter");
+
+        return paneProdukter;
+
     }
 
 
