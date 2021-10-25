@@ -11,8 +11,14 @@
 
 }
 
+/* --- Kategorier -------------------------------------------------------------------------------------------------- */
+
 .paneKat {
-    -fx-pref-width: 600;
+    -fx-pref-width: 700;
+    /*
+
+    */
+
     -fx-font-size: 15pt;
 }
 
@@ -24,12 +30,52 @@
 
 }
 
+/* --- Ordre ------------------------------------------------------------------------------------------------------- */
+
 .paneOrdre {
-    -fx-pref-width: 500;
+    -fx-pref-width: 600;
+    /*
+
+     */
 }
 
 
 
 .lblOrdre {
     -fx-font-size: 20pt;
+}
+
+/* --- Ordrelinje Legend --- */
+
+.lblLegendProduktnavn {
+}
+
+.lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
+   -fx-background-color: rgb(255, 255, 0);
+}
+
+/* --- Ordrelinjer ---*/
+
+.lblProduktnavn, .txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris {
+    -fx-font-size: 12pt;
+}
+
+.lblProduktnavn {
+    -fx-pref-width: 300;
+}
+
+.txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris  {
+    -fx-alignment: baseline-right;
+}
+
+.txtfAntal {
+}
+
+.txtfStkPris {
+}
+
+.txtfRabat {
+}
+
+.txtfSamletPris {
 }

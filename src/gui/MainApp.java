@@ -1,9 +1,6 @@
 package gui;
 
-
-
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -11,18 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,29 +18,14 @@ import java.util.ArrayList;
 public class MainApp extends Application
 {
     private Stage stage;
-    private Scene sceneStart;
+    private Scene scenePrisliste;
     private Scene sceneSalg;
     private final ArrayList<Button> btnsPrisliste = new ArrayList<>();
 
-    //private ListView<Konference> lvwKonferencer;
-    // private Button btnForedrag, btnDeltagere, btnUdflugter, btnHoteller;
-    //private Konference selectedKonference;
-    // private DeltagereWindow deltagereWindow;
-    //private HotellerWindow hotellerWindow;
-    // private UdflugterWindow udflugterWindow;
-
-    // Temp fields
-    private ArrayList<String> prislister = new ArrayList<>();
 
     @Override
     public void init() {
-        // --- Start: Temp ---
-        prislister.add("Detailsalg");
-        prislister.add("Barsalg");
-        // --- End: Temp ---
-
         //Controller.init();
-
     }
 
     @Override
@@ -62,19 +34,19 @@ public class MainApp extends Application
         this.stage = stage;
         this.stage.setTitle("Aarhus Bryghus");
         this.stage.setResizable(true);
-        this.stage.setMinWidth(400);
+        this.stage.setMinWidth(1000);
         this.stage.setMinHeight(400);
-        this.stage.setWidth(1175);
+        this.stage.setWidth(1400);
         this.stage.setHeight(600);
 
-        // Set-up sceneStart
-        this.initSceneStart();
-        this.stage.setScene(sceneStart);
+        // Set-up scenePrisliste
+        this.initScenePrisliste();
+        this.stage.setScene(scenePrisliste);
         this.stage.show();
 
         // -------------------------
-        //this.initSceneSalg();
-        //this.stage.setScene(this.sceneSalg);
+        this.initSceneSalg();
+        this.stage.setScene(this.sceneSalg);
         // --------------------------
 
         //this.deltagereWindow = new DeltagereWindow("", this.stage);
@@ -85,11 +57,18 @@ public class MainApp extends Application
     /**
      *
      */
-    private void initSceneStart()
+    private void initScenePrisliste()
     {
+        // -------------------------------
+        // Tmp prislister
+        ArrayList<String> prislister = new ArrayList<>();
+        prislister.add("Detailsalg");
+        prislister.add("Barsalg");
+        // -------------------------------
+
         GridPane pane = new GridPane();
-        this.sceneStart = new Scene(pane);
-        this.sceneStart.getStylesheets().add("gui/mainWindow.css");
+        this.scenePrisliste = new Scene(pane);
+        this.scenePrisliste.getStylesheets().add("gui/scenePrisliste.css");
         pane.setGridLinesVisible(true);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
@@ -126,10 +105,50 @@ public class MainApp extends Application
 
     /**
      *
+     * @param event
+     */
+    private void selectPrislisteAction(ActionEvent event)
+    {
+        Button btn = (Button) event.getSource();
+        int id = Integer.parseInt(btn.getId());
+        this.initSceneSalg();
+        this.stage.setScene(this.sceneSalg);
+    }
+
+    /**
      *
      */
     private void initSceneSalg()
     {
+        GridPane pane = new GridPane();
+        this.sceneSalg = new Scene(pane);
+        this.sceneSalg.getStylesheets().add("gui/sceneSalg.css");
+        pane.setGridLinesVisible(true);
+        pane.setPadding(new Insets(20));
+        pane.setHgap(10);
+        pane.setVgap(10);
+        pane.getStyleClass().add("pane");
+        // pane.add(element, at col, at ro, extending columns, extending rows)
+
+        // --- Kategorier ---
+        Label lblKat = new Label("Kategorier");
+        lblKat.getStyleClass().add("lblKat");
+        pane.add(lblKat, 0, 0);
+        pane.add(this.createKategorier(), 0, 1);
+
+        // --- Ordre ---
+        Label lblOrdre = new Label("Ordre");
+        lblOrdre.getStyleClass().add("lblOrdre");
+        pane.add(lblOrdre, 1, 0);
+        pane.add(this.createOrdre(), 1, 1);
+    }
+
+    /**
+     *
+     */
+    private GridPane createKategorier()
+    {
+        // ---------------------------------------------
         // Hent Kategorier fra controller
         ArrayList<String> kategorier = new ArrayList<>();
         kategorier.add("Lys øl");
@@ -139,25 +158,7 @@ public class MainApp extends Application
         kategorier.add("Merchandise");
         kategorier.add("Malt øl");
         kategorier.add("Gaveæsker");
-
-
-
-        GridPane pane = new GridPane();
-        this.sceneSalg = new Scene(pane);
-        this.sceneSalg.getStylesheets().add("gui/sceneSalg.css");
-        pane.setGridLinesVisible(true);
-        pane.setPadding(new Insets(20));
-        pane.setHgap(10);
-        pane.setVgap(10);
-        pane.getStyleClass().add("pane");
-
-
-        // pane.add(element, at col, at ro, extending columns, extending rows)
-
-        // --- Kategorier -----------------------------------------------
-        Label lblKat = new Label("Kategorier");
-        lblKat.getStyleClass().add("lblKat");
-        pane.add(lblKat, 0, 0);
+        // ----------------------------------------------
 
         GridPane paneKat = new GridPane();
         paneKat.setGridLinesVisible(true);
@@ -165,9 +166,6 @@ public class MainApp extends Application
         paneKat.setHgap(10);
         paneKat.setVgap(10);
         paneKat.getStyleClass().add("paneKat");
-        pane.add(paneKat, 0, 1);
-
-        ArrayList<Button> btnsKategori = new ArrayList<>();
 
         for (int i = 0; i < kategorier.size(); i++) {
             Button btn = new Button(kategorier.get(i));
@@ -184,36 +182,105 @@ public class MainApp extends Application
             //btn.setOnAction(event -> this.selectPrislisteAction(event));
         }
 
+        return paneKat;
+    }
 
+    private GridPane createOrdre()
+    {
+        // --------------------------------------------------------
+        // Temp ordrelinjer
+        ArrayList<tmpOrdrelinje> ordrelinjer = new ArrayList<>();
 
-        // --- Ordre ----------------------------------------------------
-        Label lblOrdre = new Label("Ordre");
-        lblOrdre.getStyleClass().add("lblOrdre");
-        pane.add(lblOrdre, 1, 0);
+        tmpOrdrelinje ol1 = new tmpOrdrelinje();
+        ordrelinjer.add(ol1);
+        ol1.setNavn("IPA");
+        ol1.setAntal(1);
+        ol1.setStkPris(68.50);
+        ol1.setRabat(0);
+
+        tmpOrdrelinje ol2 = new tmpOrdrelinje();
+        ordrelinjer.add(ol2);
+        ol2.setNavn("Hvedeøl");
+        ol2.setAntal(1);
+        ol2.setStkPris(55.99);
+        ol2.setRabat(10);
+
+        tmpOrdrelinje ol3 = new tmpOrdrelinje();
+        ordrelinjer.add(ol3);
+        ol3.setNavn("Sort Silke");
+        ol3.setAntal(3);
+        ol3.setStkPris(49.25);
+        ol3.setRabat(20);
+        // ------------------------------------------------------
+
         GridPane paneOrdre = new GridPane();
         paneOrdre.setGridLinesVisible(true);
         paneOrdre.setPadding(new Insets(20));
         paneOrdre.setHgap(10);
         paneOrdre.setVgap(10);
         paneOrdre.getStyleClass().add("paneOrdre");
-        pane.add(paneOrdre, 1, 1);
+
+        // pane.add(element, at col, at ro, extending columns, extending rows)
+        int col = -1;
+        int row = 0;
+
+        // Legend
+        Label lblLegendProduktnavn = new Label("Produkt");
+        paneOrdre.add(lblLegendProduktnavn, ++col, row);
+        lblLegendProduktnavn.getStyleClass().add("lblLegendProduktnavn");
+
+        Label lblLegendAntal = new Label("Antal");
+        paneOrdre.add(lblLegendAntal, ++col, row);
+        GridPane.setHalignment(lblLegendAntal, HPos.RIGHT);
+        lblLegendAntal.getStyleClass().add("lblLegendAntal");
+
+        Label lblLegendStkPris = new Label("Stk. pris");
+        paneOrdre.add(lblLegendStkPris, ++col, row);
+        GridPane.setHalignment(lblLegendStkPris, HPos.RIGHT);
+        lblLegendStkPris.getStyleClass().add("lblLegendStkPris");
+
+        Label lblLegendRabat = new Label("Rabat %");
+        paneOrdre.add(lblLegendRabat, ++col, row);
+        GridPane.setHalignment(lblLegendRabat, HPos.RIGHT);
+        lblLegendRabat.getStyleClass().add("lblLegendRabat");
+
+        Label lblLegendSamletPris = new Label("Pris");
+        paneOrdre.add(lblLegendSamletPris, ++col, row);
+        GridPane.setHalignment(lblLegendSamletPris, HPos.RIGHT);
+        lblLegendSamletPris.getStyleClass().add("lblLegendSamletPris");
+
+        // Ordrelinjer
+        for (tmpOrdrelinje ol : ordrelinjer) {
+            col = -1;
+            row++;
+
+            Label lblProduktnavn = new Label(ol.getNavn());
+            paneOrdre.add(lblProduktnavn, ++col, row);
+            lblProduktnavn.getStyleClass().add("lblProduktnavn");
+
+            TextField txtfAntal = new TextField(String.valueOf(ol.getAntal()));
+            paneOrdre.add(txtfAntal, ++col, row);
+            txtfAntal.getStyleClass().add("txtfAntal");
+
+            TextField txtfStkPris = new TextField(String.valueOf(ol.getStkPris()));
+            paneOrdre.add(txtfStkPris, ++col, row);
+            txtfStkPris.getStyleClass().add("txtfStkPris");
+
+            TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()) + "%");
+            paneOrdre.add(txtfRabat, ++col, row);
+            txtfRabat.getStyleClass().add("txtfRabat");
+
+            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
+            paneOrdre.add(txtfSamletPris, ++col, row);
+            txtfSamletPris.getStyleClass().add("txtfSamletPris");
+        }
 
 
+
+        return paneOrdre;
     }
 
 
-    /**
-     *
-     * @param event
-     */
-    private void selectPrislisteAction(ActionEvent event)
-    {
-        Button btn = (Button) event.getSource();
-        int id = Integer.parseInt(btn.getId());
-        System.out.println("Setting prisliste: " + this.prislister.get(id));
-        this.initSceneSalg();
-        this.stage.setScene(this.sceneSalg);
 
-    }
 
 }
