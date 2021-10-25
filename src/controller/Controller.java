@@ -1,8 +1,7 @@
 package controller;
 
+import model.*;
 import storage.Storage;
-import model.Pris;
-import model.Prisliste;
 
 public class Controller {
     private Storage storage;
@@ -49,5 +48,21 @@ public class Controller {
         opretPris (4, 2, 70.0, prisliste);
         opretPris (5, 2, 70.0, prisliste);
         opretPris (6, 2, 70.0, prisliste);
+        Prisliste prisliste2 = new Prisliste ("Detailsalg");
+        opretPris (1, 0, 36.0, prisliste2);
+        opretPris (2, 0, 36.0, prisliste2);
+        opretPris (3, 0, 36.0, prisliste2);
+        opretPris (4, 0, 36.0, prisliste2);
+        opretPris (5, 0, 36.0, prisliste2);
+        opretPris (6, 0, 36.0, prisliste2);
+        AktivPrisliste aktivPrisListe = new AktivPrisliste(null);
+        Kategori kategori1 = new Kategori ("Øl");
+        Kategori kategori2 = new Kategori ("Whiskey");
+        kategori1.createProdukt("KlosterBryg", aktivPrisListe);
+        kategori1.createProdukt("Sweet Georgia Brown", aktivPrisListe);
+        kategori1.createProdukt("Extra Pilsner", aktivPrisListe);
+        kategori2.createProdukt("Celebration", aktivPrisListe);
+        kategori2.createProdukt("Blondie", aktivPrisListe);
+        kategori2.createProdukt("Forårsbryg", aktivPrisListe);
     }
 }

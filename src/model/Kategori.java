@@ -8,7 +8,6 @@ public class Kategori {
 	private String navn;
 	private String beskrivelse;
 	private ArrayList<Produkt> produkter = new ArrayList<>();
-	private ArrayList<Kategori> kategorier = new ArrayList<>();
 	
 	public Kategori(String navn) {
 		
@@ -38,24 +37,5 @@ public class Kategori {
 		}
 	}
 
-	// 0..* association til Kategori
-	public ArrayList<Kategori> getKategorier() {
-		return new ArrayList<>(kategorier);
-	}
 
-	public Kategori createKategori (String navn) {
-		Kategori kategori = new Kategori (navn);
-		kategorier.add(kategori);
-		return kategori;
-	}
-	public void addKategori (Kategori kategori) {
-		if (!kategorier.contains(kategori)) {
-			kategorier.add(kategori);
-		}
-	}
-	public void removeKategori (Kategori kategori) {
-		if (kategorier.contains(kategori)) {
-			kategorier.remove(kategori);
-		}
-	}
 }

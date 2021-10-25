@@ -13,6 +13,9 @@ public class Ordre {
 	private Kunde kunde;
 	private final ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
 
+	public Ordre (LocalDateTime dato) {
+
+	}
 
 	// 0..1 Til Kunde association
 	public Kunde getKunde() {
