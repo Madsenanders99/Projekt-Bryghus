@@ -5,7 +5,7 @@ public class Pris {
 	private int produktID;
 	private double pris;
 	private int klip;
-	
+	private Produkt produkt;
 	
 	public Pris(int produktID, double pris, int klip) {
 		this.produktID = produktID;
@@ -44,5 +44,9 @@ public class Pris {
 
 	public void setKlip(int klip) {
 		this.klip = klip;
+	}
+
+	public Produkt getProdukt() {
+		return produkt;
 	}
 }

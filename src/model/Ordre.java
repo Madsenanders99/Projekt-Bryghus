@@ -77,16 +77,16 @@ public class Ordre {
 		this.betalt = betalt;
 	}
 	public void findTotalPris () {
-		double endeligPris = 0;
-		for (int i = 0; i < getOrdrelinjer().size(); i++) {
-			double tempPris;
-			double rabatPris;
-			Produkt produkt = getOrdrelinjer().get(i).getProdukt();
-			Prisliste prisliste = produkt.getAktivPrisliste().getPrisliste();
-			tempPris = prisliste.getPriser().get(getOrdrelinjer().get(i).getProdukt().getId()).getPris();
-			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
-			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
-		}
-		totalPris = endeligPris;
+//		double endeligPris = 0;
+//		for (int i = 0; i < getOrdrelinjer().size(); i++) {
+//			double tempPris;
+//			double rabatPris;
+//			Produkt produkt = getOrdrelinjer().get(i).getProdukt();
+//			Prisliste prisliste = produkt.getAktivPrisliste().getPrisliste();
+//			tempPris = prisliste.getPriser().get(getOrdrelinjer().get(i).getProdukt().getId()).getPris();
+//			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
+//			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
+//		}
+//		totalPris = endeligPris;
 	}
 }

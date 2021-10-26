@@ -1,7 +1,7 @@
 package model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+
 
 public class Prisliste {
 
@@ -10,17 +10,17 @@ public class Prisliste {
 
 
 
-	private HashMap<Integer, Pris> priser = new HashMap<>();
+	private ArrayList<Pris> priser = new ArrayList<>();
 
 	public void setNavn(String navn) {
 		this.navn = navn;
 	}
 
-	public HashMap<Integer, Pris> getPriser() {
+	public ArrayList<Pris> getPriser() {
 		return priser;
 	}
 
-	public void setPriser(HashMap<Integer, Pris> priser) {
+	public void setPriser(ArrayList<Pris> priser) {
 		this.priser = priser;
 	}
 
@@ -28,15 +28,15 @@ public class Prisliste {
 
 	}
 
-	public void addPris(int produktID, Pris pris) {
-		if (!priser.containsKey(produktID) && !priser.containsValue(pris)) {
-			priser.put(produktID, pris);
+	public void addPris(Pris pris) {
+		if (!priser.contains(pris)) {
+			priser.add(pris);
 		}
 	}
 
-	public void removePris(int produktID, Pris pris) {
-		if (priser.containsKey(produktID) && priser.containsValue(pris)) {
-			priser.remove(produktID, pris);
+	public void removePris(Pris pris) {
+		if (priser.contains(pris)) {
+			priser.remove(pris);
 		}
 	}
 

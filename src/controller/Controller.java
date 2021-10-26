@@ -51,17 +51,17 @@ public class Controller {
 
 
 
-        AktivPrisliste aktivPrisListe = new AktivPrisliste(null);
+       
 
         Kategori kategori1 = new Kategori ("Øl");
         Kategori kategori2 = new Kategori ("Whiskey");
 
-        kategori1.createProdukt("KlosterBryg", aktivPrisListe);
-        kategori1.createProdukt("Sweet Georgia Brown", aktivPrisListe);
-        kategori1.createProdukt("Extra Pilsner", aktivPrisListe);
-        kategori2.createProdukt("Celebration", aktivPrisListe);
-        kategori2.createProdukt("Blondie", aktivPrisListe);
-        kategori2.createProdukt("Forårsbryg", aktivPrisListe);
+        kategori1.createProdukt("KlosterBryg");
+        kategori1.createProdukt("Sweet Georgia Brown");
+        kategori1.createProdukt("Extra Pilsner");
+        kategori2.createProdukt("Celebration");
+        kategori2.createProdukt("Blondie");
+        kategori2.createProdukt("Forårsbryg");
 
         opretPris (1, 0, 36.0, prisliste2);
         opretPris (2, 0, 36.0, prisliste2);
