@@ -17,6 +17,7 @@ public class Produkt {
 		this.navn = navn;
 		this.aktivPrisliste = aktivPrisliste;
 		id = idIncrement.incrementAndGet();
+		System.out.println(id);
 	}
 
 	public String getNavn() {

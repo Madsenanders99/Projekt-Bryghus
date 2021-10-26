@@ -5,16 +5,19 @@ import model.AktivPrisliste;
 import model.Kategori;
 import model.Ordre;
 import model.Prisliste;
-import org.junit.Test;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class Test_model {
     Controller controller = Controller.getController();
 
     @Test
+    @Order(1)
     public void testIDIncrement() {
         AktivPrisliste aktivPrisListe = new AktivPrisliste(null);
 
@@ -30,6 +33,7 @@ public class Test_model {
     }
 
     @Test
+    @Order(2)
     public void test_findTotalPris() {
         AktivPrisliste aktivPrisListe = new AktivPrisliste(null);
 
