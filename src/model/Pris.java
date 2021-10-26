@@ -5,23 +5,16 @@ public class Pris {
 	private int produktID;
 	private double pris;
 	private int klip;
-	
-	
-	public Pris(int produktID, double pris, int klip) {
-		this.produktID = produktID;
-		this.pris = pris;
-		this.klip = klip;
+	private Produkt produkt;
+
+	public Pris(Produkt produkt) {
+		this.produkt = produkt;
 	}
-	
-	public Pris(int produktID, double pris) {
-		this.produktID = produktID;
-		this.pris = pris;
+
+	public Produkt getProdukt() {
+		return produkt;
 	}
-	
-	public Pris(int produktID, int klip) {
-		this.produktID = produktID;
-		this.klip = klip;
-	}
+
 	public int getProduktID() {
 		return produktID;
 	}

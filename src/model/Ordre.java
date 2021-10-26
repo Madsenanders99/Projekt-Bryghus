@@ -43,8 +43,8 @@ public class Ordre {
 		return new ArrayList<>(ordrelinjer);
 	}
 
-	public Ordrelinje createOrdrelinje (int antal, Produkt produkt) {
-		Ordrelinje Ordrelinje = new Ordrelinje(antal, produkt);
+	public Ordrelinje createOrdrelinje (int antal, Pris pris) {
+		Ordrelinje Ordrelinje = new Ordrelinje(antal, pris);
 		ordrelinjer.add(Ordrelinje);
 		return Ordrelinje;
 	}
@@ -76,17 +76,17 @@ public class Ordre {
 	public void setBetalt(LocalDate betalt) {
 		this.betalt = betalt;
 	}
-	public void findTotalPris () {
-		double endeligPris = 0;
-		for (int i = 0; i < getOrdrelinjer().size(); i++) {
-			double tempPris;
-			double rabatPris;
-			Produkt produkt = getOrdrelinjer().get(i).getProdukt();
-			Prisliste prisliste = produkt.getAktivPrisliste().getPrisliste();
-			tempPris = prisliste.getPriser().get(getOrdrelinjer().get(i).getProdukt().getId()).getPris();
-			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
-			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
-		}
-		totalPris = endeligPris;
-	}
+//	public void findTotalPris () {
+//		double endeligPris = 0;
+//		for (int i = 0; i < getOrdrelinjer().size(); i++) {
+//			double tempPris;
+//			double rabatPris;
+//			Produkt produkt = getOrdrelinjer().get(i).getProdukt();
+//			Prisliste prisliste = produkt.getAktivPrisliste().getPrisliste();
+//			tempPris = prisliste.getPriser().get(getOrdrelinjer().get(i).getProdukt().getId()).getPris();
+//			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
+//			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
+//		}
+//		totalPris = endeligPris;
+//	}
 }
