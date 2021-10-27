@@ -22,6 +22,8 @@ public class Produkt {
 		return navn;
 	}
 	
+	// 1 association fra Produkt til AktivPrisliste
+
 
 	// 0..* association til Produkt
 	public ArrayList<Produkt> getProdukter() {
@@ -56,9 +58,7 @@ public class Produkt {
 		this.beskrivelse = beskrivelse;
 	}
 
-
-
-	public void setProdukter(ArrayList<Produkt> produkter) {
+public void setProdukter(ArrayList<Produkt> produkter) {
 		this.produkter = produkter;
 	}
 
