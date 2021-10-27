@@ -1,5 +1,5 @@
 package model;
-
+// stefen test
 public class Pris {
 
 	private double pris;
