@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.Kategori;
+import model.Prisliste;
 
 import java.util.ArrayList;
 
@@ -67,9 +69,9 @@ public class MainApp extends Application
     {
         // -------------------------------
         // Tmp prislister
-        ArrayList<String> prislister = new ArrayList<>();
-        prislister.add("Detailsalg");
-        prislister.add("Barsalg");
+        ArrayList<Prisliste> prislister = new ArrayList<>();
+        prislister.add(controller.getAllPrislister().get(0));
+        prislister.add(controller.getAllPrislister().get(1));
         // -------------------------------
 
         GridPane pane = new GridPane();
@@ -95,7 +97,7 @@ public class MainApp extends Application
         // Buttons
         int btnMinWidth = 200;
         for (int i = 0; i < prislister.size(); i++) {
-            Button btn = new Button(prislister.get(i));
+            Button btn = new Button(prislister.get(i).getNavn());
             btn.setId(String.valueOf(i));
             btn.setMinWidth(btnMinWidth);
             btn.setPrefWidth(600);
@@ -164,14 +166,9 @@ public class MainApp extends Application
     {
         // ---------------------------------------------
         // Hent Kategorier fra controller
-        ArrayList<String> kategorier = new ArrayList<>();
-        kategorier.add("Lys øl");
-        kategorier.add("Mørk øl");
-        kategorier.add("Lyserød øl");
-        kategorier.add("Spirit of Aarhus");
-        kategorier.add("Merchandise");
-        kategorier.add("Malt øl");
-        kategorier.add("Gaveæsker");
+        ArrayList<Kategori> kategorier = new ArrayList<>();
+        kategorier.add(controller.getAllKategorier().get(0));
+        kategorier.add(controller.getAllKategorier().get(1));
         // ----------------------------------------------
 
         GridPane paneKat = new GridPane();
@@ -182,7 +179,7 @@ public class MainApp extends Application
         paneKat.getStyleClass().add("paneKat");
 
         for (int i = 0; i < kategorier.size(); i++) {
-            Button btn = new Button(kategorier.get(i));
+            Button btn = new Button(kategorier.get(i).getNavn());
             btn.setId(String.valueOf(i));
             btn.setMinWidth(100);
             btn.setPrefWidth(200);

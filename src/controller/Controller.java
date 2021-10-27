@@ -71,8 +71,8 @@ public class Controller {
         createPrisliste("Fredagsbar");
         createPrisliste("Detailsalg");
 
-        createKategori ("Øl");
-        createKategori ("Whiskey");
+        createKategori ("Flaske");
+        createKategori ("Fadøl, 40 cl");
 
         createKunde("Karl", "Karlsvej 30");
 
@@ -81,16 +81,22 @@ public class Controller {
         storage.getKategorier().get(0).createProdukt("KlosterBryg");
         storage.getKategorier().get(0).createProdukt("Sweet Georgia Brown");
         storage.getKategorier().get(0).createProdukt("Extra Pilsner");
+        storage.getKategorier().get(0).createProdukt("Celebration");
+        storage.getKategorier().get(0).createProdukt("Blondie");
+        storage.getKategorier().get(0).createProdukt("Forårsbryg");
 
-        storage.getKategorier().get(1).createProdukt("Celebration");
-        storage.getKategorier().get(1).createProdukt("Blondie");
-        storage.getKategorier().get(1).createProdukt("Forårsbryg");
+        storage.getKategorier().get(1).createProdukt("Klosterbryg");
+        storage.getKategorier().get(1).createProdukt("Jazz Classic");
+        storage.getKategorier().get(1).createProdukt("Extra Pilsner");
 
         storage.getPrislister().get(0).createPris(storage.getKategorier().get(0).getProdukter().get(0), 70, 2);
-        storage.getPrislister().get(0).createPris(storage.getKategorier().get(1).getProdukter().get(0), 70, 2);
+        storage.getPrislister().get(0).createPris(storage.getKategorier().get(0).getProdukter().get(1), 70, 2);
 
         storage.getPrislister().get(1).createPris(storage.getKategorier().get(0).getProdukter().get(0), 36, 0);
-        storage.getPrislister().get(1).createPris(storage.getKategorier().get(1).getProdukter().get(0), 36, 0);
+        storage.getPrislister().get(1).createPris(storage.getKategorier().get(0).getProdukter().get(1), 36, 0);
+
+        storage.getPrislister().get(0).createPris(storage.getKategorier().get(1).getProdukter().get(0), 38, 1);
+        storage.getPrislister().get(0).createPris(storage.getKategorier().get(1).getProdukter().get(1), 38, 1);
 
         createOrdre(LocalDateTime.of(2021, 10, 25, 10, 0));
         createOrdre(LocalDateTime.of(2021, 10, 27, 10, 0));
