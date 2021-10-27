@@ -2,21 +2,22 @@ package model;
 
 public class Pris {
 
-	private int produktID;
 	private double pris;
 	private int klip;
 	private Produkt produkt;
 
-	public Pris(Produkt produkt) {
+	public Pris(Produkt produkt, double pris, int klip) {
 		this.produkt = produkt;
+		this.pris = pris;
+		this.klip = klip;
 	}
 
 	public Produkt getProdukt() {
 		return produkt;
 	}
 
-	public int getProduktID() {
-		return produktID;
+	public void setProdukt(Produkt produkt) {
+		this.produkt = produkt;
 	}
 
 	public double getPris() {
@@ -25,10 +26,6 @@ public class Pris {
 
 	public int getKlip() {
 		return klip;
-	}
-
-	public void setProduktID(int produktID) {
-		this.produktID = produktID;
 	}
 
 	public void setPris(double pris) {

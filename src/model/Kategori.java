@@ -23,8 +23,8 @@ public class Kategori {
 		return new ArrayList<>(produkter);
 	}
 
-	public Produkt createProdukt (String navn, AktivPrisliste aktivPrisliste) {
-		Produkt produkt = new Produkt (navn, aktivPrisliste);
+	public Produkt createProdukt (String navn) {
+		Produkt produkt = new Produkt (navn);
 		produkter.add(produkt);
 		return produkt;
 	}

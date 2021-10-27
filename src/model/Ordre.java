@@ -76,6 +76,18 @@ public class Ordre {
 	public void setBetalt(LocalDate betalt) {
 		this.betalt = betalt;
 	}
+
+	public void findTotalPris() {
+		double endeligPris = 0;
+		for (int i = 0; i < getOrdrelinjer().size(); i++) {
+			double rabatPris;
+			double tempPris;
+			tempPris = getOrdrelinjer().get(i).getPris().getPris();
+			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
+			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
+		}
+		totalPris = endeligPris;
+	}
 //	public void findTotalPris () {
 //		double endeligPris = 0;
 //		for (int i = 0; i < getOrdrelinjer().size(); i++) {

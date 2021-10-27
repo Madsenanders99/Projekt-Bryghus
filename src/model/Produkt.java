@@ -8,14 +8,12 @@ public class Produkt {
 	private int id;
 	private String navn;
 	private String beskrivelse;
-	private AktivPrisliste aktivPrisliste;
 	private ArrayList<Produkt> produkter = new ArrayList<>();
 
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
-	public Produkt(String navn, AktivPrisliste aktivPrisliste) {
+	public Produkt(String navn) {
 		this.navn = navn;
-		this.aktivPrisliste = aktivPrisliste;
 		id = idIncrement.incrementAndGet();
 		System.out.println(id);
 	}
@@ -25,17 +23,14 @@ public class Produkt {
 	}
 	// 1 association fra Produkt til AktivPrisliste
 
-	public AktivPrisliste getAktivPrisliste() {
-		return aktivPrisliste;
-	}
 
 	// 0..* association til Produkt
 	public ArrayList<Produkt> getProdukter() {
 		return new ArrayList<>(produkter);
 	}
 
-	public Produkt createProdukt (String navn, AktivPrisliste aktivPrisliste) {
-		Produkt produkt = new Produkt (navn, aktivPrisliste);
+	public Produkt createProdukt (String navn) {
+		Produkt produkt = new Produkt (navn);
 		produkter.add(produkt);
 		return produkt;
 	}
@@ -60,10 +55,6 @@ public class Produkt {
 
 	public void setBeskrivelse(String beskrivelse) {
 		this.beskrivelse = beskrivelse;
-	}
-
-	public void setAktivPrisliste(AktivPrisliste aktivPrisliste) {
-		this.aktivPrisliste = aktivPrisliste;
 	}
 
 	public void setProdukter(ArrayList<Produkt> produkter) {
