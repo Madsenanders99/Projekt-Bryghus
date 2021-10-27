@@ -6,22 +6,14 @@ public class Pris {
 	private double pris;
 	private int klip;
 	private Produkt produkt;
-	
-	public Pris(int produktID, double pris, int klip) {
-		this.produktID = produktID;
-		this.pris = pris;
-		this.klip = klip;
+
+	public Pris(Produkt produkt) {
+		this.produkt = produkt;
 	}
-	
-	public Pris(int produktID, double pris) {
-		this.produktID = produktID;
-		this.pris = pris;
-	}
-	
-	public Pris(int produktID, int klip) {
-		this.produktID = produktID;
-		this.klip = klip;
-	}
+
+	public Produkt getProdukt() {
+		return produkt;
+
 	public int getProduktID() {
 		return produktID;
 	}
@@ -46,7 +38,4 @@ public class Pris {
 		this.klip = klip;
 	}
 
-	public Produkt getProdukt() {
-		return produkt;
-	}
 }
