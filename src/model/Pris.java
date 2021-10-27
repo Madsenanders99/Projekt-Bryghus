@@ -1,5 +1,5 @@
 package model;
-
+// stefen test
 public class Pris {
 
 	private double pris;
@@ -14,7 +14,6 @@ public class Pris {
 
 	public Produkt getProdukt() {
 		return produkt;
-	}
 
 	public void setProdukt(Produkt produkt) {
 		this.produkt = produkt;
@@ -35,4 +34,5 @@ public class Pris {
 	public void setKlip(int klip) {
 		this.klip = klip;
 	}
+
 }

@@ -21,6 +21,7 @@ public class Produkt {
 	public String getNavn() {
 		return navn;
 	}
+	
 	// 1 association fra Produkt til AktivPrisliste
 
 
@@ -57,7 +58,7 @@ public class Produkt {
 		this.beskrivelse = beskrivelse;
 	}
 
-	public void setProdukter(ArrayList<Produkt> produkter) {
+public void setProdukter(ArrayList<Produkt> produkter) {
 		this.produkter = produkter;
 	}
 

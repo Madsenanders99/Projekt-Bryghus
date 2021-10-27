@@ -14,7 +14,7 @@ public class Prisliste {
 
 
 
-	private final ArrayList<Pris> priser = new ArrayList<>();
+	private ArrayList<Pris> priser = new ArrayList<>();
 
 	public ArrayList<Pris> getPriser() {
 		return new ArrayList<>(priser);
