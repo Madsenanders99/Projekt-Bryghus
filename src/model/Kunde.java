@@ -16,6 +16,8 @@ public class Kunde {
 	private static AtomicInteger idIncrement = new AtomicInteger();
 	
 	public Kunde(String navn, String adresse) {
+		this.navn = navn;
+		this.adresse = adresse;
 		id = idIncrement.incrementAndGet();
 	}
 	public String getNavn() {

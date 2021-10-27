@@ -17,8 +17,6 @@ class OrdreTest {
     public void test_findTotalPris() {
         Prisliste prisliste = new Prisliste ("Fredagsbar");
 
-        Prisliste prisliste2 = new Prisliste ("Detailsalg");
-
         Kategori kategori1 = new Kategori ("Øl");
         Kategori kategori2 = new Kategori ("Whiskey");
 
@@ -32,14 +30,12 @@ class OrdreTest {
         prisliste.createPris(kategori1.getProdukter().get(0), 70, 2);
         prisliste.createPris(kategori2.getProdukter().get(0), 70, 2);
 
-        prisliste2.createPris(kategori1.getProdukter().get(0), 36.0, 0);
-        prisliste2.createPris(kategori1.getProdukter().get(0), 36.0, 0);
 
 
 
         Ordre ordre1 = new Ordre (LocalDateTime.of(2021, 10, 25, 10, 0));
         ordre1.createOrdrelinje(2, prisliste.getPriser().get(0));
-        ordre1.createOrdrelinje(1, prisliste.getPriser().get(0));
+        ordre1.createOrdrelinje(1, prisliste.getPriser().get(1));
         ordre1.getOrdrelinjer().get(0).setRabat(12.5);
 
         ordre1.findTotalPris();
