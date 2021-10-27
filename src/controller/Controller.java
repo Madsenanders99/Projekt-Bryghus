@@ -7,6 +7,7 @@ import model.Prisliste;
 import storage.Storage;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Controller {
     private Storage storage;
@@ -24,6 +25,22 @@ public class Controller {
     }
     public static Controller getTestController() {
         return new Controller();
+    }
+
+    public List<Kunde> getAllKunder() {
+        return storage.getKunder();
+    }
+
+    public List<Ordre> getAllOrdre() {
+        return storage.getOrdrer();
+    }
+
+    public List<Prisliste> getAllPrislister() {
+        return storage.getPrislister();
+    }
+
+    public List<Kategori> getAllKategorier() {
+        return storage.getKategorier();
     }
 
     public Kunde createKunde(String navn, String adresse) {
