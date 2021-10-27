@@ -26,40 +26,64 @@ public class Controller {
         return new Controller();
     }
 
-    public void createObjects() {
-        Prisliste prisliste = new Prisliste ("Fredagsbar");
-        Prisliste prisliste2 = new Prisliste ("Detailsalg");
+    public Kunde createKunde(String navn, String adresse) {
+        Kunde k = new Kunde(navn, adresse);
+        storage.addKunde(k);
+        return k;
+    }
 
-        Kategori kategori1 = new Kategori ("Øl");
-        Kategori kategori2 = new Kategori ("Whiskey");
+    public Ordre createOrdre(LocalDateTime dato) {
+        Ordre o = new Ordre(dato);
+        storage.addOrdre(o);
+        return o;
+    }
+
+    public Prisliste createPrisliste(String navn) {
+        Prisliste p = new Prisliste(navn);
+        storage.addPrisliste(p);
+        return p;
+    }
+
+    public Kategori createKategori(String navn) {
+        Kategori ka = new Kategori(navn);
+        storage.addKategori(ka);
+        return ka;
+    }
+
+    public void createObjects() {
+        createPrisliste("Fredagsbar");
+        createPrisliste("Detailsalg");
+
+        createKategori ("Øl");
+        createKategori ("Whiskey");
+
+        createKunde("Karl", "Karlsvej 30");
 
         Kunde kunde = new Kunde("Karl", "Karlsvej 30");
 
-        kategori1.createProdukt("KlosterBryg");
-        kategori1.createProdukt("Sweet Georgia Brown");
-        kategori1.createProdukt("Extra Pilsner");
+        storage.getKategorier().get(0).createProdukt("KlosterBryg");
+        storage.getKategorier().get(0).createProdukt("Sweet Georgia Brown");
+        storage.getKategorier().get(0).createProdukt("Extra Pilsner");
 
-        kategori2.createProdukt("Celebration");
-        kategori2.createProdukt("Blondie");
-        kategori2.createProdukt("Forårsbryg");
+        storage.getKategorier().get(1).createProdukt("Celebration");
+        storage.getKategorier().get(1).createProdukt("Blondie");
+        storage.getKategorier().get(1).createProdukt("Forårsbryg");
 
-        prisliste.createPris(kategori1.getProdukter().get(0), 70, 2);
-        prisliste.createPris(kategori2.getProdukter().get(0), 70, 2);
+        storage.getPrislister().get(0).createPris(storage.getKategorier().get(0).getProdukter().get(0), 70, 2);
+        storage.getPrislister().get(0).createPris(storage.getKategorier().get(1).getProdukter().get(0), 70, 2);
 
-        prisliste2.createPris(kategori1.getProdukter().get(0), 36.0, 0);
-        prisliste2.createPris(kategori2.getProdukter().get(0), 36.0, 0);
+        storage.getPrislister().get(1).createPris(storage.getKategorier().get(0).getProdukter().get(0), 36, 0);
+        storage.getPrislister().get(1).createPris(storage.getKategorier().get(1).getProdukter().get(0), 36, 0);
 
+        createOrdre(LocalDateTime.of(2021, 10, 25, 10, 0));
+        createOrdre(LocalDateTime.of(2021, 10, 27, 10, 0));
 
-        Ordre ordre1 = new Ordre (LocalDateTime.of(2021, 10, 25, 10, 0));
+        storage.getOrdrer().get(0).createOrdrelinje(2, storage.getPrislister().get(0).getPriser().get(0));
+        storage.getOrdrer().get(0).createOrdrelinje(1, storage.getPrislister().get(0).getPriser().get(1));
 
-        ordre1.createOrdrelinje(2, prisliste.getPriser().get(0));
-        ordre1.createOrdrelinje(1, prisliste.getPriser().get(1));
+        storage.getOrdrer().get(0).getOrdrelinjer().get(0).setRabat(12.5);
 
-        ordre1.getOrdrelinjer().get(0).setRabat(12.5);
-
-        Ordre ordre2 = new Ordre (LocalDateTime.of(2021, 10, 27, 10, 0));
-
-        ordre2.createOrdrelinje(4, prisliste.getPriser().get(0));
-        ordre2.createOrdrelinje(1, prisliste.getPriser().get(1));
+        storage.getOrdrer().get(1).createOrdrelinje(4, storage.getPrislister().get(0).getPriser().get(0));
+        storage.getOrdrer().get(1).createOrdrelinje(1, storage.getPrislister().get(0).getPriser().get(1));
     }
 }
