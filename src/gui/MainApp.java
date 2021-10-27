@@ -1,5 +1,6 @@
 package gui;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
@@ -25,10 +26,12 @@ public class MainApp extends Application
     private GridPane paneKategorier;
     private GridPane paneProdukter;
     private Label lblKategoriHeadline;
-
+    private Controller controller;
     @Override
     public void init() {
         //Controller.init();
+        controller = Controller.getController();
+        controller.createObjects();
     }
 
     @Override
@@ -48,8 +51,8 @@ public class MainApp extends Application
         this.stage.show();
 
         // -------------------------
-        this.initSceneSalg();
-        this.stage.setScene(this.sceneSalg);
+        //this.initSceneSalg();
+        //this.stage.setScene(this.sceneSalg);
         // --------------------------
 
         //this.deltagereWindow = new DeltagereWindow("", this.stage);
