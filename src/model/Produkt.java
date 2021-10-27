@@ -21,9 +21,6 @@ public class Produkt {
 	public String getNavn() {
 		return navn;
 	}
-	
-	// 1 association fra Produkt til AktivPrisliste
-
 
 	// 0..* association til Produkt
 	public ArrayList<Produkt> getProdukter() {
