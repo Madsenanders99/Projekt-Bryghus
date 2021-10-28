@@ -1,9 +1,6 @@
 package controller;
 
-import model.Kategori;
-import model.Kunde;
-import model.Ordre;
-import model.Prisliste;
+import model.*;
 import storage.Storage;
 
 import java.time.LocalDateTime;
@@ -25,6 +22,10 @@ public class Controller {
     }
     public static Controller getTestController() {
         return new Controller();
+    }
+
+    public ArrayList<Pris> getAllPriser() {
+        return storage.getPriser();
     }
 
     public ArrayList<Kunde> getAllKunder() {

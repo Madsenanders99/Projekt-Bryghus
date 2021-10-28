@@ -324,11 +324,9 @@ public class MainApp extends Application
                 produkter.add(p);
                 p.setBeskrivelse(controller.getAllKategorier().get(i).getProdukter().get(o).getBeskrivelse());
                 p.setNavn(controller.getAllKategorier().get(i).getProdukter().get(o).getNavn());
-                for (int n = 0; n < controller.getAllPrislister().size(); n++) {
-                    for (int m = 0; m < controller.getAllPrislister().get(n).getPriser().size(); m++) {
-                        if (controller.getAllPrislister().get(n).getPriser().get(m).getProdukt().getNavn() == p.getNavn()) {
-                            p.setPris(controller.getAllPrislister().get(n).getPriser().get(m).getPris());
-                        }
+                for (int n = 0; n < controller.getAllPriser().size(); n++) {
+                    if (controller.getAllPriser().get(n).getProdukt().getNavn() == p.getNavn()) {
+                        p.setPris(controller.getAllPriser().get(n).getPris());
                     }
                 }
             }

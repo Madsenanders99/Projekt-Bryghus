@@ -1,9 +1,6 @@
 package storage;
 
-import model.Kategori;
-import model.Kunde;
-import model.Ordre;
-import model.Prisliste;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +10,18 @@ public class Storage {
     private List<Ordre> ordrer;
     private List <Prisliste> prislister;
     private List <Kategori> kategorier;
+    private List <Pris> priser;
 
     public Storage () {
         kunder = new ArrayList<Kunde>();
         ordrer = new ArrayList<Ordre>();
         prislister = new ArrayList<Prisliste>();
         kategorier = new ArrayList<Kategori>();
+        priser = new ArrayList<Pris>();
+    }
+
+    public ArrayList<Pris> getPriser() {
+        return new ArrayList<Pris>(priser);
     }
 
     public ArrayList<Kunde> getKunder() {
