@@ -56,6 +56,13 @@ public class Controller {
         return o;
     }
 
+    /**
+     *
+     * @param ordre
+     * @param pris
+     * @param antal
+     * @return
+     */
     public Ordrelinje createOrdrelinje(Ordre ordre, Pris pris, int antal) {
         return ordre.createOrdrelinje(antal, pris);
     }
