@@ -122,7 +122,7 @@ public class MainApp extends Application
      *
      *
      */
-    private void selectPrislisteAction(Prisliste pl)
+    private void selectPrislisteAction(Prisliste prisliste)
     {
        // Button btn = (Button) event.getSource();
         //int id = Integer.parseInt(btn.getId());
@@ -182,12 +182,8 @@ public class MainApp extends Application
         // -------------------------
         // Opret array med kategorier der indeholder produkter fra sendt prisliste
         ArrayList<Kategori> aktiveKategorier = new ArrayList<>();
-        for (Pris pris : prisliste) {
-            for (Kategori tmpKat : pris.getProdukt().getKategorier()) {
-                if (!aktiveKategorier.contains(tmpKat)) {
-                    aktiveKategorier.add(tmpKat);
-                }
-            }
+        for (Pris pris : prisliste.getPriser()) {
+
         }
         // -----------------------
 
