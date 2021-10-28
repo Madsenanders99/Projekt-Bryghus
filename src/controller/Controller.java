@@ -56,6 +56,10 @@ public class Controller {
         return o;
     }
 
+    public Ordrelinje createOrdrelinje(Ordre ordre, Pris pris, int antal) {
+        return ordre.createOrdrelinje(antal, pris);
+    }
+
     public Prisliste createPrisliste(String navn) {
         Prisliste p = new Prisliste(navn);
         storage.addPrisliste(p);
