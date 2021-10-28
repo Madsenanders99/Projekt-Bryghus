@@ -317,42 +317,41 @@ public class MainApp extends Application
         // ------------------------------------
         // tmpProdukter
         ArrayList<tmpProdukt> produkter = new ArrayList<tmpProdukt>();
+        for (int i = 0; i < controller.getAllKategorier().size(); i++) {
+            for (int o = 0; o < controller.getAllKategorier().get(i).getProdukter().size(); o++) {
+                tmpProdukt p;
+                p = new tmpProdukt();
+                produkter.add(p);
+                p.setBeskrivelse(controller.getAllKategorier().get(i).getProdukter().get(o).getBeskrivelse());
+                p.setNavn(controller.getAllKategorier().get(i).getProdukter().get(o).getNavn());
+                for (int n = 0; n < controller.getAllPrislister().size(); n++) {
+                    for (int m = 0; m < controller.getAllPrislister().get(n).getPriser().size(); m++) {
+                        if (controller.getAllPrislister().get(n).getPriser().get(m).getProdukt().getNavn() == p.getNavn()) {
+                            p.setPris(controller.getAllPrislister().get(n).getPriser().get(m).getPris());
+                        }
+                    }
+                }
+            }
+        }
 
-        tmpProdukt p;
-        p = new tmpProdukt();
-        produkter.add(p);
-        p.setNavn("Klosterbryg");
-        p.setPris(57.50);
-        p.setBeskrivelse("KLOSTERBRYG, 6,0 %\n" +
-                "Klosterbryg er en fusion af en\n" +
-                "engelsk strong ale og en dansk\n" +
-                "luksusøl. Den er krydret med\n" +
-                "de klassiske humler Fuggles og\n" +
-                "Goldings. Nyd den som en allround\n" +
-                "øl eller til lyse retter. Drik\n" +
-                "den ved kældertemperatur,\n" +
-                "cirka 6 grader Celsius, evt. en\n" +
-                "anelse varmere, for at aromaen\n" +
-                "kan komme til sin ret.");
 
-        p = new tmpProdukt();
-        produkter.add(p);
-        p.setNavn("Sweet Georgia Brown");
-        p.setPris(45.25);
-        p.setBeskrivelse("SWEET GEORGIA BROWN, 5,5 %\n" +
-                "Sweet Georgia Brown blev lanceret til\n" +
-                "Fodvarmeriets jazztelt i sommeren 2009. Den\n" +
-                "blev så stor en succes at den nu fås fast på\n" +
-                "flaske. Den er inspireret af de klassiske\n" +
-                "engelske brown ales, her med en let sødme\n" +
-                "fra de mørke malte og rørsukker. Fås kun på\n" +
-                "60 cl flaske.");
+//        tmpProdukt p;
+//        p = new tmpProdukt();
+//        produkter.add(p);
+//        p.setNavn("Klosterbryg");
+//        p.setPris(57.50);
+//        p.setBeskrivelse("KLOSTERBRYG, 6,0 %\n" +
+                //"Klosterbryg er en fusion af en\n" +
+              //  "engelsk strong ale og en dansk\n" +
+            //    "luksusøl. Den er krydret med\n" +
+          //      "de klassiske humler Fuggles og\n" +
+        //        "Goldings. Nyd den som en allround\n" +
+      //          "øl eller til lyse retter. Drik\n" +
+    //            "den ved kældertemperatur,\n" +
+  //              "cirka 6 grader Celsius, evt. en\n" +
+//                "anelse varmere, for at aromaen\n" +
+//                "kan komme til sin ret.");
 
-        p = new tmpProdukt();
-        produkter.add(p);
-        p.setNavn("Sweet Georgia Brown");
-        p.setPris(45.25);
-        p.setBeskrivelse("Beskrivelse");
         // ------------------------------------
 
 
