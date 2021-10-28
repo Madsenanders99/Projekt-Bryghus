@@ -3,6 +3,7 @@ package gui;
 import controller.Controller;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import model.Kategori;
 import model.Prisliste;
@@ -44,8 +47,8 @@ public class MainApp extends Application
         this.stage.setResizable(true);
         this.stage.setMinWidth(1000);
         this.stage.setMinHeight(400);
-        this.stage.setWidth(1400);
-        this.stage.setHeight(600);
+        this.stage.setWidth(1300);
+        this.stage.setHeight(700);
 
         // Set-up scenePrisliste
         this.initScenePrisliste();
@@ -144,6 +147,11 @@ public class MainApp extends Application
         col2.setPercentWidth(40);
         paneSalg.getColumnConstraints().addAll(col1, col2);
 
+        RowConstraints row1 = new RowConstraints();
+        RowConstraints row2 = new RowConstraints();
+        row2.setVgrow(Priority.ALWAYS);
+        paneSalg.getRowConstraints().addAll(row1, row2);
+
         // --- Kategorier ---
         this.lblKategoriHeadline = new Label("Vælg kategori");
         GridPane.setHalignment(this.lblKategoriHeadline, HPos.CENTER);
@@ -204,9 +212,10 @@ public class MainApp extends Application
     {
         Button btn = (Button) event.getSource();
         int id = Integer.parseInt(btn.getId());
-        System.out.println("Kategori id: " + id + " selected.");
         this.paneSalg.getChildren().remove(this.paneKategorier);
         this.lblKategoriHeadline.setText(btn.getText());
+        this.paneProdukter = this.createProdukter();
+        this.paneSalg.add(this.paneProdukter, 0,1);
 
     }
 
@@ -310,17 +319,41 @@ public class MainApp extends Application
         // tmpProdukter
         ArrayList<tmpProdukt> produkter = new ArrayList<tmpProdukt>();
 
-        tmpProdukt p = new tmpProdukt();
+        tmpProdukt p;
+        p = new tmpProdukt();
+        produkter.add(p);
         p.setNavn("Klosterbryg");
-        p.setBeskrivelse("Bla bla bla");
         p.setPris(57.50);
+        p.setBeskrivelse("KLOSTERBRYG, 6,0 %\n" +
+                "Klosterbryg er en fusion af en\n" +
+                "engelsk strong ale og en dansk\n" +
+                "luksusøl. Den er krydret med\n" +
+                "de klassiske humler Fuggles og\n" +
+                "Goldings. Nyd den som en allround\n" +
+                "øl eller til lyse retter. Drik\n" +
+                "den ved kældertemperatur,\n" +
+                "cirka 6 grader Celsius, evt. en\n" +
+                "anelse varmere, for at aromaen\n" +
+                "kan komme til sin ret.");
 
-        p.setNavn("Black Monster");
-        p.setBeskrivelse("Bla bla bla");
+        p = new tmpProdukt();
+        produkter.add(p);
+        p.setNavn("Sweet Georgia Brown");
         p.setPris(45.25);
+        p.setBeskrivelse("SWEET GEORGIA BROWN, 5,5 %\n" +
+                "Sweet Georgia Brown blev lanceret til\n" +
+                "Fodvarmeriets jazztelt i sommeren 2009. Den\n" +
+                "blev så stor en succes at den nu fås fast på\n" +
+                "flaske. Den er inspireret af de klassiske\n" +
+                "engelske brown ales, her med en let sødme\n" +
+                "fra de mørke malte og rørsukker. Fås kun på\n" +
+                "60 cl flaske.");
 
-
-
+        p = new tmpProdukt();
+        produkter.add(p);
+        p.setNavn("Sweet Georgia Brown");
+        p.setPris(45.25);
+        p.setBeskrivelse("Beskrivelse");
         // ------------------------------------
 
 
@@ -331,11 +364,49 @@ public class MainApp extends Application
         paneProdukter.setVgap(10);
         paneProdukter.getStyleClass().add("paneProdukter");
 
+        for (int i = 0; i < produkter.size(); i++) {
+            GridPane paneProdSelect = new GridPane();
+            paneProdSelect.setGridLinesVisible(true);
+            paneProdSelect.setPadding(new Insets(20));
+            paneProdSelect.setHgap(10);
+            paneProdSelect.setVgap(10);
+            paneProdSelect.getStyleClass().add("paneProdSelect");
+
+            TextField txtfProd = new TextField();
+            txtfProd.setEditable(false);
+            txtfProd.getStyleClass().add("txtfProd");
+            txtfProd.setOnMouseClicked(event -> this.tilføjProdukt(event));
+            int elmsPrRow = 4;
+            paneProdSelect.add(txtfProd, 0, 0);
+
+
+            paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
+
+            //Button btn = new Button(produkter.get(i).getNavn());
+            //btn.setId(String.valueOf(i));
+            //btn.setMinWidth(100);
+            //btn.setPrefWidth(200);
+            //btn.setPrefHeight(100);
+            //btn.setMaxWidth(btnMaxWidth);
+            //int btnsPrRow = 4;
+            //paneProdukter.add(btn, i % btnsPrRow, i / btnsPrRow);
+            //btn.getStyleClass().add("btnKat");
+            // Event listeners
+            //btn.setOnAction(this::selectPrislisteAction);
+            //btn.setOnAction(event -> this.selectKategoriAction(event));
+        }
+
         return paneProdukter;
 
     }
 
+    private void tilføjProdukt(Event event)
+    {
+        //Button btn = (Button) event.getSource();
+        //int id = Integer.parseInt(btn.getId());
 
+        System.out.println("Tilføj");
+    }
 
 
 }
