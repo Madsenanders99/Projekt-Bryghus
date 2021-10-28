@@ -18,10 +18,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import model.Kategori;
-import model.Prisliste;
-import model.Produkt;
+import model.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -35,6 +34,9 @@ public class MainApp extends Application
     private GridPane paneProdukter;
     private Label lblKategoriHeadline;
     private Controller controller;
+    private Ordre ordre;
+
+
     @Override
     public void init() {
         //Controller.init();
@@ -74,11 +76,8 @@ public class MainApp extends Application
     private void initScenePrisliste()
     {
         // -------------------------------
-        // Tmp prislister
-        ArrayList<Prisliste> prislister = new ArrayList<>();
-        for (int i = 0; i < controller.getAllPrislister().size(); i++) {
-            prislister.add(controller.getAllPrislister().get(i));
-        }
+        // Hent prislister fra controller
+        ArrayList<Prisliste> prislister = controller.getAllPrislister();
         // -------------------------------
 
         GridPane pane = new GridPane();
@@ -114,26 +113,30 @@ public class MainApp extends Application
             btn.getStyleClass().add("btnPrisliste");
             // Event listeners
             //btn.setOnAction(this::selectPrislisteAction);
-            btn.setOnAction(event -> this.selectPrislisteAction(event));
+            int tmp = i;
+            btn.setOnAction(event -> this.selectPrislisteAction(prislister.get(tmp)));
         }
     }
 
     /**
      *
-     * @param event
+     *
      */
-    private void selectPrislisteAction(ActionEvent event)
+    private void selectPrislisteAction(Prisliste pl)
     {
-        Button btn = (Button) event.getSource();
-        int id = Integer.parseInt(btn.getId());
-        this.initSceneSalg();
+       // Button btn = (Button) event.getSource();
+        //int id = Integer.parseInt(btn.getId());
+
+        Ordre ordre = controller.createOrdre(LocalDateTime.now());
+
+        this.initSceneSalg(prisliste);
         this.stage.setScene(this.sceneSalg);
     }
 
     /**
      *
      */
-    private void initSceneSalg()
+    private void initSceneSalg(Prisliste prisliste)
     {
         this.paneSalg = new GridPane();
         this.sceneSalg = new Scene(paneSalg);
@@ -161,7 +164,7 @@ public class MainApp extends Application
         GridPane.setHalignment(this.lblKategoriHeadline, HPos.CENTER);
         lblKategoriHeadline.getStyleClass().add("lblKategoriHeadline");
         paneSalg.add(lblKategoriHeadline, 0, 0);
-        this.paneKategorier = this.createKategorier();
+        this.paneKategorier = this.createKategorier(prisliste);
         paneSalg.add(this.paneKategorier, 0, 1);
 
         // --- Ordre ---
@@ -174,12 +177,19 @@ public class MainApp extends Application
     /**
      *
      */
-    private GridPane createKategorier()
+    private GridPane createKategorier(Prisliste prisliste)
     {
-        // ---------------------------------------------
-        // Hent Kategorier fra controller
-        ArrayList<Kategori> kategorier = controller.getAllKategorier();
-        // ----------------------------------------------
+        // -------------------------
+        // Opret array med kategorier der indeholder produkter fra sendt prisliste
+        ArrayList<Kategori> aktiveKategorier = new ArrayList<>();
+        for (Pris pris : prisliste) {
+            for (Kategori tmpKat : pris.getProdukt().getKategorier()) {
+                if (!aktiveKategorier.contains(tmpKat)) {
+                    aktiveKategorier.add(tmpKat);
+                }
+            }
+        }
+        // -----------------------
 
         GridPane paneKat = new GridPane();
         paneKat.setGridLinesVisible(true);
@@ -188,17 +198,14 @@ public class MainApp extends Application
         paneKat.setVgap(10);
         paneKat.getStyleClass().add("paneKat");
 
-        for (int i = 0; i < kategorier.size(); i++) {
-            Button btn = new Button(kategorier.get(i).getNavn());
+        for (int i = 0; i < aktiveKategorier.size(); i++) {
+            Button btn = new Button(aktiveKategorier.get(i).getNavn());
             btn.setId(String.valueOf(i));
             int btnsPrRow = 4;
             paneKat.add(btn, i % btnsPrRow, i / btnsPrRow);
             btn.getStyleClass().add("btnKat");
-            // Event listeners
-            //btn.setOnAction(this::selectPrislisteAction);
-            //btn.setOnAction(event -> this.selectKategoriAction(event));
             int tmp = i;
-            btn.setOnAction(event -> this.selectKategoriAction(kategorier.get(tmp)));
+            btn.setOnAction(event -> this.selectKategoriAction(aktiveKategorier.get(tmp)));
         }
 
         return paneKat;
