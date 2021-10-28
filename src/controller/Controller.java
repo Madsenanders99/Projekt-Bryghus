@@ -70,9 +70,11 @@ public class Controller {
     public void createObjects() {
         createPrisliste("Fredagsbar");
         createPrisliste("Detailsalg");
+        createPrisliste("test");
 
         createKategori ("Flaske");
         createKategori ("Fadøl, 40 cl");
+        createKategori ("testtest");
 
         createKunde("Karl", "Karlsvej 30");
 

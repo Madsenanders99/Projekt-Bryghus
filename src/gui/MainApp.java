@@ -70,8 +70,9 @@ public class MainApp extends Application
         // -------------------------------
         // Tmp prislister
         ArrayList<Prisliste> prislister = new ArrayList<>();
-        prislister.add(controller.getAllPrislister().get(0));
-        prislister.add(controller.getAllPrislister().get(1));
+        for (int i = 0; i < controller.getAllPrislister().size(); i++) {
+            prislister.add(controller.getAllPrislister().get(i));
+        }
         // -------------------------------
 
         GridPane pane = new GridPane();
@@ -167,8 +168,9 @@ public class MainApp extends Application
         // ---------------------------------------------
         // Hent Kategorier fra controller
         ArrayList<Kategori> kategorier = new ArrayList<>();
-        kategorier.add(controller.getAllKategorier().get(0));
-        kategorier.add(controller.getAllKategorier().get(1));
+        for (int i = 0; i < controller.getAllKategorier().size(); i++) {
+            kategorier.add(controller.getAllKategorier().get(i));
+        }
         // ----------------------------------------------
 
         GridPane paneKat = new GridPane();
