@@ -7,7 +7,7 @@ import model.Prisliste;
 import storage.Storage;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Controller {
     private Storage storage;
@@ -27,19 +27,19 @@ public class Controller {
         return new Controller();
     }
 
-    public List<Kunde> getAllKunder() {
+    public ArrayList<Kunde> getAllKunder() {
         return storage.getKunder();
     }
 
-    public List<Ordre> getAllOrdre() {
+    public ArrayList<Ordre> getAllOrdre() {
         return storage.getOrdrer();
     }
 
-    public List<Prisliste> getAllPrislister() {
+    public ArrayList<Prisliste> getAllPrislister() {
         return storage.getPrislister();
     }
 
-    public List<Kategori> getAllKategorier() {
+    public ArrayList<Kategori> getAllKategorier() {
         return storage.getKategorier();
     }
 
@@ -86,6 +86,9 @@ public class Controller {
         storage.getKategorier().get(0).createProdukt("Celebration");
         storage.getKategorier().get(0).createProdukt("Blondie");
         storage.getKategorier().get(0).createProdukt("Forårsbryg");
+
+        storage.getKategorier().get(0).getProdukter().get(0).setBeskrivelse("Klosterbryg er en bryg");
+        storage.getKategorier().get(0).getProdukter().get(1).setBeskrivelse("Sweet Georgia Brown er en brown");
 
         storage.getKategorier().get(1).createProdukt("Klosterbryg");
         storage.getKategorier().get(1).createProdukt("Jazz Classic");

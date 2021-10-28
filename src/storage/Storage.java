@@ -21,7 +21,7 @@ public class Storage {
         kategorier = new ArrayList<Kategori>();
     }
 
-    public List<Kunde> getKunder() {
+    public ArrayList<Kunde> getKunder() {
         return new ArrayList<Kunde>(kunder);
     }
 
@@ -31,7 +31,7 @@ public class Storage {
         }
     }
 
-    public List<Ordre> getOrdrer() {
+    public ArrayList<Ordre> getOrdrer() {
         return new ArrayList<Ordre>(ordrer);
     }
 
@@ -41,7 +41,7 @@ public class Storage {
         }
     }
 
-    public List<Prisliste> getPrislister() {
+    public ArrayList<Prisliste> getPrislister() {
         return new ArrayList<Prisliste>(prislister);
     }
 
@@ -51,7 +51,7 @@ public class Storage {
         }
     }
 
-    public List<Kategori> getKategorier() {
+    public ArrayList<Kategori> getKategorier() {
         return new ArrayList<Kategori>(kategorier);
     }
 
