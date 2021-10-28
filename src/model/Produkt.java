@@ -44,13 +44,18 @@ public class Produkt {
 		}
 	}
 
+	// 1..* Association til Kategori
+	public ArrayList<Kategori> getKategorier() {
+		return new ArrayList<>(kategorier);
+	}
+
 	public void addKategori(Kategori kategori) {
 		if (!kategorier.contains(kategori)) {
 			kategorier.add(kategori);
 		}
 	}
 
-	// 1..* Association til Kategori
+
 	public void removeKategori(Kategori kategori) {
 		if (kategorier.contains(kategori)) {
 			kategorier.remove(kategori);
