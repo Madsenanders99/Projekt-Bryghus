@@ -14,11 +14,6 @@
 /* --- Kategorier -------------------------------------------------------------------------------------------------- */
 
 .paneKat {
-
-    /*
--fx-pref-width: 700;
-    */
-
     -fx-font-size: 15pt;
 }
 
@@ -27,18 +22,42 @@
 }
 
 .btnKat {
+    -fx-pref-width: 200;
+    -fx-pref-height: 100;
+    -fx-min-width: 100;
 }
 
 /* --- Produkter --------------------------------------------------------------------------------------------------- */
 
 .paneProdukter {
-
 }
 
 .paneProdSelect {
-    -fx-pref-width: 200;
-    -fx-pref-height: 200;
 }
+
+.txtaProdSelect {
+    -fx-pref-width: 200;
+    -fx-pref-height: 100;
+    -fx-wrap-text: true;
+    -fx-font-size: 15pt;
+}
+
+.txtaProdSelect *.text {
+    -fx-text-alignment: center;
+
+}
+
+.txtaProdSelect .scroll-bar:vertical {
+    -fx-pref-width: 1;
+    -fx-opacity: 0;
+}
+
+.txtaProdSelect .scroll-bar:horizontal {
+    -fx-pref-height: 1;
+    -fx-opacity: 0;
+}
+
+
 
 /* --- Ordre ------------------------------------------------------------------------------------------------------- */
 

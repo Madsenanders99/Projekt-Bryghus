@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -45,7 +46,7 @@ public class MainApp extends Application
         this.stage = stage;
         this.stage.setTitle("Aarhus Bryghus");
         this.stage.setResizable(true);
-        this.stage.setMinWidth(1000);
+        this.stage.setMinWidth(500); // 1000
         this.stage.setMinHeight(400);
         this.stage.setWidth(1300);
         this.stage.setHeight(700);
@@ -191,10 +192,6 @@ public class MainApp extends Application
         for (int i = 0; i < kategorier.size(); i++) {
             Button btn = new Button(kategorier.get(i).getNavn());
             btn.setId(String.valueOf(i));
-            btn.setMinWidth(100);
-            btn.setPrefWidth(200);
-            btn.setPrefHeight(100);
-            //btn.setMaxWidth(btnMaxWidth);
             int btnsPrRow = 4;
             paneKat.add(btn, i % btnsPrRow, i / btnsPrRow);
             btn.getStyleClass().add("btnKat");
@@ -374,13 +371,13 @@ public class MainApp extends Application
             paneProdSelect.setVgap(10);
             paneProdSelect.getStyleClass().add("paneProdSelect");
 
-            TextField txtfProd = new TextField();
-            txtfProd.setText(produkter.get(i).getNavn());
-            txtfProd.setEditable(false);
-            txtfProd.getStyleClass().add("txtfProd");
-            txtfProd.setOnMouseClicked(event -> this.købProdukt(event));
+            TextArea txtaProd = new TextArea();
+            txtaProd.setText(produkter.get(i).getNavn());
+            txtaProd.setEditable(false);
+            txtaProd.getStyleClass().add("txtaProdSelect");
+            txtaProd.setOnMouseClicked(event -> this.købProdukt(event));
             int elmsPrRow = 4;
-            paneProdSelect.add(txtfProd, 0, 0);
+            paneProdSelect.add(txtaProd, 0, 0);
 
 
             paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
