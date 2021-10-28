@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import storage.Storage;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -59,7 +60,6 @@ public class Controller {
     /**
      *
      * @param ordre
-     * @param pris
      * @param antal
      * @return
      */
@@ -137,13 +137,15 @@ public class Controller {
         createOrdre(LocalDateTime.of(2021, 10, 25, 10, 0));
         createOrdre(LocalDateTime.of(2021, 10, 27, 10, 0));
 
-        storage.getOrdrer().get(0).createOrdrelinje(2, storage.getPrislister().get(0).getPriser().get(0));
-        storage.getOrdrer().get(0).createOrdrelinje(1, storage.getPrislister().get(0).getPriser().get(1));
+        storage.getOrdrer().get(0).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0), 2);
+        storage.getOrdrer().get(0).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0), 1);
 
         storage.getOrdrer().get(0).getOrdrelinjer().get(0).setRabat(12.5);
 
-        storage.getOrdrer().get(1).createOrdrelinje(4, storage.getPrislister().get(0).getPriser().get(0));
-        storage.getOrdrer().get(1).createOrdrelinje(1, storage.getPrislister().get(0).getPriser().get(1));
+        storage.getOrdrer().get(1).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0), 4);
+        storage.getOrdrer().get(1).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(1), 1);
+
+        storage.getOrdrer().get(1).setBetalt(LocalDate.of(2021, 10, 25 ));
 
         kunde1.addOrdre(storage.getOrdrer().get(0));
     }

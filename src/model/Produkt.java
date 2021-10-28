@@ -8,6 +8,7 @@ public class Produkt {
 	private int id;
 	private String navn;
 	private String beskrivelse;
+	private Pris pris;
 	private ArrayList<Produkt> produkter = new ArrayList<>();
 	private ArrayList<Kategori> kategorier = new ArrayList<>();
 
@@ -62,9 +63,15 @@ public class Produkt {
 			this.kategorier.remove(kategori);
 		}
 	}
-	public void setId(int id) {
-		this.id = id;
+	// 1..1 Association til Pris
+	public Pris getPris() {
+		return pris;
 	}
+	public void setPris(Pris pris) {
+		this.pris = pris;
+		pris.setProdukt(this);
+	}
+
 
 	public void setNavn(String navn) {
 		this.navn = navn;
