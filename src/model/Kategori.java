@@ -25,7 +25,7 @@ public class Kategori {
 		return new ArrayList<>(produkter);
 	}
 
-	public Produkt createProdukt (String navn) {
+	public Produkt createProdukt(String navn) {
 		Produkt produkt = new Produkt (navn);
 		produkter.add(produkt);
 		return produkt;
@@ -61,10 +61,8 @@ public class Kategori {
 		}
 	}
 
-	public void removeProdukt(Produkt produkt){
-		if (produkter.contains(produkt)) {
-			produkter.remove(produkt);
-		}
+	public void removeProdukt(Produkt produkt) {
+		produkter.remove(produkt);
 	}
 
 
