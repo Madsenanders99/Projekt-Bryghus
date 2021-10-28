@@ -7,13 +7,13 @@ public class Ordrelinje {
 	private int id;
 	private int antal;
 	private double rabat;
-	private Pris pris;
+	private Produkt produkt;
 
 	private static AtomicInteger idIncrement = new AtomicInteger();
 	
-	public Ordrelinje(int antal, Pris pris)
+	public Ordrelinje(Produkt produkt, int antal)
 	{
-		this.pris = pris;
+		this.produkt = produkt;
 		this.antal = antal;
 		id = idIncrement.incrementAndGet();
 	}
@@ -22,14 +22,10 @@ public class Ordrelinje {
 
 
 	public Pris getPris() {
-		return pris;
+		return this.produkt.getPris();
 	}
 
-	public void setPris(Pris pris) {
-		if (this.pris != pris) {
-			this.pris = pris;
-		}
-	}
+
 
 	public int getAntal() {
 		return antal;

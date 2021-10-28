@@ -2,16 +2,12 @@ package gui;
 
 import controller.Controller;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -124,11 +120,7 @@ public class MainApp extends Application
      */
     private void selectPrislisteAction(Prisliste prisliste)
     {
-       // Button btn = (Button) event.getSource();
-        //int id = Integer.parseInt(btn.getId());
-
         Ordre ordre = controller.createOrdre(LocalDateTime.now());
-
         this.initSceneSalg(prisliste);
         this.stage.setScene(this.sceneSalg);
     }
@@ -171,7 +163,7 @@ public class MainApp extends Application
         Label lblOrdre = new Label("Ordre");
         lblOrdre.getStyleClass().add("lblOrdre");
         paneSalg.add(lblOrdre, 1, 0);
-        paneSalg.add(this.createOrdre(), 1, 1);
+        paneSalg.add(this.createOrdrePane(), 1, 1);
     }
 
     /**
@@ -217,17 +209,14 @@ public class MainApp extends Application
      */
     private void selectKategoriAction(Kategori kat)
     {
-        //Button btn = (Button) event.getSource();
-        //int id = Integer.parseInt(btn.getId());
         this.paneSalg.getChildren().remove(this.paneKategorier);
-        //this.lblKategoriHeadline.setText(btn.getText());
         this.lblKategoriHeadline.setText(kat.getNavn());
-        this.paneProdukter = this.createProdukter(kat);
+        this.paneProdukter = this.createProdukterPane(kat);
         this.paneSalg.add(this.paneProdukter, 0,1);
 
     }
 
-    private GridPane createOrdre()
+    private GridPane createOrdrePane()
     {
         // --------------------------------------------------------
         // Temp ordrelinjer
@@ -325,10 +314,10 @@ public class MainApp extends Application
      *
      *
      */
-    private GridPane createProdukter(Kategori kat)
+    private GridPane createProdukterPane(Kategori kat)
     {
         // ------------------------------------
-        // Hent produkter for valgt kategori i controller
+        // Hent produkter for tilsendt kategori
         ArrayList<Produkt> produkter = kat.getProdukter();
         // ------------------------------------
       
@@ -356,19 +345,6 @@ public class MainApp extends Application
             int elmsPrRow = 4;
             paneProdSelect.add(btn, 0, 0);
             paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
-
-            //Button btn = new Button(produkter.get(i).getNavn());
-            //btn.setId(String.valueOf(i));
-            //btn.setMinWidth(100);
-            //btn.setPrefWidth(200);
-            //btn.setPrefHeight(100);
-            //btn.setMaxWidth(btnMaxWidth);
-            //int btnsPrRow = 4;
-            //paneProdukter.add(btn, i % btnsPrRow, i / btnsPrRow);
-            //btn.getStyleClass().add("btnKat");
-            // Event listeners9
-            //btn.setOnAction(this::selectPrislisteAction);
-            //btn.setOnAction(event -> this.selectKategoriAction(event));
         }
 
         return paneProdukter;
@@ -377,8 +353,7 @@ public class MainApp extends Application
 
     private void købProdukt(Produkt prod)
     {
-        //Button btn = (Button) event.getSource();
-        //int id = Integer.parseInt(btn.getId());
+        //this.controller.createOrdrelinje(this.ordre, 1);
 
         System.out.println("Tilføj");
     }

@@ -63,8 +63,8 @@ public class Controller {
      * @param antal
      * @return
      */
-    public Ordrelinje createOrdrelinje(Ordre ordre, Pris pris, int antal) {
-        return ordre.createOrdrelinje(antal, pris);
+    public Ordrelinje createOrdrelinje(Ordre ordre, Produkt produkt, int antal) {
+        return ordre.createOrdrelinje(produkt, antal);
     }
 
     public Prisliste createPrisliste(String navn) {

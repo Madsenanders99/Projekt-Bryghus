@@ -43,8 +43,8 @@ public class Ordre {
 		return new ArrayList<>(ordrelinjer);
 	}
 
-	public Ordrelinje createOrdrelinje (int antal, Pris pris) {
-		Ordrelinje Ordrelinje = new Ordrelinje(antal, pris);
+	public Ordrelinje createOrdrelinje (Produkt produkt, int antal) {
+		Ordrelinje Ordrelinje = new Ordrelinje(produkt, antal);
 		ordrelinjer.add(Ordrelinje);
 		return Ordrelinje;
 	}
