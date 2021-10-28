@@ -176,10 +176,7 @@ public class MainApp extends Application
     {
         // ---------------------------------------------
         // Hent Kategorier fra controller
-        ArrayList<Kategori> kategorier = new ArrayList<>();
-        for (int i = 0; i < controller.getAllKategorier().size(); i++) {
-            kategorier.add(controller.getAllKategorier().get(i));
-        }
+        ArrayList<Kategori> kategorier = controller.getAllKategorier();
         // ----------------------------------------------
 
         GridPane paneKat = new GridPane();

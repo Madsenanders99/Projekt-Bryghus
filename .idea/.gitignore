@@ -6,5 +6,5 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-# javafx
-libraries/lib.xml
+# Virker det?
+/libraries/lib.xml
