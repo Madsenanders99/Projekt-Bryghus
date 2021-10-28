@@ -52,13 +52,14 @@ public class Produkt {
 	public void addKategori(Kategori kategori) {
 		if (!kategorier.contains(kategori)) {
 			kategorier.add(kategori);
+			kategori.addProdukt(this);
 		}
 	}
 
-
 	public void removeKategori(Kategori kategori) {
-		if (kategorier.contains(kategori)) {
-			kategorier.remove(kategori);
+		if (this.kategorier.contains(kategori)) {
+			kategori.removeProdukt(this);
+			this.kategorier.remove(kategori);
 		}
 	}
 	public void setId(int id) {

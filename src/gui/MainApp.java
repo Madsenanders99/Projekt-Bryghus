@@ -183,7 +183,11 @@ public class MainApp extends Application
         // Opret array med kategorier der indeholder produkter fra sendt prisliste
         ArrayList<Kategori> aktiveKategorier = new ArrayList<>();
         for (Pris pris : prisliste.getPriser()) {
-
+            for (Kategori tmpKategori : pris.getProdukt().getKategorier()) {
+                if (!aktiveKategorier.contains(tmpKategori)) {
+                    aktiveKategorier.add(tmpKategori);
+                }
+            }
         }
         // -----------------------
 
