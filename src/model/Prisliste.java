@@ -22,6 +22,7 @@ public class Prisliste {
 	public Pris createPris (Produkt produkt, double prisen, int klip) {
 		Pris pris = new Pris(produkt, prisen, klip);
 		priser.add(pris);
+		produkt.setPris(pris);
 		return pris;
 	}
 	public void setNavn(String navn) {

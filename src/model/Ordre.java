@@ -82,7 +82,7 @@ public class Ordre {
 		for (int i = 0; i < getOrdrelinjer().size(); i++) {
 			double rabatPris;
 			double tempPris;
-			tempPris = getOrdrelinjer().get(i).getPris().getPris();
+			tempPris = getOrdrelinjer().get(i).getProdukt().getPris().getPris();
 			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
 			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
 		}
