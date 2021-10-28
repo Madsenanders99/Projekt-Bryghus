@@ -7,6 +7,7 @@ import javafx.event.Event;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +20,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import model.Kategori;
 import model.Prisliste;
+import model.Produkt;
 
 import java.util.ArrayList;
 
@@ -194,7 +196,9 @@ public class MainApp extends Application
             btn.getStyleClass().add("btnKat");
             // Event listeners
             //btn.setOnAction(this::selectPrislisteAction);
-            btn.setOnAction(event -> this.selectKategoriAction(event));
+            //btn.setOnAction(event -> this.selectKategoriAction(event));
+            int tmp = i;
+            btn.setOnAction(event -> this.selectKategoriAction(kategorier.get(tmp)));
         }
 
         return paneKat;
@@ -202,15 +206,16 @@ public class MainApp extends Application
 
     /**
      *
-     * @param event
+     *
      */
-    private void selectKategoriAction(ActionEvent event)
+    private void selectKategoriAction(Kategori kat)
     {
-        Button btn = (Button) event.getSource();
-        int id = Integer.parseInt(btn.getId());
+        //Button btn = (Button) event.getSource();
+        //int id = Integer.parseInt(btn.getId());
         this.paneSalg.getChildren().remove(this.paneKategorier);
-        this.lblKategoriHeadline.setText(btn.getText());
-        this.paneProdukter = this.createProdukter();
+        //this.lblKategoriHeadline.setText(btn.getText());
+        this.lblKategoriHeadline.setText(kat.getNavn());
+        this.paneProdukter = this.createProdukter(kat);
         this.paneSalg.add(this.paneProdukter, 0,1);
 
     }
@@ -308,51 +313,21 @@ public class MainApp extends Application
         return paneOrdre;
     }
 
-
-    private GridPane createProdukter()
+    /**
+     *
+     *
+     *
+     */
+    private GridPane createProdukter(Kategori kat)
     {
         // ------------------------------------
-        // tmpProdukter
-        ArrayList<tmpProdukt> produkter = new ArrayList<tmpProdukt>();
-        for (int i = 0; i < controller.getAllKategorier().size(); i++) {
-            for (int o = 0; o < controller.getAllKategorier().get(i).getProdukter().size(); o++) {
-                tmpProdukt p;
-                p = new tmpProdukt();
-                produkter.add(p);
-                p.setBeskrivelse(controller.getAllKategorier().get(i).getProdukter().get(o).getBeskrivelse());
-                p.setNavn(controller.getAllKategorier().get(i).getProdukter().get(o).getNavn());
-                for (int n = 0; n < controller.getAllPriser().size(); n++) {
-                    if (controller.getAllPriser().get(n).getProdukt().getNavn() == p.getNavn()) {
-                        p.setPris(controller.getAllPriser().get(n).getPris());
-                    }
-                }
-            }
-        }
-
-
-//        tmpProdukt p;
-//        p = new tmpProdukt();
-//        produkter.add(p);
-//        p.setNavn("Klosterbryg");
-//        p.setPris(57.50);
-//        p.setBeskrivelse("KLOSTERBRYG, 6,0 %\n" +
-                //"Klosterbryg er en fusion af en\n" +
-              //  "engelsk strong ale og en dansk\n" +
-            //    "luksusøl. Den er krydret med\n" +
-          //      "de klassiske humler Fuggles og\n" +
-        //        "Goldings. Nyd den som en allround\n" +
-      //          "øl eller til lyse retter. Drik\n" +
-    //            "den ved kældertemperatur,\n" +
-  //              "cirka 6 grader Celsius, evt. en\n" +
-//                "anelse varmere, for at aromaen\n" +
-//                "kan komme til sin ret.");
-
+        // Hent produkter for valgt kategori i controller
+        ArrayList<Produkt> produkter = kat.getProdukter();
         // ------------------------------------
-
-
+      
         GridPane paneProdukter = new GridPane();
         paneProdukter.setGridLinesVisible(true);
-        paneProdukter.setPadding(new Insets(20));
+        paneProdukter.setPadding(new Insets(0));
         paneProdukter.setHgap(10);
         paneProdukter.setVgap(10);
         paneProdukter.getStyleClass().add("paneProdukter");
@@ -360,20 +335,19 @@ public class MainApp extends Application
         for (int i = 0; i < produkter.size(); i++) {
             GridPane paneProdSelect = new GridPane();
             paneProdSelect.setGridLinesVisible(true);
-            paneProdSelect.setPadding(new Insets(20));
+            paneProdSelect.setPadding(new Insets(0));
             paneProdSelect.setHgap(10);
             paneProdSelect.setVgap(10);
             paneProdSelect.getStyleClass().add("paneProdSelect");
 
-            TextArea txtaProd = new TextArea();
-            txtaProd.setText(produkter.get(i).getNavn());
-            txtaProd.setEditable(false);
-            txtaProd.getStyleClass().add("txtaProdSelect");
-            txtaProd.setOnMouseClicked(event -> this.købProdukt(event));
+            Button btn = new Button();
+            btn.setText(produkter.get(i).getNavn());
+            btn.setId(String.valueOf(i));
+            btn.getStyleClass().add("btnProdukt");
+            int tmp = i;
+            btn.setOnAction(event -> this.købProdukt(produkter.get(tmp)));
             int elmsPrRow = 4;
-            paneProdSelect.add(txtaProd, 0, 0);
-
-
+            paneProdSelect.add(btn, 0, 0);
             paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
 
             //Button btn = new Button(produkter.get(i).getNavn());
@@ -385,7 +359,7 @@ public class MainApp extends Application
             //int btnsPrRow = 4;
             //paneProdukter.add(btn, i % btnsPrRow, i / btnsPrRow);
             //btn.getStyleClass().add("btnKat");
-            // Event listeners
+            // Event listeners9
             //btn.setOnAction(this::selectPrislisteAction);
             //btn.setOnAction(event -> this.selectKategoriAction(event));
         }
@@ -394,7 +368,7 @@ public class MainApp extends Application
 
     }
 
-    private void købProdukt(Event event)
+    private void købProdukt(Produkt prod)
     {
         //Button btn = (Button) event.getSource();
         //int id = Integer.parseInt(btn.getId());

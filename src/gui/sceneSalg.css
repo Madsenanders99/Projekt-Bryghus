@@ -25,6 +25,8 @@
     -fx-pref-width: 200;
     -fx-pref-height: 100;
     -fx-min-width: 100;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
 }
 
 /* --- Produkter --------------------------------------------------------------------------------------------------- */
@@ -33,29 +35,20 @@
 }
 
 .paneProdSelect {
+
+;
 }
 
-.txtaProdSelect {
+.btnProdukt {
     -fx-pref-width: 200;
     -fx-pref-height: 100;
     -fx-wrap-text: true;
     -fx-font-size: 15pt;
-}
-
-.txtaProdSelect *.text {
     -fx-text-alignment: center;
-
+    -fx-padding: 5 10;
 }
 
-.txtaProdSelect .scroll-bar:vertical {
-    -fx-pref-width: 1;
-    -fx-opacity: 0;
-}
 
-.txtaProdSelect .scroll-bar:horizontal {
-    -fx-pref-height: 1;
-    -fx-opacity: 0;
-}
 
 
 
