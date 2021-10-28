@@ -42,6 +42,14 @@ public class Ordrelinje {
 		return 1 - (rabat * 0.01);
 	}
 
+	public Produkt getProdukt() {
+		return produkt;
+	}
+
+	public void setProdukt(Produkt produkt) {
+		this.produkt = produkt;
+	}
+
 	public void setRabat(double rabat) {
 		this.rabat = rabat;
 	}
