@@ -121,6 +121,10 @@ public class Controller {
         storage.getKategorier().get(2).getProdukter().get(0).setBeskrivelse("Whisky er en stærk drik");
         storage.getKategorier().get(2).getProdukter().get(1).setBeskrivelse("Lille Whisky");
 
+        storage.getPrislister().get(0).createPris(storage.getKategorier().get(2).getProdukter().get(0),599, 0);
+        storage.getPrislister().get(1).createPris(storage.getKategorier().get(2).getProdukter().get(0),599, 0);
+        storage.getPrislister().get(0).createPris(storage.getKategorier().get(2).getProdukter().get(1),50, 0);
+
         storage.getPrislister().get(0).createPris(storage.getKategorier().get(0).getProdukter().get(0), 70, 2);
         storage.getPrislister().get(0).createPris(storage.getKategorier().get(0).getProdukter().get(1), 70, 2);
 
