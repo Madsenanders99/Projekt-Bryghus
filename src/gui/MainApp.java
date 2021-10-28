@@ -375,9 +375,10 @@ public class MainApp extends Application
             paneProdSelect.getStyleClass().add("paneProdSelect");
 
             TextField txtfProd = new TextField();
+            txtfProd.setText(produkter.get(i).getNavn());
             txtfProd.setEditable(false);
             txtfProd.getStyleClass().add("txtfProd");
-            txtfProd.setOnMouseClicked(event -> this.tilføjProdukt(event));
+            txtfProd.setOnMouseClicked(event -> this.købProdukt(event));
             int elmsPrRow = 4;
             paneProdSelect.add(txtfProd, 0, 0);
 
@@ -402,7 +403,7 @@ public class MainApp extends Application
 
     }
 
-    private void tilføjProdukt(Event event)
+    private void købProdukt(Event event)
     {
         //Button btn = (Button) event.getSource();
         //int id = Integer.parseInt(btn.getId());
