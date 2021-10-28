@@ -75,11 +75,12 @@ public class Controller {
 
         createKategori ("Flaske");
         createKategori ("Fadøl, 40 cl");
-        createKategori ("testtest");
+        createKategori ("Spiritus");
 
         createKunde("Karl", "Karlsvej 30");
 
-        Kunde kunde = new Kunde("Karl", "Karlsvej 30");
+        Kunde kunde1 = new Kunde("Karl", "Karlsvej 30");
+        Kunde kunde2 = new Kunde ("Barl", "Barlsvej 30");
 
         storage.getKategorier().get(0).createProdukt("KlosterBryg");
         storage.getKategorier().get(0).createProdukt("Sweet Georgia Brown");
@@ -90,10 +91,24 @@ public class Controller {
 
         storage.getKategorier().get(0).getProdukter().get(0).setBeskrivelse("Klosterbryg er en bryg");
         storage.getKategorier().get(0).getProdukter().get(1).setBeskrivelse("Sweet Georgia Brown er en brown");
+        storage.getKategorier().get(0).getProdukter().get(2).setBeskrivelse("Extra Pilsner er en pilsner med ekstra");
+        storage.getKategorier().get(0).getProdukter().get(3).setBeskrivelse("Celebration er et ord");
+        storage.getKategorier().get(0).getProdukter().get(4).setBeskrivelse("Blondie er blond");
+        storage.getKategorier().get(0).getProdukter().get(5).setBeskrivelse("Forårsbryg er en bryg");
 
         storage.getKategorier().get(1).createProdukt("Klosterbryg");
         storage.getKategorier().get(1).createProdukt("Jazz Classic");
         storage.getKategorier().get(1).createProdukt("Extra Pilsner");
+
+        storage.getKategorier().get(1).getProdukter().get(0).setBeskrivelse("Klosterbryg er en bryg");
+        storage.getKategorier().get(1).getProdukter().get(1).setBeskrivelse("Jazz Classic er en classic");
+        storage.getKategorier().get(1).getProdukter().get(2).setBeskrivelse("Extra Pilsner er en pilsner med ekstra");
+
+        storage.getKategorier().get(2).createProdukt("Whisky45% 50 cl rør");
+        storage.getKategorier().get(2).createProdukt("Whisky 4 cl.");
+
+        storage.getKategorier().get(2).getProdukter().get(0).setBeskrivelse("Whisky er en stærk drik");
+        storage.getKategorier().get(2).getProdukter().get(1).setBeskrivelse("Lille Whisky");
 
         storage.getPrislister().get(0).createPris(storage.getKategorier().get(0).getProdukter().get(0), 70, 2);
         storage.getPrislister().get(0).createPris(storage.getKategorier().get(0).getProdukter().get(1), 70, 2);
@@ -114,5 +129,7 @@ public class Controller {
 
         storage.getOrdrer().get(1).createOrdrelinje(4, storage.getPrislister().get(0).getPriser().get(0));
         storage.getOrdrer().get(1).createOrdrelinje(1, storage.getPrislister().get(0).getPriser().get(1));
+
+        kunde1.addOrdre(storage.getOrdrer().get(0));
     }
 }

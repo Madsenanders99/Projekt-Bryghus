@@ -9,6 +9,7 @@ public class Produkt {
 	private String navn;
 	private String beskrivelse;
 	private ArrayList<Produkt> produkter = new ArrayList<>();
+	private ArrayList<Kategori> kategorier = new ArrayList<>();
 
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
@@ -43,6 +44,18 @@ public class Produkt {
 		}
 	}
 
+	public void addKategori(Kategori kategori) {
+		if (!kategorier.contains(kategori)) {
+			kategorier.add(kategori);
+		}
+	}
+
+	// 1..* Association til Kategori
+	public void removeKategori(Kategori kategori) {
+		if (kategorier.contains(kategori)) {
+			kategorier.remove(kategori);
+		}
+	}
 	public void setId(int id) {
 		this.id = id;
 	}
