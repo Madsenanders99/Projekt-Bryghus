@@ -28,6 +28,7 @@ public class Kategori {
 	public Produkt createProdukt (String navn) {
 		Produkt produkt = new Produkt (navn);
 		produkter.add(produkt);
+		produkt.addKategori(this);
 		return produkt;
 	}
 
@@ -57,12 +58,14 @@ public class Kategori {
 
 	public void addProdukt (Produkt produkt) {
 		if (!produkter.contains(produkt)) {
+			produkt.addKategori(this);
 			produkter.add(produkt);
 		}
 	}
 
 	public void removeProdukt(Produkt produkt){
 		if (produkter.contains(produkt)) {
+			produkt.addKategori(this);
 			produkter.remove(produkt);
 		}
 	}
