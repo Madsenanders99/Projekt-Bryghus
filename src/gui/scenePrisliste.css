@@ -12,7 +12,9 @@
 /**
  */
 .btnPrisliste {
-    -fx-font-size: 40pt;
+    -fx-pref-width: 600;
+    -fx-pref-height: 100;
+    -fx-font-size: 30pt;
     -fx-cursor: hand;
  }
 

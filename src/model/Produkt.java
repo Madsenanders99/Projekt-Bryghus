@@ -15,7 +15,7 @@ public class Produkt {
 	public Produkt(String navn) {
 		this.navn = navn;
 		id = idIncrement.incrementAndGet();
-		System.out.println(id);
+		//System.out.println(id);
 	}
 
 	public String getNavn() {
