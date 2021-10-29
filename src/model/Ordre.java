@@ -13,7 +13,6 @@ public class Ordre {
 	private LocalDate betalt;
 	private Kunde kunde;
 	private final ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
-
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
 	public Ordre (LocalDateTime dato) {
@@ -43,10 +42,11 @@ public class Ordre {
 		return new ArrayList<>(ordrelinjer);
 	}
 
-	public Ordrelinje createOrdrelinje (Produkt produkt, int antal) {
-		Ordrelinje Ordrelinje = new Ordrelinje(produkt, antal);
-		ordrelinjer.add(Ordrelinje);
-		return Ordrelinje;
+	public Ordrelinje createOrdrelinje(Produkt produkt, int antal) {
+		Ordrelinje ol = new Ordrelinje(produkt, antal);
+		this.ordrelinjer.add(ol);
+		return ol;
+
 	}
 
 	public int getId() {

@@ -36,8 +36,8 @@ public class MainApp extends Application
     @Override
     public void init() {
         //Controller.init();
-        controller = Controller.getController();
-        controller.createObjects();
+        this.controller = Controller.getController();
+        this.controller.createObjects();
     }
 
     @Override
@@ -121,7 +121,7 @@ public class MainApp extends Application
      */
     private void selectPrislisteAction(Prisliste prisliste)
     {
-        Ordre ordre = controller.createOrdre(LocalDateTime.now());
+        this.ordre = this.controller.createOrdre(LocalDateTime.now());
         this.initSceneSalg(prisliste);
         this.stage.setScene(this.sceneSalg);
         this.stage.setFullScreen(true);
@@ -342,8 +342,8 @@ public class MainApp extends Application
             btn.setText(produkter.get(i).getNavn());
             btn.setId(String.valueOf(i));
             btn.getStyleClass().add("btnProdukt");
-            int tmp = i;
-            btn.setOnAction(event -> this.købProdukt(produkter.get(tmp)));
+            int tmpIndex = i;
+            btn.setOnAction(event -> this.koebProdukt(produkter.get(tmpIndex)));
             int elmsPrRow = 4;
             paneProdSelect.add(btn, 0, 0);
             paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
@@ -353,12 +353,10 @@ public class MainApp extends Application
 
     }
 
-    private void købProdukt(Produkt prod)
+    private void koebProdukt(Produkt produkt)
     {
-        //this.controller.createOrdrelinje(this.ordre, 1);
-
-        System.out.println("Tilføj");
+        System.out.println("Tilføj produkt");
+        this.controller.createOrdrelinje(this.ordre, produkt, 1);
     }
-
 
 }

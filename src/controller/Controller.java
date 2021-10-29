@@ -65,6 +65,7 @@ public class Controller {
      */
     public Ordrelinje createOrdrelinje(Ordre ordre, Produkt produkt, int antal) {
         return ordre.createOrdrelinje(produkt, antal);
+
     }
 
     public Prisliste createPrisliste(String navn) {

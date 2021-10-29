@@ -8,7 +8,6 @@ public class Ordrelinje {
 	private int antal;
 	private double rabat;
 	private Produkt produkt;
-
 	private static AtomicInteger idIncrement = new AtomicInteger();
 	
 	public Ordrelinje(Produkt produkt, int antal)
@@ -17,18 +16,10 @@ public class Ordrelinje {
 		this.antal = antal;
 		id = idIncrement.incrementAndGet();
 	}
+
 	// 0..1 Association til Produkt
-
-
-
 	public Pris getPris() {
 		return this.produkt.getPris();
-	}
-
-
-
-	public int getAntal() {
-		return antal;
 	}
 
 	public int getId() {
@@ -37,6 +28,10 @@ public class Ordrelinje {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getAntal() {
+		return antal;
 	}
 
 	public void setAntal(int antal) {
