@@ -30,9 +30,6 @@ class OrdreTest {
         prisliste.createPris(kategori1.getProdukter().get(0), 70, 2);
         prisliste.createPris(kategori2.getProdukter().get(0), 70, 2);
 
-
-
-
         Ordre ordre1 = new Ordre (LocalDateTime.of(2021, 10, 25, 10, 0));
         ordre1.createOrdrelinje(kategori1.getProdukter().get(0), 2);
         ordre1.createOrdrelinje(kategori2.getProdukter().get(0), 1);

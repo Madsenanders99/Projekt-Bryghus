@@ -51,6 +51,7 @@ public class MainApp extends Application
         this.stage.setWidth(1300);
         this.stage.setHeight(700);
 
+
         // Set-up scenePrisliste
         this.initScenePrisliste();
         this.stage.setScene(scenePrisliste);
@@ -123,6 +124,7 @@ public class MainApp extends Application
         Ordre ordre = controller.createOrdre(LocalDateTime.now());
         this.initSceneSalg(prisliste);
         this.stage.setScene(this.sceneSalg);
+        this.stage.setFullScreen(true);
     }
 
     /**
