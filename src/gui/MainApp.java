@@ -241,7 +241,7 @@ public class MainApp extends Application
         // Opret array med kategorier der indeholder produkter fra sendt prisliste
         ArrayList<Kategori> aktiveKategorier = new ArrayList<>();
         for (Pris pris : prisliste.getPriser()) {
-            for (Kategori tmpKategori : pris.getProdukt().getKategorier()) {
+            for (Kategori tmpKategori : pris.getKategorier()) {
                 if (!aktiveKategorier.contains(tmpKategori)) {
                     aktiveKategorier.add(tmpKategori);
                 }
@@ -381,7 +381,11 @@ public class MainApp extends Application
     {
         // ------------------------------------
         // Hent produkter for tilsendt kategori
-        ArrayList<Produkt> produkter = kat.getProdukter();
+        ArrayList<Produkt> produkter = new ArrayList<>();
+        for (int i = 0; i < kat.getPriser().size(); i++) {
+            produkter.add(kat.getPriser().get(i).getProdukt());
+        }
+
         // ------------------------------------
       
         GridPane paneProdukter = new GridPane();
