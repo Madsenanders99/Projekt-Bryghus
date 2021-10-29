@@ -6,9 +6,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -18,6 +16,7 @@ import model.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class MainApp extends Application
@@ -210,11 +209,21 @@ public class MainApp extends Application
             this.lblHeadlinePaneLeft.setText(panePrev.getId());
         }
         else {
-            // --- Go to start screen ---
-            // Remove current displayed pane from ArrayList.
-            this.panesSalgLeft.remove(this.panesSalgLeft.size() - 1);
-            // Reset
-            this.initSceneStart();
+            ButtonType btnOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+            ButtonType btnCancel = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
+            String txt = "Igangværende ordre slettes.";
+            Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk, btnCancel);
+            alert.setHeaderText("Afbryd ordre og gå til startskærm?");
+            alert.setTitle("Advarsel");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == btnOk) {
+                // --- Go to start screen ---
+                // Remove current displayed pane from ArrayList.
+                this.panesSalgLeft.remove(this.panesSalgLeft.size() - 1);
+                // Reset
+                this.initSceneStart();
+            }
         }
     }
 
@@ -406,7 +415,7 @@ public class MainApp extends Application
 
     private void koebProdukt(Produkt produkt)
     {
-        System.out.println("Tilføj produkt");
+        System.out.println("Køb produkt");
         //this.controller.createOrdrelinje(this.ordre, produkt, 1);
     }
 
