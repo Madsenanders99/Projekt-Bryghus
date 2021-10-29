@@ -2,10 +2,7 @@ package test_model;
 
 
 import controller.Controller;
-import model.Kategori;
-import model.Kunde;
-import model.Ordre;
-import model.Prisliste;
+import model.*;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -47,8 +44,11 @@ class OrdreTest {
     public void test03_createOrdrelinjer() {
         Ordre ordre1 = new Ordre (LocalDateTime.of(2021, 10, 29, 10, 0));
         Kategori kategori1 = new Kategori ("Øl");
-        kategori1.createProdukt("KlosterBryg");
-        ordre1.createOrdrelinje(kategori1.getProdukter().get(0).getPris(), 1);
+        Produkt produkt1 = new Produkt ("Klosterbryg");
+        Prisliste prisliste = new Prisliste ("Fredagsbar");
+        prisliste.createPris(produkt1, 70.0, 2);
+        prisliste.getPriser().get(0).addKategori(kategori1);
+        ordre1.createOrdrelinje(kategori1.getPriser().get(0), 1);
 
         assertNotNull(ordre1.getOrdrelinjer().get(0));
     }
@@ -78,20 +78,22 @@ class OrdreTest {
         Kategori kategori1 = new Kategori ("Øl");
         Kategori kategori2 = new Kategori ("Whiskey");
 
-        kategori1.createProdukt("KlosterBryg");
+        Produkt produkt1 = new Produkt ("Klosterbryg");
+        Produkt produkt2 = new Produkt ("Celebration");
 
-        kategori2.createProdukt("Celebration");
+        prisliste.createPris(produkt1, 70.0, 2);
+        prisliste.createPris(produkt2, 70.0, 2);
 
+        prisliste.getPriser().get(0).addKategori(kategori1);
+        prisliste.getPriser().get(1).addKategori(kategori2);
 
-        prisliste.createPris(kategori1.getProdukter().get(0), 70, 2);
-        prisliste.createPris(kategori2.getProdukter().get(0), 70, 2);
 
         Ordre ordre1 = new Ordre (LocalDateTime.of(2021, 10, 25, 10, 0));
-        ordre1.createOrdrelinje(kategori1.getProdukter().get(0).getPris(), 2);
-        ordre1.createOrdrelinje(kategori2.getProdukter().get(0).getPris(), 1);
+        ordre1.createOrdrelinje(kategori1.getPriser().get(0), 2);
+        ordre1.createOrdrelinje(kategori2.getPriser().get(0), 1);
         ordre1.getOrdrelinjer().get(0).setRabat(12.5);
 
-        ordre1.findTotalPris();
-        assertEquals(192.5, ordre1.getTotalPris(), 0);
+
+        assertEquals(192.5, ordre1.findTotalPris(), 0);
     }
 }

@@ -9,7 +9,6 @@ public class Ordre {
 
 	private int id;
 	private LocalDateTime dato;
-	private double totalPris;
 	private LocalDate betalt;
 	private Kunde kunde;
 	private final ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
@@ -57,10 +56,6 @@ public class Ordre {
 		return dato;
 	}
 
-	public double getTotalPris() {
-		return totalPris;
-	}
-
 	public LocalDate getBetalt() {
 		return betalt;
 	}
@@ -69,7 +64,7 @@ public class Ordre {
 		this.betalt = betalt;
 	}
 
-	public void findTotalPris() {
+	public double findTotalPris() {
 		double endeligPris = 0;
 		for (int i = 0; i < getOrdrelinjer().size(); i++) {
 			double rabatPris;
@@ -78,6 +73,6 @@ public class Ordre {
 			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
 			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
 		}
-		totalPris = endeligPris;
+		return endeligPris;
 	}
 }

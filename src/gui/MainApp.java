@@ -176,7 +176,7 @@ public class MainApp extends Application
         // Opret array med kategorier der indeholder produkter fra sendt prisliste
         ArrayList<Kategori> aktiveKategorier = new ArrayList<>();
         for (Pris pris : prisliste.getPriser()) {
-            for (Kategori tmpKategori : pris.getProdukt().getKategorier()) {
+            for (Kategori tmpKategori : pris.getKategorier()) {
                 if (!aktiveKategorier.contains(tmpKategori)) {
                     aktiveKategorier.add(tmpKategori);
                 }
@@ -319,7 +319,7 @@ public class MainApp extends Application
     {
         // ------------------------------------
         // Hent produkter for tilsendt kategori
-        ArrayList<Produkt> produkter = kat.getProdukter();
+        ArrayList<Pris> priser = kat.getPriser();
         // ------------------------------------
       
         GridPane paneProdukter = new GridPane();
@@ -329,7 +329,7 @@ public class MainApp extends Application
         paneProdukter.setVgap(10);
         paneProdukter.getStyleClass().add("paneProdukter");
 
-        for (int i = 0; i < produkter.size(); i++) {
+        for (int i = 0; i < priser.size(); i++) {
             GridPane paneProdSelect = new GridPane();
             paneProdSelect.setGridLinesVisible(true);
             paneProdSelect.setPadding(new Insets(0));
@@ -338,11 +338,11 @@ public class MainApp extends Application
             paneProdSelect.getStyleClass().add("paneProdSelect");
 
             Button btn = new Button();
-            btn.setText(produkter.get(i).getNavn());
+            btn.setText(priser.get(i).getProdukt().getNavn());
             btn.setId(String.valueOf(i));
             btn.getStyleClass().add("btnProdukt");
             int tmpIndex = i;
-            btn.setOnAction(event -> this.koebProdukt(produkter.get(tmpIndex)));
+            btn.setOnAction(event -> this.koebProdukt(priser.get(tmpIndex).getProdukt()));
             int elmsPrRow = 4;
             paneProdSelect.add(btn, 0, 0);
             paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
@@ -354,8 +354,7 @@ public class MainApp extends Application
 
     private void koebProdukt(Produkt produkt)
     {
-        System.out.println("Tilføj produkt");
-        this.controller.createOrdrelinje(this.ordre, produkt.getPris(), 1);
+
     }
 
 }

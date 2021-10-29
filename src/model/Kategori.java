@@ -8,8 +8,7 @@ public class Kategori {
 	private int id;
 	private String navn;
 	private String beskrivelse;
-	private ArrayList<Produkt> produkter = new ArrayList<>();
-
+	private final ArrayList<Pris> priser = new ArrayList<>();
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
 	public Kategori(String navn) {
@@ -17,20 +16,29 @@ public class Kategori {
 		id = idIncrement.incrementAndGet();
 
 	}
-	public String getNavn() {
-		return navn;
-	}
-	// 0..* association til produkt
-	public ArrayList<Produkt> getProdukter() {
-		return new ArrayList<>(produkter);
+	// 0..* association til Pris
+	public ArrayList<Pris> getPriser () {
+		return new ArrayList<>(priser);
 	}
 
-	public Produkt createProdukt (String navn) {
-		Produkt produkt = new Produkt (navn);
-		produkter.add(produkt);
-		produkt.addKategori(this);
-		return produkt;
+	public void addPris (Pris pris) {
+		if (!priser.contains(pris)) {
+			priser.add(pris);
+			pris.addKategori(this);
+		}
 	}
+
+	public void removePris (Pris pris) {
+		if (priser.contains(pris)) {
+			priser.remove(pris);
+			pris.removeKategori(this);
+		}
+	}
+
+		public String getNavn() {
+		return navn;
+	}
+
 
 	public int getId() {
 		return id;
@@ -51,24 +59,5 @@ public class Kategori {
 	public void setBeskrivelse(String beskrivelse) {
 		this.beskrivelse = beskrivelse;
 	}
-
-	public void setProdukter(ArrayList<Produkt> produkter) {
-		this.produkter = produkter;
-	}
-
-	public void addProdukt (Produkt produkt) {
-		if (!produkter.contains(produkt)) {
-			produkt.addKategori(this);
-			produkter.add(produkt);
-		}
-	}
-
-	public void removeProdukt(Produkt produkt){
-		if (produkter.contains(produkt)) {
-			produkt.addKategori(this);
-			produkter.remove(produkt);
-		}
-	}
-
 
 }
