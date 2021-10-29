@@ -68,6 +68,7 @@ public class MainApp extends Application
     {
         // Reset
         this.ordre = null;
+        this.panesSalgLeft.clear();
 
         // Set-up scenePrisliste
         this.initScenePrisliste();
@@ -208,7 +209,7 @@ public class MainApp extends Application
             this.paneSalg.add(panePrev, 0, 1);
             this.lblHeadlinePaneLeft.setText(panePrev.getId());
         }
-        else {
+        else if (this.ordre != null) {
             ButtonType btnOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
             ButtonType btnCancel = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
             String txt = "Igangværende ordre slettes.";
@@ -219,11 +220,12 @@ public class MainApp extends Application
 
             if (result.isPresent() && result.get() == btnOk) {
                 // --- Go to start screen ---
-                // Remove current displayed pane from ArrayList.
-                this.panesSalgLeft.remove(this.panesSalgLeft.size() - 1);
-                // Reset
                 this.initSceneStart();
             }
+        }
+        else {
+            // --- Go to start screen ---
+            this.initSceneStart();
         }
     }
 
