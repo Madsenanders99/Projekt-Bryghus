@@ -26,11 +26,10 @@ public class MainApp extends Application
     private Scene scenePrisliste;
     private Scene sceneSalg;
     private GridPane paneSalg;
-    private GridPane paneKategorier;
-    private GridPane paneProdukter;
-    private Label lblKategoriHeadline;
+    private ArrayList<GridPane> panesSalgLeft = new ArrayList<>();
+    private Label lblHeadlinePaneLeft;
     private Controller controller;
-    private Ordre ordre;
+    private Object ordre;
 
 
     @Override
@@ -42,20 +41,19 @@ public class MainApp extends Application
 
     @Override
     public void start(Stage stage) {
+
         // Set-up stage
         this.stage = stage;
         this.stage.setTitle("Aarhus Bryghus");
         this.stage.setResizable(true);
-        this.stage.setMinWidth(500); // 1000
+        this.stage.setMinWidth(1000); // 1000
         this.stage.setMinHeight(400);
         this.stage.setWidth(1300);
         this.stage.setHeight(700);
+        //this.stage.setFullScreen(true);
 
+        this.initSceneStart();
 
-        // Set-up scenePrisliste
-        this.initScenePrisliste();
-        this.stage.setScene(scenePrisliste);
-        this.stage.show();
 
         // -------------------------
         //this.initSceneSalg();
@@ -65,6 +63,20 @@ public class MainApp extends Application
         //this.deltagereWindow = new DeltagereWindow("", this.stage);
         //this.udflugterWindow = new UdflugterWindow("", this.stage);
         //this.hotellerWindow = new HotellerWindow("", this.stage);
+    }
+
+    private void initSceneStart()
+    {
+        // Reset
+        this.ordre = null;
+
+        // Set-up scenePrisliste
+        this.initScenePrisliste();
+        this.stage.setScene(this.scenePrisliste);
+        this.stage.show();
+
+        // Tving opdatering af GridPane i GUI.
+        this.stage.getScene().getWindow().setWidth(this.stage.getScene().getWindow().getWidth() + 0.001);
     }
 
     /**
@@ -92,21 +104,18 @@ public class MainApp extends Application
         panePrislisteBtns.setGridLinesVisible(false);
         panePrislisteBtns.setPadding(new Insets(30, 30, 30, 30));
         panePrislisteBtns.setHgap(10);
-        panePrislisteBtns.setVgap(30);
+        panePrislisteBtns.setVgap(40);
         //panePrislisteBtns.setPrefHeight(500);
         //GridPane.setHalignment(panePrislisteBtns, HPos.CENTER);
         pane.setAlignment(Pos.CENTER);
+
 
         // Buttons
         int btnMinWidth = 200;
         for (int i = 0; i < prislister.size(); i++) {
             Button btn = new Button(prislister.get(i).getNavn());
             btn.setId(String.valueOf(i));
-            btn.setMinWidth(btnMinWidth);
-            btn.setPrefWidth(600);
-            btn.setPrefHeight(100);
-            //btn.setMaxWidth(btnMaxWidth);
-            panePrislisteBtns.add(btn, 0, i + 0);
+            panePrislisteBtns.add(btn, 0, i);
             btn.getStyleClass().add("btnPrisliste");
             // Event listeners
             //btn.setOnAction(this::selectPrislisteAction);
@@ -124,6 +133,8 @@ public class MainApp extends Application
         this.ordre = this.controller.createOrdre(LocalDateTime.now());
         this.initSceneSalg(prisliste);
         this.stage.setScene(this.sceneSalg);
+        // Tving opdatering af GridPane i GUI.
+        this.stage.getScene().getWindow().setWidth(this.stage.getScene().getWindow().getWidth() + 0.001);
     }
 
     /**
@@ -134,43 +145,86 @@ public class MainApp extends Application
         this.paneSalg = new GridPane();
         this.sceneSalg = new Scene(paneSalg);
         this.sceneSalg.getStylesheets().add("gui/sceneSalg.css");
-        paneSalg.setGridLinesVisible(true);
-        paneSalg.setPadding(new Insets(20));
-        paneSalg.setHgap(10);
-        paneSalg.setVgap(10);
-        paneSalg.getStyleClass().add("paneSalg");
+        this.paneSalg.setGridLinesVisible(true);
+        this.paneSalg.setPadding(new Insets(20));
+        this.paneSalg.setHgap(10);
+        this.paneSalg.setVgap(10);
+        this.paneSalg.getStyleClass().add("paneSalg");
         // pane.add(element, at col, at ro, extending columns, extending rows)
 
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setPercentWidth(60);
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setPercentWidth(40);
-        paneSalg.getColumnConstraints().addAll(col1, col2);
+        this.paneSalg.getColumnConstraints().addAll(col1, col2);
 
         RowConstraints row1 = new RowConstraints();
         RowConstraints row2 = new RowConstraints();
         row2.setVgrow(Priority.ALWAYS);
-        paneSalg.getRowConstraints().addAll(row1, row2);
+        this.paneSalg.getRowConstraints().addAll(row1, row2);
 
-        // --- Kategorier ---
-        this.lblKategoriHeadline = new Label("Vælg kategori");
-        GridPane.setHalignment(this.lblKategoriHeadline, HPos.CENTER);
-        lblKategoriHeadline.getStyleClass().add("lblKategoriHeadline");
-        paneSalg.add(lblKategoriHeadline, 0, 0);
-        this.paneKategorier = this.createKategorier(prisliste);
-        paneSalg.add(this.paneKategorier, 0, 1);
 
-        // --- Ordre ---
+        // --- PaneLeft ---
+        this.lblHeadlinePaneLeft = new Label();
+        GridPane.setHalignment(this.lblHeadlinePaneLeft, HPos.CENTER);
+        Button btn = new Button("<<<");
+        btn.getStyleClass().add("btnBack");
+        this.paneSalg.add(btn, 0, 0);
+        btn.setOnAction(event -> this.prevPaneSalgLeft());
+
+        lblHeadlinePaneLeft.getStyleClass().add("lblHeadlinePaneLeft");
+        this.paneSalg.add(lblHeadlinePaneLeft, 0, 0);
+
+        // -- Kategorier --
+        this.setPaneSalgLeft(this.createKategorierPane(prisliste));
+
+
+        // --- PaneRight: Ordre ---
         Label lblOrdre = new Label("Ordre");
         lblOrdre.getStyleClass().add("lblOrdre");
-        paneSalg.add(lblOrdre, 1, 0);
-        paneSalg.add(this.createOrdrePane(), 1, 1);
+        this.paneSalg.add(lblOrdre, 1, 0);
+        this.paneSalg.add(this.createOrdrePane(), 1, 1);
     }
+
+    private void setPaneSalgLeft(GridPane pane)
+    {
+        if (this.panesSalgLeft.size() != 0) {
+            this.paneSalg.getChildren().remove(this.panesSalgLeft.get(this.panesSalgLeft.size() - 1));
+        }
+        this.panesSalgLeft.add(pane);
+        this.paneSalg.add(pane, 0, 1);
+        this.lblHeadlinePaneLeft.setText(pane.getId());
+
+    }
+
+    private void prevPaneSalgLeft()
+    {
+        if (this.panesSalgLeft.size() > 1) {
+            // Remove current displayed pane from window.
+            this.paneSalg.getChildren().remove(this.panesSalgLeft.get(this.panesSalgLeft.size() - 1));
+            // Remove current displayed pane from ArrayList.
+            this.panesSalgLeft.remove(this.panesSalgLeft.size() - 1);
+            // Add previous displayed pane to window.
+            GridPane panePrev = this.panesSalgLeft.get(this.panesSalgLeft.size() - 1);
+            this.paneSalg.add(panePrev, 0, 1);
+            this.lblHeadlinePaneLeft.setText(panePrev.getId());
+        }
+        else {
+            // --- Go to start screen ---
+            // Remove current displayed pane from ArrayList.
+            this.panesSalgLeft.remove(this.panesSalgLeft.size() - 1);
+            // Reset
+            this.initSceneStart();
+        }
+    }
+
+
+
 
     /**
      *
      */
-    private GridPane createKategorier(Prisliste prisliste)
+    private GridPane createKategorierPane(Prisliste prisliste)
     {
         // -------------------------
         // Opret array med kategorier der indeholder produkter fra sendt prisliste
@@ -185,6 +239,7 @@ public class MainApp extends Application
         // -----------------------
 
         GridPane paneKat = new GridPane();
+        paneKat.setId("Vælg kategori");
         paneKat.setGridLinesVisible(true);
         paneKat.setPadding(new Insets(20));
         paneKat.setHgap(10);
@@ -210,11 +265,7 @@ public class MainApp extends Application
      */
     private void selectKategoriAction(Kategori kat)
     {
-        this.paneSalg.getChildren().remove(this.paneKategorier);
-        this.lblKategoriHeadline.setText(kat.getNavn());
-        this.paneProdukter = this.createProdukterPane(kat);
-        this.paneSalg.add(this.paneProdukter, 0,1);
-
+        this.setPaneSalgLeft(this.createProdukterPane(kat));
     }
 
     private GridPane createOrdrePane()
@@ -323,8 +374,9 @@ public class MainApp extends Application
         // ------------------------------------
       
         GridPane paneProdukter = new GridPane();
+        paneProdukter.setId("Vælg produkt");
         paneProdukter.setGridLinesVisible(true);
-        paneProdukter.setPadding(new Insets(0));
+        paneProdukter.setPadding(new Insets(20));
         paneProdukter.setHgap(10);
         paneProdukter.setVgap(10);
         paneProdukter.getStyleClass().add("paneProdukter");
@@ -355,7 +407,7 @@ public class MainApp extends Application
     private void koebProdukt(Produkt produkt)
     {
         System.out.println("Tilføj produkt");
-        this.controller.createOrdrelinje(this.ordre, produkt.getPris(), 1);
+        //this.controller.createOrdrelinje(this.ordre, produkt, 1);
     }
 
 }

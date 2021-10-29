@@ -11,18 +11,28 @@
 
 }
 
+.lblHeadlinePaneLeft {
+    -fx-font-size: 20pt;
+}
+
+.btnBack {
+    /*
+    -fx-pref-width: 75;
+     */
+    -fx-font-size: 12pt;
+
+}
+
 /* --- Kategorier -------------------------------------------------------------------------------------------------- */
 
 .paneKat {
     -fx-font-size: 15pt;
 }
 
-.lblKategoriHeadline {
-    -fx-font-size: 20pt;
-}
+
 
 .btnKat {
-    -fx-pref-width: 200;
+    -fx-pref-width: 150;
     -fx-pref-height: 100;
     -fx-min-width: 100;
     -fx-wrap-text: true;
@@ -40,7 +50,7 @@
 }
 
 .btnProdukt {
-    -fx-pref-width: 200;
+    -fx-pref-width: 150;
     -fx-pref-height: 100;
     -fx-wrap-text: true;
     -fx-font-size: 15pt;
