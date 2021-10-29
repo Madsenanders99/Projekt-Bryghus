@@ -124,7 +124,6 @@ public class MainApp extends Application
         this.ordre = this.controller.createOrdre(LocalDateTime.now());
         this.initSceneSalg(prisliste);
         this.stage.setScene(this.sceneSalg);
-        this.stage.setFullScreen(true);
     }
 
     /**
@@ -356,7 +355,7 @@ public class MainApp extends Application
     private void koebProdukt(Produkt produkt)
     {
         System.out.println("Tilføj produkt");
-        this.controller.createOrdrelinje(this.ordre, produkt, 1);
+        this.controller.createOrdrelinje(this.ordre, produkt.getPris(), 1);
     }
 
 }

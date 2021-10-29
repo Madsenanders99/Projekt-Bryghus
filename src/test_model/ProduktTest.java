@@ -14,7 +14,7 @@ class ProduktTest {
 
     @Test
     @Order(1)
-    void createProdukt() {
+    void test01_ProduktConstructor() {
 
         // Test increment id
         Produkt p1 = new Produkt("navn1");
@@ -33,7 +33,7 @@ class ProduktTest {
 
     @Test
     @Order(2)
-    void addProdukt() {
+    void test02_addProdukt() {
         Produkt p1 = new Produkt("navn1");
         Produkt p2 = new Produkt("navn2");
 
@@ -45,7 +45,7 @@ class ProduktTest {
 
     @Test
     @Order(3)
-    void removeProdukt() {
+    void test03_removeProdukt() {
         Produkt p1 = new Produkt("navn1");
         Produkt p2 = new Produkt("navn2");
 

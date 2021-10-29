@@ -42,8 +42,8 @@ public class Ordre {
 		return new ArrayList<>(ordrelinjer);
 	}
 
-	public Ordrelinje createOrdrelinje(Produkt produkt, int antal) {
-		Ordrelinje ol = new Ordrelinje(produkt, antal);
+	public Ordrelinje createOrdrelinje(Pris pris, int antal) {
+		Ordrelinje ol = new Ordrelinje(pris, antal);
 		this.ordrelinjer.add(ol);
 		return ol;
 
@@ -53,16 +53,8 @@ public class Ordre {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public LocalDateTime getDato() {
 		return dato;
-	}
-
-	public void setDato(LocalDateTime dato) {
-		this.dato = dato;
 	}
 
 	public double getTotalPris() {
@@ -82,7 +74,7 @@ public class Ordre {
 		for (int i = 0; i < getOrdrelinjer().size(); i++) {
 			double rabatPris;
 			double tempPris;
-			tempPris = getOrdrelinjer().get(i).getProdukt().getPris().getPris();
+			tempPris = getOrdrelinjer().get(i).getPris().getPris();
 			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
 			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
 		}

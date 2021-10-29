@@ -63,8 +63,8 @@ public class Controller {
      * @param antal
      * @return
      */
-    public Ordrelinje createOrdrelinje(Ordre ordre, Produkt produkt, int antal) {
-        return ordre.createOrdrelinje(produkt, antal);
+    public Ordrelinje createOrdrelinje(Ordre ordre, Pris pris, int antal) {
+        return ordre.createOrdrelinje(pris, antal);
 
     }
 
@@ -138,13 +138,13 @@ public class Controller {
         createOrdre(LocalDateTime.of(2021, 10, 25, 10, 0));
         createOrdre(LocalDateTime.of(2021, 10, 27, 10, 0));
 
-        storage.getOrdrer().get(0).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0), 2);
-        storage.getOrdrer().get(0).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0), 1);
+        storage.getOrdrer().get(0).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0).getPris(), 2);
+        storage.getOrdrer().get(0).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0).getPris(), 1);
 
         storage.getOrdrer().get(0).getOrdrelinjer().get(0).setRabat(12.5);
 
-        storage.getOrdrer().get(1).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0), 4);
-        storage.getOrdrer().get(1).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(1), 1);
+        storage.getOrdrer().get(1).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(0).getPris(), 4);
+        storage.getOrdrer().get(1).createOrdrelinje(storage.getKategorier().get(0).getProdukter().get(1).getPris(), 1);
 
         storage.getOrdrer().get(1).setBetalt(LocalDate.of(2021, 10, 25 ));
 
