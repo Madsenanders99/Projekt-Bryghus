@@ -116,6 +116,7 @@ public class MainApp extends Application
         Button btnOpt = new Button("Options");
         //btnOpt.setId(String.valueOf(i));
         pane.add(btnOpt, 0, 0);
+        GridPane.setHalignment(btnOpt, HPos.RIGHT);
         btnOpt.getStyleClass().add("btnOptions");
         btnOpt.setOnAction(event -> this.optionsAction());
         
@@ -128,7 +129,7 @@ public class MainApp extends Application
         panePrislisteBtns.setPadding(new Insets(30, 30, 30, 30));
         panePrislisteBtns.setHgap(10);
         panePrislisteBtns.setVgap(40);
-        pane.setAlignment(Pos.CENTER);
+        panePrislisteBtns.setAlignment(Pos.CENTER);
 
 
         // Buttons
