@@ -97,7 +97,7 @@ public class MainApp extends Application
         GridPane pane = new GridPane();
         this.scenePrisliste = new Scene(pane);
         this.scenePrisliste.getStylesheets().add("gui/scenePrisliste.css");
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
@@ -113,7 +113,7 @@ public class MainApp extends Application
         pane.getRowConstraints().addAll(row1, row2);
         
         // --- Options button ---
-        Button btnOpt = new Button("Options");
+        Button btnOpt = new Button();
         //btnOpt.setId(String.valueOf(i));
         pane.add(btnOpt, 0, 0);
         GridPane.setHalignment(btnOpt, HPos.RIGHT);
@@ -125,11 +125,12 @@ public class MainApp extends Application
         // pane.add(element, at col, at ro, extending columns, extending rows)
         GridPane panePrislisteBtns = new GridPane();
         pane.add(panePrislisteBtns, 0, 1);
-        panePrislisteBtns.setGridLinesVisible(true);
+        panePrislisteBtns.setGridLinesVisible(false);
         panePrislisteBtns.setPadding(new Insets(30, 30, 30, 30));
         panePrislisteBtns.setHgap(10);
         panePrislisteBtns.setVgap(40);
         panePrislisteBtns.setAlignment(Pos.CENTER);
+        panePrislisteBtns.getStyleClass().add("panePrislisteBtns");
 
 
         // Buttons
@@ -148,7 +149,6 @@ public class MainApp extends Application
 
     private void optionsAction()
     {
-        System.out.println("Options");
         this.windowOptions.showAndWait();
     }
 
@@ -435,15 +435,22 @@ public class MainApp extends Application
 
             TextField txtfStkPris = new TextField(String.valueOf(ol.getPris().getPris()));
             paneOrdre.add(txtfStkPris, ++col, row);
+            txtfStkPris.setEditable(false);
             txtfStkPris.getStyleClass().add("txtfStkPris");
 
-            TextField txtfRabat = new TextField(String.valueOf(ol.getRegnbarRabat()) + "%");
+            TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()) + "%");
             paneOrdre.add(txtfRabat, ++col, row);
             txtfRabat.getStyleClass().add("txtfRabat");
 
-            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
-            paneOrdre.add(txtfSamletPris, ++col, row);
-            txtfSamletPris.getStyleClass().add("txtfSamletPris");
+            Label lblSamletPris = new Label(String.valueOf(ol.getSamletPris()));
+            paneOrdre.add(lblSamletPris, ++col, row);
+            GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
+            lblSamletPris.getStyleClass().add("lblSamletPris");
+
+//            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
+//            paneOrdre.add(txtfSamletPris, ++col, row);
+//            txtfSamletPris.setEditable(false);
+//            txtfSamletPris.getStyleClass().add("txtfSamletPris");
         }
 
         return paneOrdre;
