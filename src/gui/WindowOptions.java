@@ -90,7 +90,6 @@ public class WindowOptions extends Stage {
        btnDone.setOnAction(event -> this.doneAction());
 
     }
-
 	private void doneAction() {
 		WindowOptions.this.hide();
 	}
