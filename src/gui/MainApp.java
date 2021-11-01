@@ -21,14 +21,15 @@ import java.util.Optional;
 
 public class MainApp extends Application
 {
+    private Controller controller;
     private Stage stage;
     private Scene scenePrisliste;
     private Scene sceneSalg;
     private GridPane paneSalg;
-    private ArrayList<GridPane> panesSalgLeft = new ArrayList<>();
     private Label lblHeadlinePaneLeft;
-    private Controller controller;
-    private Object ordre;
+    private ArrayList<GridPane> panesSalgLeft = new ArrayList<>();
+    private GridPane paneOrdre;
+    private Ordre ordre;
 
 
     @Override
@@ -78,6 +79,8 @@ public class MainApp extends Application
         // Tving opdatering af GridPane i GUI.
         this.stage.getScene().getWindow().setWidth(this.stage.getScene().getWindow().getWidth() + 0.001);
     }
+
+    // --- Scene: Prisliste --------------------------------------------------------------------------------------------
 
     /**
      *
@@ -135,7 +138,11 @@ public class MainApp extends Application
         this.stage.setScene(this.sceneSalg);
         // Tving opdatering af GridPane i GUI.
         this.stage.getScene().getWindow().setWidth(this.stage.getScene().getWindow().getWidth() + 0.001);
+
+
     }
+
+    // --- Scene: Salg--------------------------------------------------------------------------------------------------
 
     /**
      *
@@ -167,23 +174,34 @@ public class MainApp extends Application
         // --- PaneLeft ---
         this.lblHeadlinePaneLeft = new Label();
         GridPane.setHalignment(this.lblHeadlinePaneLeft, HPos.CENTER);
+        // Back button
         Button btn = new Button("<<<");
         btn.getStyleClass().add("btnBack");
         this.paneSalg.add(btn, 0, 0);
         btn.setOnAction(event -> this.prevPaneSalgLeft());
-
         lblHeadlinePaneLeft.getStyleClass().add("lblHeadlinePaneLeft");
         this.paneSalg.add(lblHeadlinePaneLeft, 0, 0);
-
-        // -- Kategorier --
+        // Kategorier
         this.setPaneSalgLeft(this.createKategorierPane(prisliste));
 
 
-        // --- PaneRight: Ordre ---
+        // --- PaneRight ---
+        // Ordre
         Label lblOrdre = new Label("Ordre");
         lblOrdre.getStyleClass().add("lblOrdre");
         this.paneSalg.add(lblOrdre, 1, 0);
-        this.paneSalg.add(this.createOrdrePane(), 1, 1);
+        this.updateOrdrePane();
+    }
+
+    private void updateOrdrePane()
+    {
+        if (this.paneOrdre != null) {
+            // Remove currently displayed ordre pane
+            this.paneSalg.getChildren().remove(this.paneOrdre);
+        }
+        // Create new ordre pane and add to paneSalg.
+        this.paneOrdre = this.createOrdrePane();
+        this.paneSalg.add(this.paneOrdre, 1, 1);
     }
 
     private void setPaneSalgLeft(GridPane pane)
@@ -229,8 +247,7 @@ public class MainApp extends Application
         }
     }
 
-
-
+    // --- Kategorier --------------------------------------------------------------------------------------------------
 
     /**
      *
@@ -274,37 +291,99 @@ public class MainApp extends Application
      *
      *
      */
-    private void selectKategoriAction(Kategori kat, Prisliste prisliste)
+    private void selectKategoriAction(Kategori kat, Prisliste pl)
     {
-        this.setPaneSalgLeft(this.createProdukterPane(kat, prisliste));
+        this.setPaneSalgLeft(this.createProdukterPane(kat, pl));
     }
+
+
+
+    // --- Produkt -----------------------------------------------------------------------------------------------------
+
+    /**
+     *
+     *
+     *
+     */
+    private GridPane createProdukterPane(Kategori kat, Prisliste pl)
+    {
+        ArrayList<Pris> aktuellePriser = new ArrayList<>();
+        for (Pris katPris : kat.getPriser()) {
+            for (Pris pris : pl.getPriser()) {
+                if (katPris == pris) {
+                    aktuellePriser.add(pris);
+                }
+            }
+        }
+
+
+        GridPane paneProdukter = new GridPane();
+        paneProdukter.setId("Vælg produkt");
+        paneProdukter.setGridLinesVisible(true);
+        paneProdukter.setPadding(new Insets(20));
+        paneProdukter.setHgap(10);
+        paneProdukter.setVgap(10);
+        paneProdukter.getStyleClass().add("paneProdukter");
+
+        for (int i = 0; i < aktuellePriser.size(); i++) {
+            GridPane paneProdSelect = new GridPane();
+            paneProdSelect.setGridLinesVisible(true);
+            paneProdSelect.setPadding(new Insets(0));
+            paneProdSelect.setHgap(10);
+            paneProdSelect.setVgap(10);
+            paneProdSelect.getStyleClass().add("paneProdSelect");
+
+            Pris pris = aktuellePriser.get(i);
+            Button btn = new Button();
+            btn.setText(pris.getProdukt().getNavn());
+            btn.setId(String.valueOf(pris.getProdukt().getId()));
+            btn.getStyleClass().add("btnProdukt");
+            btn.setOnAction(event -> this.koebProdukt(pris));
+            int elmsPrRow = 4;
+            paneProdSelect.add(btn, 0, 0);
+            paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
+        }
+
+        return paneProdukter;
+    }
+
+
+    private void koebProdukt(Pris pris)
+    {
+        System.out.println("Køb produkttttt");
+        this.ordre.createOrdrelinje(pris, 1);
+        this.updateOrdrePane();
+    }
+
+
+    // --- Ordre -------------------------------------------------------------------------------------------------------
 
     private GridPane createOrdrePane()
     {
         // --------------------------------------------------------
         // Temp ordrelinjer
-        ArrayList<tmpOrdrelinje> ordrelinjer = new ArrayList<>();
+//        ArrayList<tmpOrdrelinje> ordrelinjer = new ArrayList<>();
+//
+//        tmpOrdrelinje ol1 = new tmpOrdrelinje();
+//        ordrelinjer.add(ol1);
+//        ol1.setNavn("IPA");
+//        ol1.setAntal(1);
+//        ol1.setStkPris(68.50);
+//        ol1.setRabat(0);
 
-        tmpOrdrelinje ol1 = new tmpOrdrelinje();
-        ordrelinjer.add(ol1);
-        ol1.setNavn("IPA");
-        ol1.setAntal(1);
-        ol1.setStkPris(68.50);
-        ol1.setRabat(0);
-
-        tmpOrdrelinje ol2 = new tmpOrdrelinje();
-        ordrelinjer.add(ol2);
-        ol2.setNavn("Hvedeøl");
-        ol2.setAntal(1);
-        ol2.setStkPris(55.99);
-        ol2.setRabat(10);
-
-        tmpOrdrelinje ol3 = new tmpOrdrelinje();
-        ordrelinjer.add(ol3);
-        ol3.setNavn("Sort Silke");
-        ol3.setAntal(3);
-        ol3.setStkPris(49.25);
-        ol3.setRabat(20);
+//        tmpOrdrelinje ol2 = new tmpOrdrelinje();
+//        ordrelinjer.add(ol2);
+//        ol2.setNavn("Hvedeøl");
+//        ol2.setAntal(1);
+//        ol2.setStkPris(55.99);
+//        ol2.setRabat(10);
+//
+//        tmpOrdrelinje ol3 = new tmpOrdrelinje();
+//        ordrelinjer.add(ol3);
+//        ol3.setNavn("Sort Silke");
+//        ol3.setAntal(3);
+//        ol3.setStkPris(49.25);
+//        ol3.setRabat(20);
         // ------------------------------------------------------
 
         GridPane paneOrdre = new GridPane();
@@ -344,11 +423,11 @@ public class MainApp extends Application
         lblLegendSamletPris.getStyleClass().add("lblLegendSamletPris");
 
         // Ordrelinjer
-        for (tmpOrdrelinje ol : ordrelinjer) {
+        for (Ordrelinje ol : this.ordre.getOrdrelinjer()) {
             col = -1;
             row++;
 
-            Label lblProduktnavn = new Label(ol.getNavn());
+            Label lblProduktnavn = new Label(ol.getPris().getProdukt().getNavn());
             paneOrdre.add(lblProduktnavn, ++col, row);
             lblProduktnavn.getStyleClass().add("lblProduktnavn");
 
@@ -356,7 +435,7 @@ public class MainApp extends Application
             paneOrdre.add(txtfAntal, ++col, row);
             txtfAntal.getStyleClass().add("txtfAntal");
 
-            TextField txtfStkPris = new TextField(String.valueOf(ol.getStkPris()));
+            TextField txtfStkPris = new TextField(String.valueOf(ol.getPris().getPris()));
             paneOrdre.add(txtfStkPris, ++col, row);
             txtfStkPris.getStyleClass().add("txtfStkPris");
 
@@ -372,61 +451,7 @@ public class MainApp extends Application
         return paneOrdre;
     }
 
-    /**
-     *
-     *
-     *
-     */
-    private GridPane createProdukterPane(Kategori kat, Prisliste prisliste)
-    {
-        // ------------------------------------
-        // Hent produkter for tilsendt kategori
-        ArrayList<Produkt> produkter = new ArrayList<>();
-        for (int i = 0; i < kat.getPriser().size(); i++) {
-            for (int n = 0; n < prisliste.getPriser().size(); n++) {
-                if (prisliste.getPriser().get(n) == kat.getPriser().get(i)) {
-                    produkter.add(kat.getPriser().get(i).getProdukt());
-                }
-            }
-        }
 
-        // ------------------------------------
-      
-        GridPane paneProdukter = new GridPane();
-        paneProdukter.setId("Vælg produkt");
-        paneProdukter.setGridLinesVisible(true);
-        paneProdukter.setPadding(new Insets(20));
-        paneProdukter.setHgap(10);
-        paneProdukter.setVgap(10);
-        paneProdukter.getStyleClass().add("paneProdukter");
 
-        for (int i = 0; i < produkter.size(); i++) {
-            GridPane paneProdSelect = new GridPane();
-            paneProdSelect.setGridLinesVisible(true);
-            paneProdSelect.setPadding(new Insets(0));
-            paneProdSelect.setHgap(10);
-            paneProdSelect.setVgap(10);
-            paneProdSelect.getStyleClass().add("paneProdSelect");
-
-            Button btn = new Button();
-            btn.setText(produkter.get(i).getNavn());
-            btn.setId(String.valueOf(i));
-            btn.getStyleClass().add("btnProdukt");
-            int tmpIndex = i;
-            btn.setOnAction(event -> this.koebProdukt(produkter.get(tmpIndex)));
-            int elmsPrRow = 4;
-            paneProdSelect.add(btn, 0, 0);
-            paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
-        }
-
-        return paneProdukter;
-
-    }
-
-    private void koebProdukt(Produkt produkt)
-    {
-        System.out.println("Køb produkt");
-        //this.controller.createOrdrelinje(this.ordre, produkt, 1);
-    }
 
 }
