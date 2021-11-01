@@ -118,9 +118,9 @@ public class WindowOptions extends Stage {
         for (int i = 0; i < controller.getAllKategorier().size(); i++) {
             kategorier.getItems().add(i, controller.getAllKategorier().get(i));
             System.out.print(kategorier.getValue());
+            kategorier.getItems().get(i).addPris(controller.getAllPrislister().get(2).getPriser().get(0));
         }
 
-   //     kategorier.getSelectedItem().addPris(controller.getAllPrislister().get(2).getPriser().get(0));
 
 
     }
