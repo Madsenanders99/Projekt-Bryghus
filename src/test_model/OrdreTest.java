@@ -54,7 +54,7 @@ class OrdreTest {
         assertNotNull(ordre1.getOrdrelinjer().get(0));
         assertEquals(1, ordre1.getOrdrelinjer().get(0).getAntal());
         assertEquals(kategori1.getPriser().get(0), ordre1.getOrdrelinjer().get(0).getPris());
-        assertEquals(20.0, ordre1.getOrdrelinjer().get(0).getRabat(), 0);
+        assertEquals(20.0, ordre1.getOrdrelinjer().get(0).getRegnbarRabat(), 0);
     }
 
     @Test

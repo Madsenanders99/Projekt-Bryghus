@@ -439,7 +439,7 @@ public class MainApp extends Application
             paneOrdre.add(txtfStkPris, ++col, row);
             txtfStkPris.getStyleClass().add("txtfStkPris");
 
-            TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()) + "%");
+            TextField txtfRabat = new TextField(String.valueOf(ol.getRegnbarRabat()) + "%");
             paneOrdre.add(txtfRabat, ++col, row);
             txtfRabat.getStyleClass().add("txtfRabat");
 
