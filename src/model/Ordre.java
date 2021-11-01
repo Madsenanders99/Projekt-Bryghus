@@ -70,7 +70,7 @@ public class Ordre {
 			double rabatPris;
 			double tempPris;
 			tempPris = getOrdrelinjer().get(i).getPris().getPris();
-			rabatPris = tempPris * getOrdrelinjer().get(i).getRabat();
+			rabatPris = tempPris * getOrdrelinjer().get(i).getRegnbarRabat();
 			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
 		}
 		return endeligPris;

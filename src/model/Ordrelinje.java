@@ -22,7 +22,7 @@ public class Ordrelinje {
 	}
 
 	public double getSamletPris() {
-		return getPris().getPris() * antal * getRabat();
+		return getPris().getPris() * antal * getRegnbarRabat();
 	}
 
 	public void setPris(Pris pris) {
@@ -45,8 +45,12 @@ public class Ordrelinje {
 		this.antal = antal;
 	}
 
-	public double getRabat() {
+	public double getRegnbarRabat() {
 		return 1 - (rabat * 0.01);
+	}
+
+	public double getRabat () {
+		return rabat;
 	}
 
 	public void setRabat(double rabat) {
