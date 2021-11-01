@@ -436,14 +436,16 @@ public class MainApp extends Application
 
             TextField txtfStkPris = new TextField(String.valueOf(ol.getPris().getPris()));
             paneOrdre.add(txtfStkPris, ++col, row);
+            txtfStkPris.setEditable(false);
             txtfStkPris.getStyleClass().add("txtfStkPris");
 
-            TextField txtfRabat = new TextField(String.valueOf(ol.getRegnbarRabat()) + "%");
+            TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()) + "%");
             paneOrdre.add(txtfRabat, ++col, row);
             txtfRabat.getStyleClass().add("txtfRabat");
 
             TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
             paneOrdre.add(txtfSamletPris, ++col, row);
+            txtfSamletPris.setEditable(false);
             txtfSamletPris.getStyleClass().add("txtfSamletPris");
         }
 
