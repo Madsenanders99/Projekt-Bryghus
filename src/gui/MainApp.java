@@ -30,6 +30,7 @@ public class MainApp extends Application
     private ArrayList<GridPane> panesSalgLeft = new ArrayList<>();
     private GridPane paneOrdre;
     private Ordre ordre;
+    private WindowOptions windowOptions;
 
 
     @Override
@@ -53,6 +54,7 @@ public class MainApp extends Application
         //this.stage.setFullScreen(true);
 
         this.initSceneStart();
+        this.windowOptions = new WindowOptions("", this.stage);
 
 
         // -------------------------
@@ -100,31 +102,53 @@ public class MainApp extends Application
         pane.setHgap(10);
         pane.setVgap(10);
 
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setPercentWidth(100);
+        pane.getColumnConstraints().addAll(col1);
+
+        RowConstraints row1 = new RowConstraints();
+        RowConstraints row2 = new RowConstraints();
+        row1.setVgrow(Priority.NEVER);
+        row2.setVgrow(Priority.ALWAYS);
+        pane.getRowConstraints().addAll(row1, row2);
+        
+        // --- Options button ---
+        Button btnOpt = new Button("Options");
+        //btnOpt.setId(String.valueOf(i));
+        pane.add(btnOpt, 0, 0);
+        btnOpt.getStyleClass().add("btnOptions");
+        btnOpt.setOnAction(event -> this.optionsAction());
+        
+
+        // --- Prisliste buttons ---
         // pane.add(element, at col, at ro, extending columns, extending rows)
-        // Prisliste buttons gridpane
         GridPane panePrislisteBtns = new GridPane();
-        pane.add(panePrislisteBtns, 0, 0);
-        panePrislisteBtns.setGridLinesVisible(false);
+        pane.add(panePrislisteBtns, 0, 1);
+        panePrislisteBtns.setGridLinesVisible(true);
         panePrislisteBtns.setPadding(new Insets(30, 30, 30, 30));
         panePrislisteBtns.setHgap(10);
         panePrislisteBtns.setVgap(40);
-        //panePrislisteBtns.setPrefHeight(500);
-        //GridPane.setHalignment(panePrislisteBtns, HPos.CENTER);
         pane.setAlignment(Pos.CENTER);
 
 
         // Buttons
         int btnMinWidth = 200;
         for (int i = 0; i < prislister.size(); i++) {
-            Button btn = new Button(prislister.get(i).getNavn());
-            btn.setId(String.valueOf(i));
-            panePrislisteBtns.add(btn, 0, i);
-            btn.getStyleClass().add("btnPrisliste");
+            Button btnPl = new Button(prislister.get(i).getNavn());
+            btnPl.setId(String.valueOf(i));
+            panePrislisteBtns.add(btnPl, 0, i);
+            btnPl.getStyleClass().add("btnPrisliste");
             // Event listeners
-            //btn.setOnAction(this::selectPrislisteAction);
+            //btnPl.setOnAction(this::selectPrislisteAction);
             int tmp = i;
-            btn.setOnAction(event -> this.selectPrislisteAction(prislister.get(tmp)));
+            btnPl.setOnAction(event -> this.selectPrislisteAction(prislister.get(tmp)));
         }
+    }
+
+    private void optionsAction()
+    {
+        System.out.println("Options");
+        this.windowOptions.showAndWait();
     }
 
     /**
@@ -350,7 +374,6 @@ public class MainApp extends Application
 
     private void koebProdukt(Pris pris)
     {
-        System.out.println("Køb produkttttt");
         this.ordre.createOrdrelinje(pris, 1);
         this.updateOrdrePane();
     }
@@ -360,32 +383,6 @@ public class MainApp extends Application
 
     private GridPane createOrdrePane()
     {
-        // --------------------------------------------------------
-        // Temp ordrelinjer
-//        ArrayList<tmpOrdrelinje> ordrelinjer = new ArrayList<>();
-//
-//        tmpOrdrelinje ol1 = new tmpOrdrelinje();
-//        ordrelinjer.add(ol1);
-//        ol1.setNavn("IPA");
-//        ol1.setAntal(1);
-//        ol1.setStkPris(68.50);
-//        ol1.setRabat(0);
-
-//        tmpOrdrelinje ol2 = new tmpOrdrelinje();
-//        ordrelinjer.add(ol2);
-//        ol2.setNavn("Hvedeøl");
-//        ol2.setAntal(1);
-//        ol2.setStkPris(55.99);
-//        ol2.setRabat(10);
-//
-//        tmpOrdrelinje ol3 = new tmpOrdrelinje();
-//        ordrelinjer.add(ol3);
-//        ol3.setNavn("Sort Silke");
-//        ol3.setAntal(3);
-//        ol3.setStkPris(49.25);
-//        ol3.setRabat(20);
-        // ------------------------------------------------------
-
         GridPane paneOrdre = new GridPane();
         paneOrdre.setGridLinesVisible(true);
         paneOrdre.setPadding(new Insets(20));
