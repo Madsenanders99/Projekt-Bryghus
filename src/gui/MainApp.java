@@ -385,7 +385,7 @@ public class MainApp extends Application
     private GridPane createOrdrePane()
     {
         GridPane paneOrdre = new GridPane();
-        paneOrdre.setGridLinesVisible(true);
+        paneOrdre.setGridLinesVisible(false);
         paneOrdre.setPadding(new Insets(20));
         paneOrdre.setHgap(10);
         paneOrdre.setVgap(10);
@@ -419,6 +419,9 @@ public class MainApp extends Application
         paneOrdre.add(lblLegendSamletPris, ++col, row);
         GridPane.setHalignment(lblLegendSamletPris, HPos.RIGHT);
         lblLegendSamletPris.getStyleClass().add("lblLegendSamletPris");
+
+        ScrollPane sp = new ScrollPane();
+
 
         // Ordrelinjer
         for (Ordrelinje ol : this.ordre.getOrdrelinjer()) {
