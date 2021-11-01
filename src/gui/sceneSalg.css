@@ -70,59 +70,81 @@
     /*
 -fx-pref-width: 600;
      */
+
 }
 
+.scrollPaneOrdrelinjer {
+    -fx-border-width: 0;
+    -fx-background-color: rgba(255, 255, 255, 0.0); /* Acts as border. */
 
+}
+
+.paneOrdrelinjer {
+    /*
+    -fx-background-color: rgb(255, 255, 255);
+     */
+}
 
 .lblOrdre {
     -fx-font-size: 20pt;
 }
 
-/* --- Ordrelinje Legend --- */
+/* --- Ordrelinjer --- */
+
+
 .lblLegendProduktnavn, .lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
     -fx-font-size: 10pt;
     -fx-font-weight: bold;
+    -fx-padding: 0 0 0 0;
+    -fx-alignment: baseline-center;
 }
 
-.lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
-    -fx-alignment: baseline-right;
-    -fx-padding: 0 10 0 0;
-}
-
-.lblLegendSamletPris {
+.lblLegendProduktnavn {
+    -fx-alignment: baseline-left;
     -fx-padding: 0;
 }
 
 
-.lblLegendProduktnavn {
+.lblLegendProduktnavn, .lblProduktnavn {
     -fx-pref-width: 400;
     -fx-min-width: 60;
 }
 
-.lblLegendAntal {
+.lblLegendAntal, .txtfAntal {
     -fx-min-width: 55;
 }
 
-.lblLegendStkPris {
+.lblLegendStkPris, .txtfStkPris {
     -fx-min-width: 65;
 }
 
-.lblLegendRabat {
+.lblLegendRabat, .txtfRabat {
     -fx-min-width: 65;
 }
 
+/*
+Bemærk:
+Skal være min width af lblSamletPris plus scrollbar width.
+ */
 .lblLegendSamletPris {
+    -fx-min-width: 79;
+    -fx-padding: 0 25 0 0;
+}
+
+.lblSamletPris {
     -fx-min-width: 65;
+    -fx-padding: 0 10 0 0;
 }
 
 
 /* --- Ordrelinjer ---*/
 
 .lblProduktnavn, .txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris, .lblSamletPris {
+    -fx-alignment: baseline-right;
     -fx-font-size: 12pt;
 }
 
-.txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris, .lblSamletPris  {
-    -fx-alignment: baseline-right;
+.lblProduktnavn  {
+    -fx-alignment: baseline-left;
 }
 
