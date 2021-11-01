@@ -84,32 +84,45 @@
     -fx-font-weight: bold;
 }
 
+.lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
+    -fx-alignment: baseline-right;
+    -fx-padding: 0 10 0 0;
+}
+
+.lblLegendSamletPris {
+    -fx-padding: 0;
+}
+
+
+.lblLegendProduktnavn {
+    -fx-pref-width: 400;
+    -fx-min-width: 60;
+}
+
+.lblLegendAntal {
+    -fx-min-width: 45;
+}
+
+.lblLegendStkPris {
+    -fx-min-width: 65;
+}
+
+.lblLegendRabat {
+    -fx-min-width: 65;
+}
+
+.lblLegendSamletPris {
+    -fx-min-width: 65;
+}
+
+
 /* --- Ordrelinjer ---*/
 
-.lblProduktnavn, .txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris {
+.lblProduktnavn, .txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris, .lblSamletPris {
     -fx-font-size: 12pt;
 }
 
-.lblProduktnavn {
-    -fx-pref-width: 300;
-}
-
-.txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris  {
+.txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris, .lblSamletPris  {
     -fx-alignment: baseline-right;
 }
 
-.txtfAntal {
-    -fx-min-width: 40;
-}
-
-.txtfStkPris {
-    -fx-min-width: 65;
-}
-
-.txtfRabat {
-    -fx-min-width: 65;
-}
-
-.txtfSamletPris {
-    -fx-min-width: 70;
-}

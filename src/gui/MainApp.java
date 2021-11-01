@@ -149,7 +149,6 @@ public class MainApp extends Application
 
     private void optionsAction()
     {
-        System.out.println("Options");
         this.windowOptions.showAndWait();
     }
 
@@ -443,10 +442,15 @@ public class MainApp extends Application
             paneOrdre.add(txtfRabat, ++col, row);
             txtfRabat.getStyleClass().add("txtfRabat");
 
-            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
-            paneOrdre.add(txtfSamletPris, ++col, row);
-            txtfSamletPris.setEditable(false);
-            txtfSamletPris.getStyleClass().add("txtfSamletPris");
+            Label lblSamletPris = new Label(String.valueOf(ol.getSamletPris()));
+            paneOrdre.add(lblSamletPris, ++col, row);
+            GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
+            lblSamletPris.getStyleClass().add("lblSamletPris");
+
+//            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
+//            paneOrdre.add(txtfSamletPris, ++col, row);
+//            txtfSamletPris.setEditable(false);
+//            txtfSamletPris.getStyleClass().add("txtfSamletPris");
         }
 
         return paneOrdre;
