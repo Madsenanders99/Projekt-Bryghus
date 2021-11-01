@@ -264,7 +264,7 @@ public class MainApp extends Application
             paneKat.add(btn, i % btnsPrRow, i / btnsPrRow);
             btn.getStyleClass().add("btnKat");
             int tmp = i;
-            btn.setOnAction(event -> this.selectKategoriAction(aktiveKategorier.get(tmp)));
+            btn.setOnAction(event -> this.selectKategoriAction(aktiveKategorier.get(tmp), prisliste));
         }
 
         return paneKat;
@@ -274,9 +274,9 @@ public class MainApp extends Application
      *
      *
      */
-    private void selectKategoriAction(Kategori kat)
+    private void selectKategoriAction(Kategori kat, Prisliste prisliste)
     {
-        this.setPaneSalgLeft(this.createProdukterPane(kat));
+        this.setPaneSalgLeft(this.createProdukterPane(kat, prisliste));
     }
 
     private GridPane createOrdrePane()
@@ -377,13 +377,17 @@ public class MainApp extends Application
      *
      *
      */
-    private GridPane createProdukterPane(Kategori kat)
+    private GridPane createProdukterPane(Kategori kat, Prisliste prisliste)
     {
         // ------------------------------------
         // Hent produkter for tilsendt kategori
         ArrayList<Produkt> produkter = new ArrayList<>();
         for (int i = 0; i < kat.getPriser().size(); i++) {
-            produkter.add(kat.getPriser().get(i).getProdukt());
+            for (int n = 0; n < prisliste.getPriser().size(); n++) {
+                if (prisliste.getPriser().get(n) == kat.getPriser().get(i)) {
+                    produkter.add(kat.getPriser().get(i).getProdukt());
+                }
+            }
         }
 
         // ------------------------------------
