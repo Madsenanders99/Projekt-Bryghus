@@ -185,9 +185,9 @@ public class MainApp extends Application
         // pane.add(element, at col, at ro, extending columns, extending rows)
 
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(60);
+        col1.setPercentWidth(55);
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(40);
+        col2.setPercentWidth(45);
         this.paneSalg.getColumnConstraints().addAll(col1, col2);
 
         RowConstraints row1 = new RowConstraints();
@@ -252,7 +252,7 @@ public class MainApp extends Application
             this.paneSalg.add(panePrev, 0, 1);
             this.lblHeadlinePaneLeft.setText(panePrev.getId());
         }
-        else if (this.ordre != null) {
+        else if (this.ordre != null && this.ordre.getOrdrelinjer().size() > 0) {
             ButtonType btnOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
             ButtonType btnCancel = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
             String txt = "Igangværende ordre slettes.";
@@ -420,40 +420,59 @@ public class MainApp extends Application
         GridPane.setHalignment(lblLegendSamletPris, HPos.RIGHT);
         lblLegendSamletPris.getStyleClass().add("lblLegendSamletPris");
 
-        ScrollPane sp = new ScrollPane();
 
+        // --- Print ordrelinjer ---
+        if (this.ordre.getOrdrelinjer().size() > 0) {
+            ScrollPane sp = new ScrollPane();
+            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            sp.setFitToWidth(true);
 
-        // Ordrelinjer
-        for (Ordrelinje ol : this.ordre.getOrdrelinjer()) {
-            col = -1;
-            row++;
+            sp.getStyleClass().add("scrollPaneOrdrelinjer");
+            paneOrdre.add(sp, 0, 1, 5, 1);
 
-            Label lblProduktnavn = new Label(ol.getPris().getProdukt().getNavn());
-            paneOrdre.add(lblProduktnavn, ++col, row);
-            lblProduktnavn.getStyleClass().add("lblProduktnavn");
+            GridPane paneOrdrelinjer = new GridPane();
+            paneOrdrelinjer.setGridLinesVisible(false);
+            paneOrdrelinjer.setPadding(new Insets(0));
+            paneOrdrelinjer.setHgap(10);
+            paneOrdrelinjer.setVgap(10);
+            paneOrdrelinjer.getStyleClass().add("paneOrdrelinjer");
+            sp.setContent(paneOrdrelinjer);
 
-            TextField txtfAntal = new TextField(String.valueOf(ol.getAntal()));
-            paneOrdre.add(txtfAntal, ++col, row);
-            txtfAntal.getStyleClass().add("txtfAntal");
+            row = -1;
 
-            TextField txtfStkPris = new TextField(String.valueOf(ol.getPris().getPris()));
-            paneOrdre.add(txtfStkPris, ++col, row);
-            txtfStkPris.setEditable(false);
-            txtfStkPris.getStyleClass().add("txtfStkPris");
+            // Ordrelinjer
+            for (Ordrelinje ol : this.ordre.getOrdrelinjer()) {
+                col = -1;
+                row++;
 
-            TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()) + "%");
-            paneOrdre.add(txtfRabat, ++col, row);
-            txtfRabat.getStyleClass().add("txtfRabat");
+                Label lblProduktnavn = new Label(ol.getPris().getProdukt().getNavn());
+                paneOrdrelinjer.add(lblProduktnavn, ++col, row);
+                lblProduktnavn.getStyleClass().add("lblProduktnavn");
 
-            Label lblSamletPris = new Label(String.valueOf(ol.getSamletPris()));
-            paneOrdre.add(lblSamletPris, ++col, row);
-            GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
-            lblSamletPris.getStyleClass().add("lblSamletPris");
+                TextField txtfAntal = new TextField(String.valueOf(ol.getAntal()));
+                paneOrdrelinjer.add(txtfAntal, ++col, row);
+                txtfAntal.getStyleClass().add("txtfAntal");
 
-//            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
-//            paneOrdre.add(txtfSamletPris, ++col, row);
-//            txtfSamletPris.setEditable(false);
-//            txtfSamletPris.getStyleClass().add("txtfSamletPris");
+                TextField txtfStkPris = new TextField(String.valueOf(ol.getPris().getPris()));
+                paneOrdrelinjer.add(txtfStkPris, ++col, row);
+                txtfStkPris.setEditable(false);
+                txtfStkPris.getStyleClass().add("txtfStkPris");
+
+                TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()) + "%");
+                paneOrdrelinjer.add(txtfRabat, ++col, row);
+                txtfRabat.getStyleClass().add("txtfRabat");
+
+                Label lblSamletPris = new Label(String.valueOf(ol.getSamletPris()));
+                paneOrdrelinjer.add(lblSamletPris, ++col, row);
+                GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
+                lblSamletPris.getStyleClass().add("lblSamletPris");
+
+                //            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
+                //            paneOrdrelinjer.add(txtfSamletPris, ++col, row);
+                //            txtfSamletPris.setEditable(false);
+                //            txtfSamletPris.getStyleClass().add("txtfSamletPris");
+            }
         }
 
         return paneOrdre;
