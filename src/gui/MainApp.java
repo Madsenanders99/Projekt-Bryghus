@@ -97,7 +97,7 @@ public class MainApp extends Application
         GridPane pane = new GridPane();
         this.scenePrisliste = new Scene(pane);
         this.scenePrisliste.getStylesheets().add("gui/scenePrisliste.css");
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
         pane.setPadding(new Insets(20));
         pane.setHgap(10);
         pane.setVgap(10);
@@ -113,7 +113,7 @@ public class MainApp extends Application
         pane.getRowConstraints().addAll(row1, row2);
         
         // --- Options button ---
-        Button btnOpt = new Button("Options");
+        Button btnOpt = new Button();
         //btnOpt.setId(String.valueOf(i));
         pane.add(btnOpt, 0, 0);
         GridPane.setHalignment(btnOpt, HPos.RIGHT);
@@ -125,11 +125,12 @@ public class MainApp extends Application
         // pane.add(element, at col, at ro, extending columns, extending rows)
         GridPane panePrislisteBtns = new GridPane();
         pane.add(panePrislisteBtns, 0, 1);
-        panePrislisteBtns.setGridLinesVisible(true);
+        panePrislisteBtns.setGridLinesVisible(false);
         panePrislisteBtns.setPadding(new Insets(30, 30, 30, 30));
         panePrislisteBtns.setHgap(10);
         panePrislisteBtns.setVgap(40);
         panePrislisteBtns.setAlignment(Pos.CENTER);
+        panePrislisteBtns.getStyleClass().add("panePrislisteBtns");
 
 
         // Buttons
