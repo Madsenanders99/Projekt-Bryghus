@@ -21,6 +21,10 @@ public class Ordrelinje {
 		return pris;
 	}
 
+	public double getSamletPris() {
+		return getPris().getPris() * antal * getRabat();
+	}
+
 	public void setPris(Pris pris) {
 		this.pris = pris;
 	}

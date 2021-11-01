@@ -49,8 +49,12 @@ class OrdreTest {
         prisliste.createPris(produkt1, 70.0, 2);
         prisliste.getPriser().get(0).addKategori(kategori1);
         ordre1.createOrdrelinje(kategori1.getPriser().get(0), 1);
+        ordre1.getOrdrelinjer().get(0).setRabat(20.0);
 
         assertNotNull(ordre1.getOrdrelinjer().get(0));
+        assertEquals(1, ordre1.getOrdrelinjer().get(0).getAntal());
+        assertEquals(kategori1.getPriser().get(0), ordre1.getOrdrelinjer().get(0).getPris());
+        assertEquals(20.0, ordre1.getOrdrelinjer().get(0).getRabat(), 0);
     }
 
     @Test
