@@ -476,14 +476,14 @@ public class MainApp extends Application
                 paneOrdrelinjer.add(lblStkPris, col++, row);
                 lblStkPris.getStyleClass().add("lblStkPris");
 
-                TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()));
+                TextField txtfRabat = new TextField(String.valueOf(Math.round(ol.getRabat() * 100) / 100.0));
                 paneOrdrelinjer.add(txtfRabat, col++, row);
                 txtfRabat.setEditable(false);
                 txtfRabat.getStyleClass().add("txtfRabat");
                 txtfRabat.setOnAction(event -> this.redigerRabatAction(ol)); // On enter key
                 txtfRabat.setOnMouseClicked(event -> this.redigerRabatAction(ol));
 
-                Label lblSamletPris = new Label(String.valueOf(ol.getSamletPris()));
+                Label lblSamletPris = new Label(String.valueOf(Math.round(ol.getSamletPris() * 100) / 100.0));
                 paneOrdrelinjer.add(lblSamletPris, col++, row);
                 GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
                 lblSamletPris.getStyleClass().add("lblSamletPris");
