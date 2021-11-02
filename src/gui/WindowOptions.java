@@ -2,10 +2,7 @@ package gui;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -125,6 +122,12 @@ public class WindowOptions extends Stage {
 
 
         kategorier.getValue().addPris(prislister.getValue().getPriser().get(prislister.getValue().getPriser().size() - 1));
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Produkt");
+        alert.setHeaderText(null);
+        alert.setContentText("Produktet er blevet oprettet! :D");
+
+        alert.showAndWait();
     }
 
 }
