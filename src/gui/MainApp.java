@@ -60,7 +60,7 @@ public class MainApp extends Application
 
 
         // -------------------------
-        this.koebProdukt(null);
+        //this.koebProdukt(null);
         // --------------------------
 
     }
@@ -373,10 +373,29 @@ public class MainApp extends Application
 
     private void koebProdukt(Pris pris)
     {
-        WindowNumPad numPad = new WindowNumPad("NumPad", this.stage);
+        WindowNumPad numPad = new WindowNumPad("Angiv antal", this.stage);
         numPad.showAndWait();
         if (numPad.getOkAction() && numPad.getValue() > 0) {
-            this.ordre.createOrdrelinje(pris, numPad.getValue());
+            // Tjek om produkt i forvejen er tilføjet ordren.
+            boolean found = false;
+            int i = 0;
+            while (i < this.ordre.getOrdrelinjer().size() && !found) {
+                if (this.ordre.getOrdrelinjer().get(i).getPris() == pris) {
+                    found = true;
+                }
+                else {
+                    i++;
+                }
+            }
+
+            if (found) {
+                // Opdatér eksisterende ordrelinje
+                System.out.println("er der i forvejen");
+            }
+            else {
+                // Opret ny ordrelinje
+                this.ordre.createOrdrelinje(pris, numPad.getValue());
+            }
             this.updateOrdrePane();
         }
 
