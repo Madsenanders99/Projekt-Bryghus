@@ -36,6 +36,6 @@ public class OrdrelinjeTest {
 
         assertEquals(56.0, ordre1.getOrdrelinjer().get(0).getSamletPris(), 0);
         assertEquals(210.0, ordre1.getOrdrelinjer().get(1).getSamletPris(), 0);
-        assertEquals(114.8, ordre1.getOrdrelinjer().get(2).getSamletPris(), 0);
+        assertEquals(114.8, ordre1.getOrdrelinjer().get(2).getSamletPris(), 0.0001);
     }
 }

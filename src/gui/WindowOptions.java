@@ -19,7 +19,7 @@ import static java.lang.Integer.parseInt;
 
 public class WindowOptions extends Stage {
 	private Controller controller;
-	private ComboBox<Kategori> kategorier = new ComboBox<Kategori>();
+	private ComboBox<Kategori> kategorier = new ComboBox<>();
     TextField txfProdukt = new TextField();
     TextField txfBeskrivelse = new TextField();
     TextField txfPris = new TextField();
@@ -76,9 +76,8 @@ public class WindowOptions extends Stage {
        pane.add(kategorier, 1, 3);
        for (int i = 0; i < controller.getAllKategorier().size(); i++) {
            kategorier.getItems().add(i, controller.getAllKategorier().get(i).getNavn());
-
        }
-
+       // System.out.print(kategorier.getItems().get(1));
        Label lblPris = new Label("Vælg pris");
        pane.add(lblPris, 0, 4);
 
@@ -112,17 +111,25 @@ public class WindowOptions extends Stage {
         Produkt produkt = new Produkt (navn);
         produkt.setBeskrivelse(beskrivelse);
 
-        controller.getAllPrislister().get(2).createPris(produkt, pris, klip);
+        controller.getAllPrislister().get(1).createPris(produkt, pris, klip);
 
+        //System.out.print(kategorier.getItems().get(1));
 
-        for (int i = 0; i < controller.getAllKategorier().size(); i++) {
-            kategorier.getItems().add(i, controller.getAllKategorier().get(i));
-            System.out.print(kategorier.getValue());
-            kategorier.getItems().get(i).addPris(controller.getAllPrislister().get(2).getPriser().get(0));
-        }
-
-
-
+        System.out.print(kategorier.getValue());
+        System.out.print(kategorier.getSelectionModel().getSelectedItem());
+        //for (int i = 0; i < controller.getAllKategorier().size(); i++) {
+          //  kategorier.getItems().add(i, controller.getAllKategorier().get(i));
+         //   System.out.print(kategorier.getValue());
+         //   System.out.print(kategorier.getSelectionModel().getSelectedItem());
+         //   System.out.print(kategorier.getSelectionModel().getSelectedIndex()+i+1);
+         //   System.out.print(kategorier.getItems().get(kategorier.getSelectionModel().getSelectedIndex()+i+1));
+         //   if (kategorier.getItems().get(kategorier.getSelectionModel().getSelectedIndex()+i+1) == controller.getAllKategorier().get(i)) {
+         //       controller.getAllKategorier().get(i).addPris(controller.getAllPrislister().get(2).getPriser().get(0));
+         //   }
+      //  }
+      //  kategorier.getSelectionModel().getSelectedItem().addPris(controller.getAllPrislister().get(2).getPriser().get(0));
+       // System.out.print(kategorier.getValue());
+       // System.out.print(kategorier.getSelectionModel().getSelectedItem());
     }
 
 }
