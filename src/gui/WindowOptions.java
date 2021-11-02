@@ -11,6 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Kategori;
+import model.Prisliste;
 import model.Produkt;
 import controller.Controller;
 
@@ -20,10 +21,12 @@ import static java.lang.Integer.parseInt;
 public class WindowOptions extends Stage {
 	private Controller controller;
 	private ComboBox<Kategori> kategorier = new ComboBox<>();
+    private ComboBox<Prisliste> prislister = new ComboBox<>();
     TextField txfProdukt = new TextField();
     TextField txfBeskrivelse = new TextField();
     TextField txfPris = new TextField();
     TextField txfKlip = new TextField();
+
 
     /**
 	 *
@@ -71,13 +74,20 @@ public class WindowOptions extends Stage {
        pane.add(txfBeskrivelse, 1, 1);
        
        Label lblVælgKategori = new Label("Vælg Kategori");
-       ComboBox kategorier = new ComboBox();
+       kategorier = new ComboBox();
        pane.add(lblVælgKategori, 0, 3);
        pane.add(kategorier, 1, 3);
        for (int i = 0; i < controller.getAllKategorier().size(); i++) {
-           kategorier.getItems().add(i, controller.getAllKategorier().get(i).getNavn());
+           kategorier.getItems().add(i, controller.getAllKategorier().get(i));
        }
-       // System.out.print(kategorier.getItems().get(1));
+       Label lblVælgPrisliste = new Label ("Vælg prisliste");
+       prislister = new ComboBox();
+       pane.add(lblVælgPrisliste, 0, 6);
+       pane.add(prislister, 1, 6);
+        for (int i = 0; i < controller.getAllPrislister().size(); i++) {
+            prislister.getItems().add(i, controller.getAllPrislister().get(i));
+        }
+
        Label lblPris = new Label("Vælg pris");
        pane.add(lblPris, 0, 4);
 
@@ -89,11 +99,11 @@ public class WindowOptions extends Stage {
        pane.add(txfKlip, 1, 5);
        
        Button btnOpretProdukt = new Button("Opret Produkt");
-       pane.add(btnOpretProdukt, 1, 6);
+       pane.add(btnOpretProdukt, 1, 7);
        btnOpretProdukt.setOnAction(event -> this.opretProdukt());
        
        Button btnDone = new Button("Færdig");
-       pane.add(btnDone, 7, 7);
+       pane.add(btnDone, 7, 8);
        btnDone.setOnAction(event -> this.doneAction());
 
     }
@@ -111,25 +121,10 @@ public class WindowOptions extends Stage {
         Produkt produkt = new Produkt (navn);
         produkt.setBeskrivelse(beskrivelse);
 
-        controller.getAllPrislister().get(1).createPris(produkt, pris, klip);
+        prislister.getValue().createPris(produkt, pris, klip);
 
-        //System.out.print(kategorier.getItems().get(1));
 
-        System.out.print(kategorier.getValue());
-        System.out.print(kategorier.getSelectionModel().getSelectedItem());
-        //for (int i = 0; i < controller.getAllKategorier().size(); i++) {
-          //  kategorier.getItems().add(i, controller.getAllKategorier().get(i));
-         //   System.out.print(kategorier.getValue());
-         //   System.out.print(kategorier.getSelectionModel().getSelectedItem());
-         //   System.out.print(kategorier.getSelectionModel().getSelectedIndex()+i+1);
-         //   System.out.print(kategorier.getItems().get(kategorier.getSelectionModel().getSelectedIndex()+i+1));
-         //   if (kategorier.getItems().get(kategorier.getSelectionModel().getSelectedIndex()+i+1) == controller.getAllKategorier().get(i)) {
-         //       controller.getAllKategorier().get(i).addPris(controller.getAllPrislister().get(2).getPriser().get(0));
-         //   }
-      //  }
-      //  kategorier.getSelectionModel().getSelectedItem().addPris(controller.getAllPrislister().get(2).getPriser().get(0));
-       // System.out.print(kategorier.getValue());
-       // System.out.print(kategorier.getSelectionModel().getSelectedItem());
+        kategorier.getValue().addPris(prislister.getValue().getPriser().get(prislister.getValue().getPriser().size() - 1));
     }
 
 }

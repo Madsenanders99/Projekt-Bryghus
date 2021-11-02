@@ -31,4 +31,9 @@ public class Prisliste {
 	public String getNavn() {
 		return navn;
 	}
+
+	@Override
+	public String toString() {
+		return navn;
+	}
 }

@@ -60,4 +60,8 @@ public class Kategori {
 		this.beskrivelse = beskrivelse;
 	}
 
+	@Override
+	public String toString() {
+		return navn;
+	}
 }
