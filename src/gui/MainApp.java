@@ -327,7 +327,7 @@ public class MainApp extends Application
 
     /**
      *
-     *
+     *  ghghg
      *
      */
     private GridPane createProdukterPane(Kategori kat, Prisliste pl)
