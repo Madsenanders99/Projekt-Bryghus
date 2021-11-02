@@ -2,6 +2,7 @@ package gui;
 
 import controller.Controller;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -175,7 +176,7 @@ public class MainApp extends Application
         this.paneSalg = new GridPane();
         this.sceneSalg = new Scene(paneSalg);
         this.sceneSalg.getStylesheets().add("gui/sceneSalg.css");
-        this.paneSalg.setGridLinesVisible(true);
+        this.paneSalg.setGridLinesVisible(false);
         this.paneSalg.setPadding(new Insets(20));
         this.paneSalg.setHgap(10);
         this.paneSalg.setVgap(10);
@@ -211,6 +212,7 @@ public class MainApp extends Application
         // --- PaneRight ---
         // Ordre
         Label lblOrdre = new Label("Ordre");
+        GridPane.setHalignment(lblOrdre, HPos.CENTER);
         lblOrdre.getStyleClass().add("lblOrdre");
         this.paneSalg.add(lblOrdre, 1, 0);
         this.updateOrdrePane();
@@ -291,7 +293,7 @@ public class MainApp extends Application
 
         GridPane paneKat = new GridPane();
         paneKat.setId("Vælg kategori");
-        paneKat.setGridLinesVisible(true);
+        paneKat.setGridLinesVisible(false);
         paneKat.setPadding(new Insets(20));
         paneKat.setHgap(10);
         paneKat.setVgap(10);
@@ -342,20 +344,13 @@ public class MainApp extends Application
 
         GridPane paneProdukter = new GridPane();
         paneProdukter.setId("Vælg produkt");
-        paneProdukter.setGridLinesVisible(true);
+        paneProdukter.setGridLinesVisible(false);
         paneProdukter.setPadding(new Insets(20));
         paneProdukter.setHgap(10);
         paneProdukter.setVgap(10);
         paneProdukter.getStyleClass().add("paneProdukter");
 
         for (int i = 0; i < aktuellePriser.size(); i++) {
-            GridPane paneProdSelect = new GridPane();
-            paneProdSelect.setGridLinesVisible(true);
-            paneProdSelect.setPadding(new Insets(0));
-            paneProdSelect.setHgap(10);
-            paneProdSelect.setVgap(10);
-            paneProdSelect.getStyleClass().add("paneProdSelect");
-
             Pris pris = aktuellePriser.get(i);
             Button btn = new Button();
             btn.setText(pris.getProdukt().getNavn());
@@ -363,8 +358,7 @@ public class MainApp extends Application
             btn.getStyleClass().add("btnProdukt");
             btn.setOnAction(event -> this.koebProdukt(pris));
             int elmsPrRow = 4;
-            paneProdSelect.add(btn, 0, 0);
-            paneProdukter.add(paneProdSelect, i % elmsPrRow, i / elmsPrRow);
+            paneProdukter.add(btn, i % elmsPrRow, i / elmsPrRow);
         }
 
         return paneProdukter;
@@ -390,7 +384,8 @@ public class MainApp extends Application
 
             if (found) {
                 // Opdatér eksisterende ordrelinje
-                System.out.println("er der i forvejen");
+                int oldAntal = this.ordre.getOrdrelinjer().get(i).getAntal();
+                this.ordre.getOrdrelinjer().get(i).setAntal(oldAntal + numPad.getValue());
             }
             else {
                 // Opret ny ordrelinje
@@ -414,31 +409,31 @@ public class MainApp extends Application
         paneOrdre.getStyleClass().add("paneOrdre");
 
         // pane.add(element, at col, at ro, extending columns, extending rows)
-        int col = -1;
+        int col = 0;
         int row = 0;
 
         // Legend
         Label lblLegendProduktnavn = new Label("Produkt");
-        paneOrdre.add(lblLegendProduktnavn, ++col, row);
+        paneOrdre.add(lblLegendProduktnavn, col++, row);
         lblLegendProduktnavn.getStyleClass().add("lblLegendProduktnavn");
 
         Label lblLegendAntal = new Label("Antal");
-        paneOrdre.add(lblLegendAntal, ++col, row);
+        paneOrdre.add(lblLegendAntal, col++, row);
         GridPane.setHalignment(lblLegendAntal, HPos.RIGHT);
         lblLegendAntal.getStyleClass().add("lblLegendAntal");
 
         Label lblLegendStkPris = new Label("Stk. pris");
-        paneOrdre.add(lblLegendStkPris, ++col, row);
+        paneOrdre.add(lblLegendStkPris, col++, row);
         GridPane.setHalignment(lblLegendStkPris, HPos.RIGHT);
         lblLegendStkPris.getStyleClass().add("lblLegendStkPris");
 
-        Label lblLegendRabat = new Label("Rabat");
-        paneOrdre.add(lblLegendRabat, ++col, row);
+        Label lblLegendRabat = new Label("Rabat %");
+        paneOrdre.add(lblLegendRabat, col++, row);
         GridPane.setHalignment(lblLegendRabat, HPos.RIGHT);
         lblLegendRabat.getStyleClass().add("lblLegendRabat");
 
         Label lblLegendSamletPris = new Label("Pris");
-        paneOrdre.add(lblLegendSamletPris, ++col, row);
+        paneOrdre.add(lblLegendSamletPris, col++, row);
         GridPane.setHalignment(lblLegendSamletPris, HPos.RIGHT);
         lblLegendSamletPris.getStyleClass().add("lblLegendSamletPris");
 
@@ -461,43 +456,65 @@ public class MainApp extends Application
             paneOrdrelinjer.getStyleClass().add("paneOrdrelinjer");
             sp.setContent(paneOrdrelinjer);
 
-            row = -1;
-
             // Ordrelinjer
             for (Ordrelinje ol : this.ordre.getOrdrelinjer()) {
-                col = -1;
-                row++;
+                col = 0;
+
 
                 Label lblProduktnavn = new Label(ol.getPris().getProdukt().getNavn());
-                paneOrdrelinjer.add(lblProduktnavn, ++col, row);
+                paneOrdrelinjer.add(lblProduktnavn, col++, row);
                 lblProduktnavn.getStyleClass().add("lblProduktnavn");
 
                 TextField txtfAntal = new TextField(String.valueOf(ol.getAntal()));
-                paneOrdrelinjer.add(txtfAntal, ++col, row);
+                paneOrdrelinjer.add(txtfAntal, col++, row);
+                txtfAntal.setEditable(false);
                 txtfAntal.getStyleClass().add("txtfAntal");
+                txtfAntal.setOnAction(event -> this.redigerAntalAction(ol)); // On enter key
+                txtfAntal.setOnMouseClicked(event -> this.redigerAntalAction(ol));
 
-                TextField txtfStkPris = new TextField(String.valueOf(ol.getPris().getPris()));
-                paneOrdrelinjer.add(txtfStkPris, ++col, row);
-                txtfStkPris.setEditable(false);
-                txtfStkPris.getStyleClass().add("txtfStkPris");
+                Label lblStkPris = new Label(String.valueOf(ol.getPris().getPris()));
+                paneOrdrelinjer.add(lblStkPris, col++, row);
+                lblStkPris.getStyleClass().add("lblStkPris");
 
-                TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()) + "%");
-                paneOrdrelinjer.add(txtfRabat, ++col, row);
+                TextField txtfRabat = new TextField(String.valueOf(ol.getRabat()));
+                paneOrdrelinjer.add(txtfRabat, col++, row);
+                txtfRabat.setEditable(false);
                 txtfRabat.getStyleClass().add("txtfRabat");
+                txtfRabat.setOnAction(event -> this.redigerRabatAction(ol)); // On enter key
+                txtfRabat.setOnMouseClicked(event -> this.redigerRabatAction(ol));
 
                 Label lblSamletPris = new Label(String.valueOf(ol.getSamletPris()));
-                paneOrdrelinjer.add(lblSamletPris, ++col, row);
+                paneOrdrelinjer.add(lblSamletPris, col++, row);
                 GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
                 lblSamletPris.getStyleClass().add("lblSamletPris");
 
-                //            TextField txtfSamletPris = new TextField(String.valueOf(ol.getSamletPris()));
-                //            paneOrdrelinjer.add(txtfSamletPris, ++col, row);
-                //            txtfSamletPris.setEditable(false);
-                //            txtfSamletPris.getStyleClass().add("txtfSamletPris");
+                row++;
             }
         }
 
         return paneOrdre;
+    }
+
+    private void redigerAntalAction(Ordrelinje ol)
+    {
+        WindowNumPad numPad = new WindowNumPad("Rediger antal", this.stage);
+        numPad.setValue(ol.getAntal());
+        numPad.showAndWait();
+        if (numPad.getOkAction() && numPad.getValue() > 0) {
+            ol.setAntal(numPad.getValue());
+            this.updateOrdrePane();
+        }
+    }
+
+    private void redigerRabatAction(Ordrelinje ol)
+    {
+        WindowNumPad numPad = new WindowNumPad("Rediger rabat", this.stage);
+        numPad.setValue((int) ol.getRabat());
+        numPad.showAndWait();
+        if (numPad.getOkAction() && numPad.getValue() > 0) {
+            ol.setRabat((double) numPad.getValue());
+            this.updateOrdrePane();
+        }
     }
 
 

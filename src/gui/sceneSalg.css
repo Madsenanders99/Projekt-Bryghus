@@ -7,7 +7,9 @@
     -fx-background-position: -75 -80;
     -fx-background-repeat: no-repeat;
 
+
     */
+
     -fx-background-color: rgb(255, 255, 255);
 
 }
@@ -26,8 +28,10 @@
 
 /* --- Kategorier -------------------------------------------------------------------------------------------------- */
 
-.paneKat {
+.paneKat, .paneProdukter {
     -fx-font-size: 15pt;
+    -fx-border-width: 1;
+    -fx-border-color: rgb(0, 0, 0);
 }
 
 
@@ -38,17 +42,16 @@
     -fx-min-width: 100;
     -fx-wrap-text: true;
     -fx-text-alignment: center;
+    -fx-background-color: rgb(75, 75, 255);
 }
 
 /* --- Produkter --------------------------------------------------------------------------------------------------- */
 
 .paneProdukter {
+
 }
 
-.paneProdSelect {
 
-;
-}
 
 .btnProdukt {
     -fx-pref-width: 150;
@@ -57,6 +60,7 @@
     -fx-font-size: 15pt;
     -fx-text-alignment: center;
     -fx-padding: 5 10;
+    -fx-background-color: rgb(75, 255, 75);
 }
 
 
@@ -66,10 +70,10 @@
 /* --- Ordre ------------------------------------------------------------------------------------------------------- */
 
 .paneOrdre {
+    -fx-font-size: 15pt;
+    -fx-border-width: 1;
+    -fx-border-color: rgb(0, 0, 0);
 
-    /*
--fx-pref-width: 600;
-     */
 
 }
 
@@ -114,7 +118,7 @@
     -fx-min-width: 55;
 }
 
-.lblLegendStkPris, .txtfStkPris {
+.lblLegendStkPris, .lblStkPris {
     -fx-min-width: 65;
 }
 
@@ -139,7 +143,7 @@ Skal være min width af lblSamletPris plus scrollbar width.
 
 /* --- Ordrelinjer ---*/
 
-.lblProduktnavn, .txtfAntal, .txtfStkPris, .txtfRabat, .txtfSamletPris, .lblSamletPris {
+.lblProduktnavn, .txtfAntal, .lblStkPris, .txtfRabat, .lblSamletPris {
     -fx-alignment: baseline-right;
     -fx-font-size: 12pt;
 }

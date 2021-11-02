@@ -52,6 +52,12 @@ public class WindowNumPad extends Stage {
         return this.value;
     }
 
+    public void setValue(int value)
+    {
+        this.value = value;
+        this.txtfDisplay.setText(String.valueOf(value));
+    }
+
     private void reset()
     {
         this.txtfDisplay.clear();
