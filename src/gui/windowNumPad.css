@@ -1,0 +1,50 @@
+/**
+*/
+.pane {
+    /*
+    -fx-background-image: url("images/yahtzee_22.jpg");
+    -fx-background-size: auto;
+    -fx-background-position: -75 -80;
+    -fx-background-repeat: no-repeat;
+
+    */
+    -fx-background-color: rgb(255, 255, 255);
+
+}
+
+.txtfDisplay {
+    -fx-font-size: 15pt;
+    -fx-max-width: 235;
+    -fx-alignment: baseline-right;
+}
+
+.btnBack, .btnClear {
+    -fx-font-size: 19pt;
+    -fx-padding: 2;
+}
+
+.btnBack {
+    -fx-pref-width: 155;
+}
+
+.btnClear {
+    -fx-pref-width: 75;
+}
+
+.btnNum, .btnNumZero {
+    -fx-font-size: 22pt;
+    -fx-padding: 5;
+}
+
+.btnNum {
+    -fx-pref-width: 75;
+}
+
+.btnNumZero {
+    -fx-pref-width: 235;
+}
+
+.btnOk, .btnAnnuller {
+    -fx-pref-width: 150;
+    -fx-font-size: 20pt;
+}

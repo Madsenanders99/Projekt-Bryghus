@@ -30,7 +30,9 @@ public class MainApp extends Application
     private ArrayList<GridPane> panesSalgLeft = new ArrayList<>();
     private GridPane paneOrdre;
     private Ordre ordre;
+    private WindowNumPad windowNumPad;
     private WindowOptions windowOptions;
+
 
 
     @Override
@@ -58,13 +60,9 @@ public class MainApp extends Application
 
 
         // -------------------------
-        //this.initSceneSalg();
-        //this.stage.setScene(this.sceneSalg);
+        //this.koebProdukt(null);
         // --------------------------
 
-        //this.deltagereWindow = new DeltagereWindow("", this.stage);
-        //this.udflugterWindow = new UdflugterWindow("", this.stage);
-        //this.hotellerWindow = new HotellerWindow("", this.stage);
     }
 
     private void initSceneStart()
@@ -375,8 +373,32 @@ public class MainApp extends Application
 
     private void koebProdukt(Pris pris)
     {
-        this.ordre.createOrdrelinje(pris, 1);
-        this.updateOrdrePane();
+        WindowNumPad numPad = new WindowNumPad("Angiv antal", this.stage);
+        numPad.showAndWait();
+        if (numPad.getOkAction() && numPad.getValue() > 0) {
+            // Tjek om produkt i forvejen er tilføjet ordren.
+            boolean found = false;
+            int i = 0;
+            while (i < this.ordre.getOrdrelinjer().size() && !found) {
+                if (this.ordre.getOrdrelinjer().get(i).getPris() == pris) {
+                    found = true;
+                }
+                else {
+                    i++;
+                }
+            }
+
+            if (found) {
+                // Opdatér eksisterende ordrelinje
+                System.out.println("er der i forvejen");
+            }
+            else {
+                // Opret ny ordrelinje
+                this.ordre.createOrdrelinje(pris, numPad.getValue());
+            }
+            this.updateOrdrePane();
+        }
+
     }
 
 
