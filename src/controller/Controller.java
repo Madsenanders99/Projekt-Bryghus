@@ -83,16 +83,13 @@ public class Controller {
     public void createObjects() {
         createPrisliste("Fredagsbar");
         createPrisliste("Detailsalg");
-        createPrisliste("test");
 
         createKategori ("Flaske");
         createKategori ("Fadøl, 40 cl");
         createKategori ("Spiritus");
 
         createKunde("Karl", "Karlsvej 30");
-
-        Kunde kunde1 = new Kunde("Karl", "Karlsvej 30");
-        Kunde kunde2 = new Kunde ("Barl", "Barlsvej 30");
+        createKunde("Barl", "Barlsvej 30");
 
         Produkt produkt1 = new Produkt ("Klosterbryg");
         Produkt produkt2 = new Produkt ("Sweet Georgia Brown");
@@ -181,6 +178,6 @@ public class Controller {
 
         storage.getOrdrer().get(1).setBetalt(LocalDate.of(2021, 10, 25 ));
 
-        kunde1.addOrdre(storage.getOrdrer().get(0));
+        getAllKunder().get(0).addOrdre(storage.getOrdrer().get(0));
     }
 }

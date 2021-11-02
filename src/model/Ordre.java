@@ -13,6 +13,7 @@ public class Ordre {
 	private Kunde kunde;
 	private final ArrayList<Ordrelinje> ordrelinjer = new ArrayList<>();
 	private static AtomicInteger idIncrement = new AtomicInteger();
+	private Udlejning udlejning;
 
 	public Ordre (LocalDateTime dato) {
 		this.dato = dato;
@@ -74,5 +75,18 @@ public class Ordre {
 			endeligPris = endeligPris + rabatPris * getOrdrelinjer().get(i).getAntal();
 		}
 		return endeligPris;
+	}
+	
+	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, int depositum, Ordre ordre) {
+		Udlejning Ud = new Udlejning( datoStart, datoSlut, depositum, ordre);
+		return Ud;
+	}
+
+	public Udlejning getUdlejning() {
+		return udlejning;
+	}
+
+	public void setUdlejning(Udlejning udlejning) {
+		this.udlejning = udlejning;
 	}
 }
