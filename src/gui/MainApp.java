@@ -30,7 +30,9 @@ public class MainApp extends Application
     private ArrayList<GridPane> panesSalgLeft = new ArrayList<>();
     private GridPane paneOrdre;
     private Ordre ordre;
+    private WindowNumPad windowNumPad;
     private WindowOptions windowOptions;
+
 
 
     @Override
@@ -54,17 +56,14 @@ public class MainApp extends Application
         //this.stage.setFullScreen(true);
 
         this.initSceneStart();
+        this.windowNumPad = new WindowNumPad("NumPad", this.stage);
         this.windowOptions = new WindowOptions("", this.stage);
 
 
         // -------------------------
-        //this.initSceneSalg();
-        //this.stage.setScene(this.sceneSalg);
+        this.koebProdukt(null);
         // --------------------------
 
-        //this.deltagereWindow = new DeltagereWindow("", this.stage);
-        //this.udflugterWindow = new UdflugterWindow("", this.stage);
-        //this.hotellerWindow = new HotellerWindow("", this.stage);
     }
 
     private void initSceneStart()
@@ -375,8 +374,11 @@ public class MainApp extends Application
 
     private void koebProdukt(Pris pris)
     {
-        this.ordre.createOrdrelinje(pris, 1);
-        this.updateOrdrePane();
+
+        this.windowNumPad.showAndWait();
+
+//        this.ordre.createOrdrelinje(pris, 1);
+//        this.updateOrdrePane();
     }
 
 
