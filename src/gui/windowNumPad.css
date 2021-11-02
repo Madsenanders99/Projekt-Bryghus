@@ -32,7 +32,7 @@
 }
 
 .btnNum, .btnNumZero {
-    -fx-font-size: 24pt;
+    -fx-font-size: 22pt;
     -fx-padding: 5;
 }
 
@@ -42,4 +42,9 @@
 
 .btnNumZero {
     -fx-pref-width: 235;
+}
+
+.btnOk, .btnAnnuller {
+    -fx-pref-width: 150;
+    -fx-font-size: 20pt;
 }

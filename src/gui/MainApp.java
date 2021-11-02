@@ -56,7 +56,6 @@ public class MainApp extends Application
         //this.stage.setFullScreen(true);
 
         this.initSceneStart();
-        this.windowNumPad = new WindowNumPad("NumPad", this.stage);
         this.windowOptions = new WindowOptions("", this.stage);
 
 
@@ -374,11 +373,13 @@ public class MainApp extends Application
 
     private void koebProdukt(Pris pris)
     {
+        WindowNumPad numPad = new WindowNumPad("NumPad", this.stage);
+        numPad.showAndWait();
+        if (numPad.getOkAction() && numPad.getValue() > 0) {
+            this.ordre.createOrdrelinje(pris, numPad.getValue());
+            this.updateOrdrePane();
+        }
 
-        this.windowNumPad.showAndWait();
-
-//        this.ordre.createOrdrelinje(pris, 1);
-//        this.updateOrdrePane();
     }
 
 
