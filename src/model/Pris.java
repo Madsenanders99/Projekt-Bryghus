@@ -9,6 +9,7 @@ public class Pris {
 	private int klip;
 	private Produkt produkt;
 	private final ArrayList<Kategori> kategorier = new ArrayList<>();
+	private int pant;
 
 	public Pris(Produkt produkt, double pris, int klip) {
 		this.produkt = produkt;
@@ -56,6 +57,9 @@ public class Pris {
 
 	public void setKlip(int klip) {
 		this.klip = klip;
+	}
+	public int getPant() {
+		return pant;
 	}
 
 }

@@ -9,6 +9,7 @@ public class Ordrelinje {
 	private double rabat;
 	private Pris pris;
 	private static AtomicInteger idIncrement = new AtomicInteger();
+	private boolean erUdlejning;
 	
 	public Ordrelinje(Pris pris, int antal)
 	{
@@ -55,5 +56,13 @@ public class Ordrelinje {
 
 	public void setRabat(double rabat) {
 		this.rabat = rabat;
+	}
+
+	public boolean isErUdlejning() {
+		return erUdlejning;
+	}
+
+	public void setErUdlejning(boolean erUdlejning) {
+		this.erUdlejning = erUdlejning;
 	}
 }
