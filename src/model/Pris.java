@@ -47,17 +47,18 @@ public class Pris {
 		return pris;
 	}
 
-	public int getKlip() {
-		return klip;
-	}
-
 	public void setPris(double pris) {
 		this.pris = pris;
+	}
+
+	public int getKlip() {
+		return klip;
 	}
 
 	public void setKlip(int klip) {
 		this.klip = klip;
 	}
+
 	public int getPant() {
 		return pant;
 	}

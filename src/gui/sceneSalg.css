@@ -92,7 +92,8 @@ ghfgghf
 
 /* --- Ordrelinjer --- */
 
-.lblLegendProduktnavn, .lblLegendAntal, .lblLegendStkPris, .lblLegendStkKlip, .lblLegendRabat, .lblLegendSamletPris {
+.lblLegendProduktnavn, .lblLegendAntal, .lblLegendStkPris, .lblLegendStkKlip,
+.lblLegendRabat, .lblLegendSamletKlip, .lblLegendSamletPris {
     -fx-font-size: 10pt;
     -fx-font-weight: bold;
     -fx-padding: 0;
@@ -118,8 +119,8 @@ ghfgghf
     -fx-min-width: 55;
 }
 
-.lblLegendStkKlip {
-   -fx-min-width: 50;
+.lblLegendStkKlip, .lblStkKlip {
+   -fx-min-width: 55;
 }
 
 .lblLegendStkPris, .lblStkPris {
@@ -130,12 +131,16 @@ ghfgghf
     -fx-min-width: 65;
 }
 
+.lblLegendSamletKlip, .lblSamletKlip {
+     -fx-min-width: 50;
+}
+
 .lblLegendSamletPris, .lblSamletPris, .lblTotalValue  {
     -fx-min-width: 100;
     -fx-padding: 0 10 0 0;
 }
 
-.lblProduktnavn, .txtfAntal, .lblStkPris, .txtfRabat, .lblSamletPris {
+.lblProduktnavn, .txtfAntal, .lblStkPris, .lblStkKlip, .txtfRabat, .lblSamletKlip, .lblSamletPris {
     -fx-alignment: baseline-right;
     -fx-font-size: 12pt;
 }

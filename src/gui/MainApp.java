@@ -435,7 +435,7 @@ public class MainApp extends Application
 
         // --- Legend ---
         GridPane paneOrdreLegend = new GridPane();
-        paneOrdreLegend.setGridLinesVisible(false);
+        paneOrdreLegend.setGridLinesVisible(true);
         paneOrdreLegend.setPadding(new Insets(0, 24, 0, 0));
         paneOrdreLegend.setHgap(10);
         paneOrdreLegend.setVgap(10);
@@ -464,6 +464,12 @@ public class MainApp extends Application
         paneOrdreLegend.add(lblLegendRabat, tmpCol++, tmpRow);
         //GridPane.setHalignment(lblLegendRabat, HPos.RIGHT);
         lblLegendRabat.getStyleClass().add("lblLegendRabat");
+
+         if (this.aktivPrisliste.getTilladKlip()) {
+            Label lblLegendSamletKlip = new Label("Klip");
+            paneOrdreLegend.add(lblLegendSamletKlip, tmpCol++, tmpRow);
+            lblLegendSamletKlip.getStyleClass().add("lblLegendSamletKlip");
+        }
 
         Label lblLegendSamletPris = new Label("Pris");
         paneOrdreLegend.add(lblLegendSamletPris, tmpCol++, tmpRow);
@@ -504,6 +510,7 @@ public class MainApp extends Application
             tmpRow = 0;
             for (Ordrelinje ol : this.ordre.getOrdrelinjer()) {
                 tmpCol = 0;
+                String tmpText;
 
                 Label lblProduktnavn = new Label(ol.getPris().getProdukt().getNavn());
                 paneOrdrelinjer.add(lblProduktnavn, tmpCol++, tmpRow);
@@ -520,6 +527,14 @@ public class MainApp extends Application
                 paneOrdrelinjer.add(lblStkPris, tmpCol++, tmpRow);
                 lblStkPris.getStyleClass().add("lblStkPris");
 
+                if (this.aktivPrisliste.getTilladKlip()) {
+                    tmpText = String.valueOf(ol.getPris().getKlip());
+                    if (ol.getPris().getKlip() == 0) tmpText = "-";
+                    Label lblStkKlip = new Label(tmpText);
+                    paneOrdrelinjer.add(lblStkKlip, tmpCol++, tmpRow);
+                    lblStkKlip.getStyleClass().add("lblStkKlip");
+                }
+
                 TextField txtfRabat = new TextField(String.valueOf(Math.round(ol.getRabat() * 100) / 100.0));
                 paneOrdrelinjer.add(txtfRabat, tmpCol++, tmpRow);
                 txtfRabat.setEditable(false);
@@ -527,9 +542,17 @@ public class MainApp extends Application
                 txtfRabat.setOnAction(event -> this.redigerRabatAction(ol)); // On enter key
                 txtfRabat.setOnMouseClicked(event -> this.redigerRabatAction(ol));
 
+                if (this.aktivPrisliste.getTilladKlip()) {
+                    tmpText = String.valueOf(ol.getSamletKlip());
+                    if (ol.getSamletKlip() == 0) tmpText = "-";
+                    Label lblSamletKlip = new Label(String.valueOf(tmpText));
+                    paneOrdrelinjer.add(lblSamletKlip, tmpCol++, tmpRow);
+                    lblSamletKlip.getStyleClass().add("lblSamletKlip");
+                }
+
                 Label lblSamletPris = new Label(String.valueOf(Math.round(ol.getSamletPris() * 100) / 100.0));
                 paneOrdrelinjer.add(lblSamletPris, tmpCol++, tmpRow);
-                GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
+                //GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
                 lblSamletPris.getStyleClass().add("lblSamletPris");
 
                 tmpRow++;
@@ -630,6 +653,7 @@ public class MainApp extends Application
     private void betalAfregningAction()
     {
        this.stage.setScene(this.initSceneBetaling());
+       this.forceWindowRefresh();
     }
 
 

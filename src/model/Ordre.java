@@ -37,6 +37,7 @@ public class Ordre {
 			}
 		}
 	}
+
 	// 	0..* Til Ordrelinjer komposition association
 	public ArrayList<Ordrelinje> getOrdrelinjer() {
 		return new ArrayList<>(ordrelinjer);
@@ -46,7 +47,6 @@ public class Ordre {
 		Ordrelinje ol = new Ordrelinje(pris, antal);
 		this.ordrelinjer.add(ol);
 		return ol;
-
 	}
 
 	public int getId() {
@@ -76,6 +76,8 @@ public class Ordre {
 		}
 		return endeligPris;
 	}
+
+
 	
 	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, int depositum, Ordre ordre) {
 		Udlejning Ud = new Udlejning( datoStart, datoSlut, depositum, ordre);
