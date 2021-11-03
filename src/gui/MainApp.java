@@ -35,6 +35,7 @@ public class MainApp extends Application
     private WindowOptions windowOptions;
     private Button btnBack;
     private Button btnAfregningBetal;
+    private Prisliste aktivPrisliste;
 
     @Override
     public void init() {
@@ -61,24 +62,33 @@ public class MainApp extends Application
 
 
         // -------------------------
+        // TEST
+        //ArrayList<Prisliste> prislister = controller.getAllPrislister();
+        //initSceneSalg(prislister.get(0));
+        //this.betalAfregningAction();
         //this.koebProdukt(null);
+
         // --------------------------
 
+    }
+
+    private void forceWindowRefresh()
+    {
+        this.stage.getScene().getWindow().setWidth(this.stage.getScene().getWindow().getWidth() + 0.001);
     }
 
     private void initSceneStart()
     {
         // Reset
         this.ordre = null;
+        this.aktivPrisliste = null;
         this.panesSalgLeft.clear();
 
         // Set-up scenePrisliste
         this.initScenePrisliste();
         this.stage.setScene(this.scenePrisliste);
         this.stage.show();
-
-        // Tving opdatering af GridPane i GUI.
-        this.stage.getScene().getWindow().setWidth(this.stage.getScene().getWindow().getWidth() + 0.001);
+        this.forceWindowRefresh();
     }
 
     // --- Scene: Prisliste --------------------------------------------------------------------------------------------
@@ -157,13 +167,10 @@ public class MainApp extends Application
      */
     private void selectPrislisteAction(Prisliste prisliste)
     {
+        this.aktivPrisliste = prisliste;
         this.ordre = this.controller.createOrdre(LocalDateTime.now());
-        this.initSceneSalg(prisliste);
+        this.initSceneSalg();
         this.stage.setScene(this.sceneSalg);
-        // Tving opdatering af GridPane i GUI.
-        this.stage.getScene().getWindow().setWidth(this.stage.getScene().getWindow().getWidth() + 0.001);
-
-
     }
 
     // --- Scene: Salg--------------------------------------------------------------------------------------------------
@@ -171,7 +178,7 @@ public class MainApp extends Application
     /**
      *
      */
-    private void initSceneSalg(Prisliste prisliste)
+    private void initSceneSalg()
     {
         this.paneSalg = new GridPane();
         this.sceneSalg = new Scene(paneSalg);
@@ -184,9 +191,9 @@ public class MainApp extends Application
         // pane.add(element, at col, at ro, extending columns, extending rows)
 
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(55);
+        col1.setPercentWidth(50);
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(45);
+        col2.setPercentWidth(50);
         this.paneSalg.getColumnConstraints().addAll(col1, col2);
 
         RowConstraints row1 = new RowConstraints();
@@ -207,7 +214,7 @@ public class MainApp extends Application
         lblHeadlinePaneLeft.getStyleClass().add("lblHeadlinePaneLeft");
         this.paneSalg.add(lblHeadlinePaneLeft, 0, 0);
         // Kategorier
-        this.setPaneSalgLeft(this.createKategorierPane(prisliste));
+        this.setPaneSalgLeft(this.createKategorierPane());
 
 
         // --- PaneRight ---
@@ -216,7 +223,7 @@ public class MainApp extends Application
         GridPane.setHalignment(lblOrdre, HPos.CENTER);
         lblOrdre.getStyleClass().add("lblOrdre");
         this.paneSalg.add(lblOrdre, 1, 0);
-        this.updateOrdrePane();
+        this.updateOrdrePane(); // Opret og vis ordrePane.
     }
 
     private void updateOrdrePane()
@@ -231,7 +238,6 @@ public class MainApp extends Application
             this.paneSalg.add(this.paneOrdre, 1, 1);
 
             // Opdater betal knap
-            boolean disabled = true;
             if (this.ordre.getOrdrelinjer().size() == 0) {
                 this.btnAfregningBetal.setDisable(true);
             }
@@ -257,6 +263,9 @@ public class MainApp extends Application
             this.btnBack.setDisable(false);
         }
 
+         forceWindowRefresh();
+
+
     }
 
     private void prevPaneSalgLeft()
@@ -275,6 +284,8 @@ public class MainApp extends Application
         if (this.panesSalgLeft.size() == 1) {
             this.btnBack.setDisable(true);
         }
+
+         forceWindowRefresh();
     }
 
     // --- Kategorier --------------------------------------------------------------------------------------------------
@@ -282,12 +293,12 @@ public class MainApp extends Application
     /**
      *
      */
-    private GridPane createKategorierPane(Prisliste prisliste)
+    private GridPane createKategorierPane()
     {
         // -------------------------
         // Opret array med kategorier der indeholder produkter fra sendt prisliste
         ArrayList<Kategori> aktiveKategorier = new ArrayList<>();
-        for (Pris pris : prisliste.getPriser()) {
+        for (Pris pris : this.aktivPrisliste.getPriser()) {
             for (Kategori tmpKategori : pris.getKategorier()) {
                 if (!aktiveKategorier.contains(tmpKategori)) {
                     aktiveKategorier.add(tmpKategori);
@@ -311,7 +322,7 @@ public class MainApp extends Application
             paneKat.add(btn, i % btnsPrRow, i / btnsPrRow);
             btn.getStyleClass().add("btnKat");
             int tmp = i;
-            btn.setOnAction(event -> this.selectKategoriAction(aktiveKategorier.get(tmp), prisliste));
+            btn.setOnAction(event -> this.selectKategoriAction(aktiveKategorier.get(tmp)));
         }
 
         return paneKat;
@@ -320,9 +331,9 @@ public class MainApp extends Application
     /**
      *
      */
-    private void selectKategoriAction(Kategori kat, Prisliste pl)
+    private void selectKategoriAction(Kategori kat)
     {
-        this.setPaneSalgLeft(this.createProdukterPane(kat, pl));
+        this.setPaneSalgLeft(this.createProdukterPane(kat));
     }
 
 
@@ -332,11 +343,11 @@ public class MainApp extends Application
     /**
      *
      */
-    private GridPane createProdukterPane(Kategori kat, Prisliste pl)
+    private GridPane createProdukterPane(Kategori kat)
     {
         ArrayList<Pris> aktuellePriser = new ArrayList<>();
         for (Pris katPris : kat.getPriser()) {
-            for (Pris pris : pl.getPriser()) {
+            for (Pris pris : this.aktivPrisliste.getPriser()) {
                 if (katPris == pris) {
                     aktuellePriser.add(pris);
                 }
@@ -444,6 +455,8 @@ public class MainApp extends Application
         paneOrdreLegend.add(lblLegendStkPris, tmpCol++, tmpRow);
         GridPane.setHalignment(lblLegendStkPris, HPos.RIGHT);
         lblLegendStkPris.getStyleClass().add("lblLegendStkPris");
+
+
 
         Label lblLegendRabat = new Label("Rabat %");
         paneOrdreLegend.add(lblLegendRabat, tmpCol++, tmpRow);
@@ -628,16 +641,60 @@ public class MainApp extends Application
         GridPane paneMaster = new GridPane();
         Scene sceneBetaling = new Scene(paneMaster);
         sceneBetaling.getStylesheets().add("gui/sceneBetaling.css");
-        paneMaster.setGridLinesVisible(false);
+        paneMaster.setGridLinesVisible(true);
         paneMaster.setPadding(new Insets(20));
         paneMaster.setHgap(10);
         paneMaster.setVgap(10);
+        paneMaster.setAlignment(Pos.CENTER);
         paneMaster.getStyleClass().add("paneMaster");
         // pane.add(element, at col, at ro, extending columns, extending rows)
 
-        Button btnBetalingAfbryd = new Button("Afbryd");
-        paneMaster.add(btnBetalingAfbryd, 0, 0);
-        btnBetalingAfbryd.setOnAction(event -> this.afbrydBetalingAction());
+//        ColumnConstraints col1 = new ColumnConstraints();
+//        col1.setPercentWidth(60);
+//        ColumnConstraints col2 = new ColumnConstraints();
+//        col2.setPercentWidth(40);
+//        paneMaster.getColumnConstraints().addAll(col1, col2);
+
+//        RowConstraints row1 = new RowConstraints();
+//        RowConstraints row2 = new RowConstraints();
+//        row2.setVgrow(Priority.ALWAYS);
+//        this.paneSalg.getRowConstraints().addAll(row1, row2);
+
+        int masterRow = 0;
+        int tmpCol = 0;
+        int tmpRow = 0;
+
+        // --- Betalingsmetoder ---
+
+
+        Label lblBetalingsmetoder = new Label("Betalingsmetoder:");
+        lblBetalingsmetoder.getStyleClass().add("lblBetalingsmetoder");
+        paneMaster.add(lblBetalingsmetoder, 0, masterRow++);
+
+        // Metode knapper
+        GridPane paneBetalingsmetoder = new GridPane();
+        paneBetalingsmetoder.setGridLinesVisible(true);
+        paneBetalingsmetoder.setPadding(new Insets(0, 0, 30, 0));
+        paneBetalingsmetoder.setHgap(10);
+        paneBetalingsmetoder.setVgap(10);
+        paneBetalingsmetoder.setAlignment(Pos.CENTER);
+        paneBetalingsmetoder.getStyleClass().add("paneBetalingsmetoder");
+        paneMaster.add(paneBetalingsmetoder, 0, masterRow++);
+
+        String[] metoder = {"Kontant", "Dankort", "MobilePay", "Klippekort", "Faktura"};
+
+        for (int i = 0; i < metoder.length; i++) {
+            Button btnMetode = new Button(metoder[i]);
+            btnMetode.getStyleClass().add("btnMetode");
+            paneBetalingsmetoder.add(btnMetode, tmpCol++, tmpRow);
+        }
+
+        // --- Afbryd ---
+        Button btnAfbryd = new Button("Afbryd");
+        btnAfbryd.getStyleClass().add("btnAfbryd");
+        GridPane.setHalignment(btnAfbryd, HPos.CENTER);
+        paneMaster.add(btnAfbryd, 0, masterRow++);
+        btnAfbryd.setOnAction(event -> this.afbrydBetalingAction());
 
        return sceneBetaling;
     }
@@ -654,10 +711,8 @@ public class MainApp extends Application
 
         if (result.isPresent() && result.get() == btnOk) {
             this.stage.setScene(this.sceneSalg);
+            forceWindowRefresh();
         }
-
-
-
     }
 
 
