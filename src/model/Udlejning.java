@@ -19,8 +19,8 @@ public class Udlejning {
 
 	public double findPrisIkkeReturneret() {
 		for (int i = 0; i < getOrdre().getOrdrelinjer().size(); i++) {
-			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning() == true) {
-				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering() == true) {
+			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning()) {
+				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering()) {
 					int antal = getOrdre().getOrdrelinjer().get(i).getAntal();
 					double pris = getOrdre().getOrdrelinjer().get(i).getPris().getPris();
 					int pant = getOrdre().getOrdrelinjer().get(i).getPris().getPant();
@@ -33,8 +33,8 @@ public class Udlejning {
 
 	public double findPrisReturneret() {
 		for (int i = 0; i < getOrdre().getOrdrelinjer().size(); i++) {
-			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning() == true) {
-				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering() == true) {
+			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning()) {
+				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering()) {
 					int antal = getOrdre().getOrdrelinjer().get(i).getAntal();
 					double pris = getOrdre().getOrdrelinjer().get(i).getPris().getPris();
 					int pant = getOrdre().getOrdrelinjer().get(i).getPris().getPant();
@@ -47,8 +47,8 @@ public class Udlejning {
 	}
 	public double findPrisReturneretIkkeÅbnet() {
 		for (int i = 0; i < getOrdre().getOrdrelinjer().size(); i++) {
-			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning() == true) {
-				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering() == true) {
+			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning()) {
+				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering()) {
 					int antal = getOrdre().getOrdrelinjer().get(i).getAntal();
 					int pant = getOrdre().getOrdrelinjer().get(i).getPris().getPant();
 					setDatoAfleveret(LocalDate.now());
@@ -58,6 +58,7 @@ public class Udlejning {
 		}
 		return 0;
 	}
+
 	
 	LocalDate getDatoStart() {
 		return datoStart;

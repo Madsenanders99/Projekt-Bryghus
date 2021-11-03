@@ -53,8 +53,8 @@ public class MainApp extends Application
         this.stage.setResizable(true);
         this.stage.setMinWidth(1100); // 1000
         this.stage.setMinHeight(400);
-        this.stage.setWidth(1300);
-        this.stage.setHeight(700);
+        this.stage.setWidth(1200);
+        this.stage.setHeight(600);
         //this.stage.setFullScreen(true);
 
         this.initSceneStart();

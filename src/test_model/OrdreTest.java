@@ -10,10 +10,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class OrdreTest {
@@ -110,9 +107,26 @@ class OrdreTest {
 
 		assertEquals(0.8, ordre1.getOrdrelinjer().get(0).getRegnbarRabat(), 0);
 	}
-
+	// Tc 5
 	@Test
 	@Order(7)
+	public void test04_createOrdrelinjerLaverUdlejning() {
+		Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 29, 10, 0));
+		Kategori kategori1 = new Kategori("Øl");
+		Produkt produkt1 = new Produkt("Fustage");
+		Prisliste prisliste = new Prisliste("DetailSalg");
+		prisliste.createPris(produkt1, 70.0, 0);
+		prisliste.getPriser().get(0).addKategori(kategori1);
+		prisliste.getPriser().get(0).setPant(30);
+		ordre1.createOrdrelinje(kategori1.getPriser().get(0), 1);
+
+
+		assertTrue(ordre1.getOrdrelinjer().get(0).isErUdlejning());
+		assertNotNull(ordre1.getUdlejning());
+	}
+
+	@Test
+	@Order(8)
 	public void test04_getDatoPåOrdre() {
 		LocalDateTime Dato = LocalDateTime.of(2021, 10, 29, 10, 0);
 		Ordre ordre1 = new Ordre(Dato);
@@ -121,7 +135,7 @@ class OrdreTest {
 	}
 
 	// TC1
-	@Order(8)
+	@Order(9)
 	public void test05_getOgSetBetaltBetalt() {
 		Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 29, 10, 0));
 		LocalDate betaltDato = LocalDate.of(2021, 10, 29);
@@ -130,7 +144,7 @@ class OrdreTest {
 	}
 
 	// TC2
-	@Order(9)
+	@Order(10)
 	public void test05_getOgSetBetaltIkkeBetalt() {
 		Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 29, 10, 0));
 		LocalDate betaltDato = (null);
@@ -139,7 +153,7 @@ class OrdreTest {
 	}
 
 	@Test
-	@Order(10)
+	@Order(11)
 	public void test06_findTotalPrisUdenRabat() {
 		Prisliste prisliste = new Prisliste("Fredagsbar");
 

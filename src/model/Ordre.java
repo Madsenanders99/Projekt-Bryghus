@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -44,12 +45,7 @@ public class Ordre {
 
 	public Ordrelinje createOrdrelinje(Pris pris, int antal) {
 		Ordrelinje ol = new Ordrelinje(pris, antal);
-		if (ol.getPris().isAfregnesVedReturnering() == true) {
-			ol.setErUdlejning(true);
-			this.ordrelinjer.add(ol);
-			createUdlejning(LocalDate.now(), LocalDate.now().plusDays(3), this);
-			return ol;
-		} if ( ol.getPris().isAfregnesVedReturnering() == false) {
+		if (ol.getPris().isAfregnesVedReturnering() == true || ol.getPris().isAfregnesVedReturnering() == false) {
 			ol.setErUdlejning(true);
 			this.ordrelinjer.add(ol);
 			createUdlejning(LocalDate.now(), LocalDate.now().plusDays(3), this);
@@ -104,6 +100,15 @@ public class Ordre {
 			if (ol.getSamletKlip() != 0) totalKlipVaerdi += ol.getSamletPris();
 		}
 		return totalKlipVaerdi;
+	}
+
+	public Udlejning findIkkeAfleveredeProdukt() {
+		long diff = ChronoUnit.DAYS.between(getUdlejning().getDatoStart(), getUdlejning().getDatoSlut());
+		if (diff > 0) {
+			return this.getUdlejning();
+		} else {
+			return null;
+		}
 	}
 	
 	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
