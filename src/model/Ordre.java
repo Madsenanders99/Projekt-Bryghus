@@ -44,10 +44,21 @@ public class Ordre {
 
 	public Ordrelinje createOrdrelinje(Pris pris, int antal) {
 		Ordrelinje ol = new Ordrelinje(pris, antal);
-		this.ordrelinjer.add(ol);
-		return ol;
+		if (ol.getPris().isAfregnesVedReturnering() == true) {
+			ol.setErUdlejning(true);
+			this.ordrelinjer.add(ol);
+			createUdlejning(LocalDate.now(), LocalDate.now().plusDays(3), this);
+			return ol;
+		} if ( ol.getPris().isAfregnesVedReturnering() == false) {
+			ol.setErUdlejning(true);
+			this.ordrelinjer.add(ol);
+			createUdlejning(LocalDate.now(), LocalDate.now().plusDays(3), this);
+			return ol;
+		}
+			this.ordrelinjer.add(ol);
+			return ol;
+		}
 
-	}
 
 	public int getId() {
 		return id;
@@ -77,8 +88,9 @@ public class Ordre {
 		return endeligPris;
 	}
 	
-	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, int depositum, Ordre ordre) {
-		Udlejning Ud = new Udlejning( datoStart, datoSlut, depositum, ordre);
+	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
+		Udlejning Ud = new Udlejning( datoStart, datoSlut, ordre);
+		this.setUdlejning(Ud);
 		return Ud;
 	}
 

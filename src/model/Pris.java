@@ -10,6 +10,20 @@ public class Pris {
 	private Produkt produkt;
 	private final ArrayList<Kategori> kategorier = new ArrayList<>();
 	private int pant;
+	private boolean afregnesVedReturnering;
+
+	public void setPant(int pant) {
+		this.pant = pant;
+		setAfregnesVedReturnering(true);
+	}
+
+	public boolean isAfregnesVedReturnering() {
+		return afregnesVedReturnering;
+	}
+
+	public void setAfregnesVedReturnering(boolean afregnesVedReturnering) {
+		this.afregnesVedReturnering = afregnesVedReturnering;
+	}
 
 	public Pris(Produkt produkt, double pris, int klip) {
 		this.produkt = produkt;
@@ -33,8 +47,6 @@ public class Pris {
 			kategori.removePris(this);
 		}
 	}
-	// 0..* Association til Kategori
-
 
 	public Produkt getProdukt() {
 		return produkt;
