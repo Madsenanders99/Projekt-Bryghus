@@ -1,5 +1,25 @@
 
 .paneMaster {
-    -fx-background-color: rgb(255, 0 ,0);
+    -fx-background-color: rgb(255, 255, 255);
 }
 
+.paneBetalingsmetoder {
+
+
+}
+
+.lblBetalingsmetoder {
+    -fx-font-size: 15pt;
+}
+
+.btnMetode {
+    -fx-pref-width: 125;
+    -fx-pref-height: 75;
+    -fx-font-size: 15pt;
+}
+
+.btnAfbryd {
+    -fx-pref-width: 200;
+    -fx-font-size: 12pt;
+    -fx-padding: 5;
+}
