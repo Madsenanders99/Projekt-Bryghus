@@ -185,5 +185,26 @@ public class Controller {
         storage.getOrdrer().get(1).setBetalt(LocalDate.of(2021, 10, 25 ));
 
         getAllKunder().get(0).addOrdre(storage.getOrdrer().get(0));
+
+        Produkt produkt12 = new Produkt ("Fustage");
+
+        getAllPrislister().get(1).createPris(produkt12, 600, 0);
+
+        getAllPrislister().get(1).getPriser().get(7).setPant(30);
+
+        createOrdre(LocalDateTime.of(2021, 11, 03, 8, 38));
+
+        getAllOrdre().get(2).createOrdrelinje(getAllPrislister().get(1).getPriser().get(7), 1);
+
+        Produkt produkt13 = new Produkt ("Fadølsanlæg");
+
+        getAllPrislister().get(1).createPris(produkt13, 275, 0);
+
+        getAllPrislister().get(1).getPriser().get(7).setAfregnesVedReturnering(false);
+
+        createOrdre(LocalDateTime.of(2021, 11, 03, 11, 32));
+
+        getAllOrdre().get(3).createOrdrelinje(getAllPrislister().get(1).getPriser().get(8), 1);
+
     }
 }

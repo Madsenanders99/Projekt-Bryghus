@@ -7,14 +7,56 @@ public class Udlejning {
 	private LocalDate datoStart;
 	private LocalDate datoSlut;
 	private LocalDate datoAfleveret;
-	private int depositum;
 	private Ordre ordre;
 	
-	public Udlejning(LocalDate datoStart,LocalDate datoSlut, int depositum, Ordre ordre) {
+	public Udlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
 		this.datoStart=datoStart;
 		this.datoSlut=datoSlut;
-		this.depositum=depositum;
 		this.ordre=ordre;
+	}
+
+
+
+	public double findPrisIkkeReturneret() {
+		for (int i = 0; i < getOrdre().getOrdrelinjer().size(); i++) {
+			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning() == true) {
+				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering() == true) {
+					int antal = getOrdre().getOrdrelinjer().get(i).getAntal();
+					double pris = getOrdre().getOrdrelinjer().get(i).getPris().getPris();
+					int pant = getOrdre().getOrdrelinjer().get(i).getPris().getPant();
+					return (pris - pant) * antal;
+				}
+			}
+		}
+		return 0;
+	}
+
+	public double findPrisReturneret() {
+		for (int i = 0; i < getOrdre().getOrdrelinjer().size(); i++) {
+			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning() == true) {
+				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering() == true) {
+					int antal = getOrdre().getOrdrelinjer().get(i).getAntal();
+					double pris = getOrdre().getOrdrelinjer().get(i).getPris().getPris();
+					int pant = getOrdre().getOrdrelinjer().get(i).getPris().getPant();
+					setDatoAfleveret(LocalDate.now());
+					return (pris - pant * 2) * antal;
+				}
+			}
+		}
+		return 0;
+	}
+	public double findPrisReturneretIkkeÅbnet() {
+		for (int i = 0; i < getOrdre().getOrdrelinjer().size(); i++) {
+			if (getOrdre().getOrdrelinjer().get(i).isErUdlejning() == true) {
+				if (getOrdre().getOrdrelinjer().get(i).getPris().isAfregnesVedReturnering() == true) {
+					int antal = getOrdre().getOrdrelinjer().get(i).getAntal();
+					int pant = getOrdre().getOrdrelinjer().get(i).getPris().getPant();
+					setDatoAfleveret(LocalDate.now());
+					return (- pant) * antal;
+				}
+			}
+		}
+		return 0;
 	}
 	
 	LocalDate getDatoStart() {
@@ -26,10 +68,19 @@ public class Udlejning {
 	LocalDate getDatoAfleveret() {
 		return datoAfleveret;
 	}
-	int getDepositum() {
-		return depositum;
-	}
 	Ordre getOrdre() {
 		return ordre;
+	}
+
+	public void setDatoStart(LocalDate datoStart) {
+		this.datoStart = datoStart;
+	}
+
+	public void setDatoSlut(LocalDate datoSlut) {
+		this.datoSlut = datoSlut;
+	}
+
+	public void setDatoAfleveret(LocalDate datoAfleveret) {
+		this.datoAfleveret = datoAfleveret;
 	}
 }
