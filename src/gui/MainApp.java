@@ -448,24 +448,26 @@ public class MainApp extends Application
 
         Label lblLegendAntal = new Label("Antal");
         paneOrdreLegend.add(lblLegendAntal, tmpCol++, tmpRow);
-        GridPane.setHalignment(lblLegendAntal, HPos.RIGHT);
         lblLegendAntal.getStyleClass().add("lblLegendAntal");
 
         Label lblLegendStkPris = new Label("Stk. pris");
         paneOrdreLegend.add(lblLegendStkPris, tmpCol++, tmpRow);
-        GridPane.setHalignment(lblLegendStkPris, HPos.RIGHT);
         lblLegendStkPris.getStyleClass().add("lblLegendStkPris");
 
-
+        if (this.aktivPrisliste.getTilladKlip()) {
+            Label lblLegendStkKlip = new Label("Stk. klip");
+            paneOrdreLegend.add(lblLegendStkKlip, tmpCol++, tmpRow);
+            lblLegendStkKlip.getStyleClass().add("lblLegendStkKlip");
+        }
 
         Label lblLegendRabat = new Label("Rabat %");
         paneOrdreLegend.add(lblLegendRabat, tmpCol++, tmpRow);
-        GridPane.setHalignment(lblLegendRabat, HPos.RIGHT);
+        //GridPane.setHalignment(lblLegendRabat, HPos.RIGHT);
         lblLegendRabat.getStyleClass().add("lblLegendRabat");
 
         Label lblLegendSamletPris = new Label("Pris");
         paneOrdreLegend.add(lblLegendSamletPris, tmpCol++, tmpRow);
-        GridPane.setHalignment(lblLegendSamletPris, HPos.RIGHT);
+        //GridPane.setHalignment(lblLegendSamletPris, HPos.RIGHT);
         lblLegendSamletPris.getStyleClass().add("lblLegendSamletPris");
 
 

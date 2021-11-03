@@ -14,6 +14,12 @@ public class Prisliste {
 		this.tilladKlip = false;
 	}
 
+	public Prisliste(String navn, boolean tilladKlip)
+	{
+		this.navn = navn;
+		this.tilladKlip = tilladKlip;
+	}
+
 	@Override
 	public String toString() {
 		return navn;

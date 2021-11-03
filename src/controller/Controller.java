@@ -74,6 +74,12 @@ public class Controller {
         return p;
     }
 
+     public Prisliste createPrisliste(String navn, boolean tilladKlip) {
+        Prisliste pl = this.createPrisliste(navn);
+        pl.setTilladKlip(tilladKlip);
+        return pl;
+    }
+
     public Kategori createKategori(String navn) {
         Kategori ka = new Kategori(navn);
         storage.addKategori(ka);
@@ -81,7 +87,7 @@ public class Controller {
     }
 
     public void createObjects() {
-        createPrisliste("Fredagsbar");
+        createPrisliste("Fredagsbar", true);
         createPrisliste("Detailsalg");
 
         createKategori ("Flaske");

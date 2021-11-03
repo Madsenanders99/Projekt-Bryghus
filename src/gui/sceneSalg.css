@@ -92,7 +92,7 @@ ghfgghf
 
 /* --- Ordrelinjer --- */
 
-.lblLegendProduktnavn, .lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
+.lblLegendProduktnavn, .lblLegendAntal, .lblLegendStkPris, .lblLegendStkKlip, .lblLegendRabat, .lblLegendSamletPris {
     -fx-font-size: 10pt;
     -fx-font-weight: bold;
     -fx-padding: 0;
@@ -116,6 +116,10 @@ ghfgghf
 
 .lblLegendAntal, .txtfAntal {
     -fx-min-width: 55;
+}
+
+.lblLegendStkKlip {
+   -fx-min-width: 50;
 }
 
 .lblLegendStkPris, .lblStkPris {
