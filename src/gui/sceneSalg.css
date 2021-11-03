@@ -73,20 +73,17 @@ ghfgghf
     -fx-font-size: 15pt;
     -fx-border-width: 1;
     -fx-border-color: rgb(0, 0, 0);
-
-
 }
 
 .scrollPaneOrdrelinjer {
     -fx-border-width: 0;
     -fx-background-color: rgba(255, 255, 255, 0.0); /* Acts as border. */
-
+    -fx-pref-width: 5000;
 }
 
-.paneOrdrelinjer {
-    /*
-    -fx-background-color: rgb(255, 255, 255);
-     */
+.paneOrdrelinjerContainer {
+    -fx-border-width: 1;
+    -fx-border-color: rgb(200, 200, 200);
 }
 
 .lblOrdre {
@@ -95,24 +92,27 @@ ghfgghf
 
 /* --- Ordrelinjer --- */
 
-
 .lblLegendProduktnavn, .lblLegendAntal, .lblLegendStkPris, .lblLegendRabat, .lblLegendSamletPris {
     -fx-font-size: 10pt;
     -fx-font-weight: bold;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0;
     -fx-alignment: baseline-center;
 }
 
 .lblLegendProduktnavn {
     -fx-alignment: baseline-left;
-    -fx-padding: 0;
+}
+
+.lblLegendSamletPris {
+     -fx-alignment: baseline-right;
 }
 
 
-.lblLegendProduktnavn, .lblProduktnavn {
-    -fx-pref-width: 400;
+.lblLegendProduktnavn, .lblProduktnavn, .lblTotal {
+    -fx-pref-width: 4000;
     -fx-min-width: 60;
 }
+
 
 .lblLegendAntal, .txtfAntal {
     -fx-min-width: 55;
@@ -126,22 +126,10 @@ ghfgghf
     -fx-min-width: 65;
 }
 
-/*
-Bemærk:
-Skal være min width af lblSamletPris plus scrollbar width.
- */
-.lblLegendSamletPris {
-    -fx-min-width: 79;
-    -fx-padding: 0 25 0 0;
-}
-
-.lblSamletPris {
-    -fx-min-width: 65;
+.lblLegendSamletPris, .lblSamletPris, .lblTotalValue  {
+    -fx-min-width: 100;
     -fx-padding: 0 10 0 0;
 }
-
-
-/* --- Ordrelinjer ---*/
 
 .lblProduktnavn, .txtfAntal, .lblStkPris, .txtfRabat, .lblSamletPris {
     -fx-alignment: baseline-right;
@@ -152,3 +140,18 @@ Skal være min width af lblSamletPris plus scrollbar width.
     -fx-alignment: baseline-left;
 }
 
+.lblTotal, .lblTotalValue {
+    -fx-alignment: baseline-right;
+    -fx-font-size: 13pt;
+    -fx-font-weight: bold;
+}
+
+/* --- Afregning --- */
+
+.paneAfregning {
+}
+
+.btnAfregningBetal, .btnAfregningAnnuller {
+    -fx-pref-width: 125;
+     -fx-font-size: 12pt;
+}

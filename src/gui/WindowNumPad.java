@@ -76,7 +76,7 @@ public class WindowNumPad extends Stage {
         GridPane pane = new GridPane();
         masterPane.add(pane, 0, 0);
         pane.setGridLinesVisible(false);
-        pane.setPadding(new Insets(30));
+        pane.setPadding(new Insets(15));
         pane.setHgap(10);
         pane.setVgap(10);
 

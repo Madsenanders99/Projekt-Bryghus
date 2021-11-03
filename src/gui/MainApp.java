@@ -33,8 +33,8 @@ public class MainApp extends Application
     private Ordre ordre;
     private WindowNumPad windowNumPad;
     private WindowOptions windowOptions;
-
-
+    private Button btnBack;
+    private Button btnAfregningBetal;
 
     @Override
     public void init() {
@@ -50,7 +50,7 @@ public class MainApp extends Application
         this.stage = stage;
         this.stage.setTitle("Aarhus Bryghus");
         this.stage.setResizable(true);
-        this.stage.setMinWidth(1000); // 1000
+        this.stage.setMinWidth(1100); // 1000
         this.stage.setMinHeight(400);
         this.stage.setWidth(1300);
         this.stage.setHeight(700);
@@ -199,10 +199,11 @@ public class MainApp extends Application
         this.lblHeadlinePaneLeft = new Label();
         GridPane.setHalignment(this.lblHeadlinePaneLeft, HPos.CENTER);
         // Back button
-        Button btn = new Button("<<<");
-        btn.getStyleClass().add("btnBack");
-        this.paneSalg.add(btn, 0, 0);
-        btn.setOnAction(event -> this.prevPaneSalgLeft());
+        this.btnBack = new Button("<<<");
+        btnBack.setDisable(true);
+        btnBack.getStyleClass().add("btnBack");
+        this.paneSalg.add(btnBack, 0, 0);
+        btnBack.setOnAction(event -> this.prevPaneSalgLeft());
         lblHeadlinePaneLeft.getStyleClass().add("lblHeadlinePaneLeft");
         this.paneSalg.add(lblHeadlinePaneLeft, 0, 0);
         // Kategorier
@@ -220,23 +221,41 @@ public class MainApp extends Application
 
     private void updateOrdrePane()
     {
-        if (this.paneOrdre != null) {
-            // Remove currently displayed ordre pane
-            this.paneSalg.getChildren().remove(this.paneOrdre);
+        if (this.ordre != null) {
+            if (this.paneOrdre != null) {
+                // Remove currently displayed ordre pane
+                this.paneSalg.getChildren().remove(this.paneOrdre);
+            }
+            // Create new ordre pane and add to paneSalg.
+            this.paneOrdre = this.createOrdrePane();
+            this.paneSalg.add(this.paneOrdre, 1, 1);
+
+            // Opdater betal knap
+            boolean disabled = true;
+            if (this.ordre.getOrdrelinjer().size() == 0) {
+                this.btnAfregningBetal.setDisable(true);
+            }
+            else {
+                this.btnAfregningBetal.setDisable(false);
+            }
+
         }
-        // Create new ordre pane and add to paneSalg.
-        this.paneOrdre = this.createOrdrePane();
-        this.paneSalg.add(this.paneOrdre, 1, 1);
     }
 
     private void setPaneSalgLeft(GridPane pane)
     {
         if (this.panesSalgLeft.size() != 0) {
+            // Fjern nuværende panesSalgLeft fra vindue.
             this.paneSalg.getChildren().remove(this.panesSalgLeft.get(this.panesSalgLeft.size() - 1));
         }
+
         this.panesSalgLeft.add(pane);
         this.paneSalg.add(pane, 0, 1);
         this.lblHeadlinePaneLeft.setText(pane.getId());
+
+        if (this.panesSalgLeft.size() > 1) {
+            this.btnBack.setDisable(false);
+        }
 
     }
 
@@ -252,23 +271,9 @@ public class MainApp extends Application
             this.paneSalg.add(panePrev, 0, 1);
             this.lblHeadlinePaneLeft.setText(panePrev.getId());
         }
-        else if (this.ordre != null && this.ordre.getOrdrelinjer().size() > 0) {
-            ButtonType btnOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-            ButtonType btnCancel = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
-            String txt = "Igangværende ordre slettes.";
-            Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk, btnCancel);
-            alert.setHeaderText("Afbryd ordre og gå til startskærm?");
-            alert.setTitle("Advarsel");
-            Optional<ButtonType> result = alert.showAndWait();
 
-            if (result.isPresent() && result.get() == btnOk) {
-                // --- Go to start screen ---
-                this.initSceneStart();
-            }
-        }
-        else {
-            // --- Go to start screen ---
-            this.initSceneStart();
+        if (this.panesSalgLeft.size() == 1) {
+            this.btnBack.setDisable(true);
         }
     }
 
@@ -314,7 +319,6 @@ public class MainApp extends Application
 
     /**
      *
-     *
      */
     private void selectKategoriAction(Kategori kat, Prisliste pl)
     {
@@ -326,8 +330,6 @@ public class MainApp extends Application
     // --- Produkt -----------------------------------------------------------------------------------------------------
 
     /**
-     *
-     *  ghghg
      *
      */
     private GridPane createProdukterPane(Kategori kat, Prisliste pl)
@@ -408,45 +410,72 @@ public class MainApp extends Application
         paneOrdre.setVgap(10);
         paneOrdre.getStyleClass().add("paneOrdre");
 
-        // pane.add(element, at col, at ro, extending columns, extending rows)
-        int col = 0;
-        int row = 0;
+        RowConstraints rowVgrowNever = new RowConstraints();
+        RowConstraints rowVgrowAlways = new RowConstraints();
+        rowVgrowNever.setVgrow(Priority.NEVER);
+        rowVgrowAlways.setVgrow(Priority.ALWAYS);
+        paneOrdre.getRowConstraints().addAll(rowVgrowNever, rowVgrowAlways, rowVgrowNever);
 
-        // Legend
+        // pane.add(element, at col, at ro, extending columns, extending rows)
+        int tmpCol = 0;
+        int tmpRow = 0;
+        int ordreRow = 0;
+
+
+        // --- Legend ---
+        GridPane paneOrdreLegend = new GridPane();
+        paneOrdreLegend.setGridLinesVisible(false);
+        paneOrdreLegend.setPadding(new Insets(0, 24, 0, 0));
+        paneOrdreLegend.setHgap(10);
+        paneOrdreLegend.setVgap(10);
+        paneOrdreLegend.getStyleClass().add("paneOrdreLegend");
+        paneOrdre.add(paneOrdreLegend, 0, ordreRow++);
+
         Label lblLegendProduktnavn = new Label("Produkt");
-        paneOrdre.add(lblLegendProduktnavn, col++, row);
+        paneOrdreLegend.add(lblLegendProduktnavn, tmpCol++, tmpRow);
         lblLegendProduktnavn.getStyleClass().add("lblLegendProduktnavn");
 
         Label lblLegendAntal = new Label("Antal");
-        paneOrdre.add(lblLegendAntal, col++, row);
+        paneOrdreLegend.add(lblLegendAntal, tmpCol++, tmpRow);
         GridPane.setHalignment(lblLegendAntal, HPos.RIGHT);
         lblLegendAntal.getStyleClass().add("lblLegendAntal");
 
         Label lblLegendStkPris = new Label("Stk. pris");
-        paneOrdre.add(lblLegendStkPris, col++, row);
+        paneOrdreLegend.add(lblLegendStkPris, tmpCol++, tmpRow);
         GridPane.setHalignment(lblLegendStkPris, HPos.RIGHT);
         lblLegendStkPris.getStyleClass().add("lblLegendStkPris");
 
         Label lblLegendRabat = new Label("Rabat %");
-        paneOrdre.add(lblLegendRabat, col++, row);
+        paneOrdreLegend.add(lblLegendRabat, tmpCol++, tmpRow);
         GridPane.setHalignment(lblLegendRabat, HPos.RIGHT);
         lblLegendRabat.getStyleClass().add("lblLegendRabat");
 
         Label lblLegendSamletPris = new Label("Pris");
-        paneOrdre.add(lblLegendSamletPris, col++, row);
+        paneOrdreLegend.add(lblLegendSamletPris, tmpCol++, tmpRow);
         GridPane.setHalignment(lblLegendSamletPris, HPos.RIGHT);
         lblLegendSamletPris.getStyleClass().add("lblLegendSamletPris");
 
 
-        // --- Print ordrelinjer ---
-        if (this.ordre.getOrdrelinjer().size() > 0) {
-            ScrollPane sp = new ScrollPane();
-            sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            sp.setFitToWidth(true);
+        // --- Ordrelinjer ---
+        GridPane paneOrdrelinjerContainer = new GridPane();
+        paneOrdrelinjerContainer.setGridLinesVisible(false);
+        paneOrdrelinjerContainer.setPadding(new Insets(0));
+        paneOrdrelinjerContainer.setHgap(0);
+        paneOrdrelinjerContainer.setVgap(0);
+        paneOrdrelinjerContainer.getStyleClass().add("paneOrdrelinjerContainer");
+        paneOrdrelinjerContainer.getRowConstraints().addAll(rowVgrowAlways);
+        paneOrdre.add(paneOrdrelinjerContainer, 0, ordreRow++);
 
-            sp.getStyleClass().add("scrollPaneOrdrelinjer");
-            paneOrdre.add(sp, 0, 1, 5, 1);
+
+
+        if (this.ordre.getOrdrelinjer().size() > 0) {
+        ScrollPane sp = new ScrollPane();
+        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sp.setFitToWidth(true);
+        sp.setFitToHeight(true);
+        sp.getStyleClass().add("scrollPaneOrdrelinjer");
+        paneOrdrelinjerContainer.add(sp, 0, 0);
 
             GridPane paneOrdrelinjer = new GridPane();
             paneOrdrelinjer.setGridLinesVisible(false);
@@ -457,40 +486,83 @@ public class MainApp extends Application
             sp.setContent(paneOrdrelinjer);
 
             // Ordrelinjer
+            tmpRow = 0;
             for (Ordrelinje ol : this.ordre.getOrdrelinjer()) {
-                col = 0;
-
+                tmpCol = 0;
 
                 Label lblProduktnavn = new Label(ol.getPris().getProdukt().getNavn());
-                paneOrdrelinjer.add(lblProduktnavn, col++, row);
+                paneOrdrelinjer.add(lblProduktnavn, tmpCol++, tmpRow);
                 lblProduktnavn.getStyleClass().add("lblProduktnavn");
 
                 TextField txtfAntal = new TextField(String.valueOf(ol.getAntal()));
-                paneOrdrelinjer.add(txtfAntal, col++, row);
+                paneOrdrelinjer.add(txtfAntal, tmpCol++, tmpRow);
                 txtfAntal.setEditable(false);
                 txtfAntal.getStyleClass().add("txtfAntal");
                 txtfAntal.setOnAction(event -> this.redigerAntalAction(ol)); // On enter key
                 txtfAntal.setOnMouseClicked(event -> this.redigerAntalAction(ol));
 
                 Label lblStkPris = new Label(String.valueOf(ol.getPris().getPris()));
-                paneOrdrelinjer.add(lblStkPris, col++, row);
+                paneOrdrelinjer.add(lblStkPris, tmpCol++, tmpRow);
                 lblStkPris.getStyleClass().add("lblStkPris");
 
                 TextField txtfRabat = new TextField(String.valueOf(Math.round(ol.getRabat() * 100) / 100.0));
-                paneOrdrelinjer.add(txtfRabat, col++, row);
+                paneOrdrelinjer.add(txtfRabat, tmpCol++, tmpRow);
                 txtfRabat.setEditable(false);
                 txtfRabat.getStyleClass().add("txtfRabat");
                 txtfRabat.setOnAction(event -> this.redigerRabatAction(ol)); // On enter key
                 txtfRabat.setOnMouseClicked(event -> this.redigerRabatAction(ol));
 
                 Label lblSamletPris = new Label(String.valueOf(Math.round(ol.getSamletPris() * 100) / 100.0));
-                paneOrdrelinjer.add(lblSamletPris, col++, row);
+                paneOrdrelinjer.add(lblSamletPris, tmpCol++, tmpRow);
                 GridPane.setHalignment(lblSamletPris, HPos.RIGHT);
                 lblSamletPris.getStyleClass().add("lblSamletPris");
 
-                row++;
+                tmpRow++;
             }
         }
+
+        // --- Total ---
+        GridPane paneTotal = new GridPane();
+        paneTotal.setGridLinesVisible(false);
+        paneTotal.setPadding(new Insets(0, 24, 0, 0));
+        paneTotal.setHgap(10);
+        paneTotal.setVgap(10);
+        paneTotal.getStyleClass().add("paneTotal");
+        paneOrdre.add(paneTotal, 0, ordreRow++);
+
+        tmpCol = 0;
+        tmpRow = 0;
+
+        Label lblTotal = new Label("Total Kr.");
+        paneTotal.add(lblTotal, tmpCol++, tmpRow);
+        lblTotal.getStyleClass().add("lblTotal");
+
+        Label lblTotalValue = new Label(String.valueOf(Math.round(this.ordre.findTotalPris() * 100) / 100.0));
+        paneTotal.add(lblTotalValue, tmpCol++, tmpRow);
+        lblTotalValue.getStyleClass().add("lblTotalValue");
+
+        // --- Afregning ---
+        GridPane paneAfregning = new GridPane();
+        paneAfregning.setGridLinesVisible(false);
+        paneAfregning.setPadding(new Insets(10, 0, 10, 0));
+        paneAfregning.setHgap(20);
+        paneAfregning.setVgap(10);
+        paneAfregning.setAlignment(Pos.CENTER);
+        paneAfregning.getStyleClass().add("paneAfregning");
+        paneOrdre.add(paneAfregning, 0, ordreRow++);
+
+        tmpCol = 0;
+        tmpRow = 0;
+
+        this.btnAfregningBetal = new Button("Betal");
+        this.btnAfregningBetal.getStyleClass().add("btnAfregningBetal");
+        paneAfregning.add(this.btnAfregningBetal, tmpCol++, tmpRow);
+        this.btnAfregningBetal.setOnAction(event -> this.betalAfregningAction());
+
+        Button btnAfregningAnnuller = new Button("Annuller");
+        btnAfregningAnnuller.getStyleClass().add("btnAfregningAnnuller");
+        paneAfregning.add(btnAfregningAnnuller, tmpCol++, tmpRow);
+        btnAfregningAnnuller.setOnAction(event -> this.annullerAfregningAction());
 
         return paneOrdre;
     }
@@ -517,7 +589,76 @@ public class MainApp extends Application
         }
     }
 
+    private void annullerAfregningAction()
+    {
+        if (this.ordre != null && this.ordre.getOrdrelinjer().size() != 0) {
+            ButtonType btnOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+            ButtonType btnCancel = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
+            String txt = "Igangværende ordre slettes.";
+            Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk, btnCancel);
+            alert.setHeaderText("Afbryd ordre og gå til startskærm?");
+            alert.setTitle("Advarsel");
+            Optional<ButtonType> result = alert.showAndWait();
 
+            if (result.isPresent() && result.get() == btnOk) {
+                // Go to start screen
+                this.initSceneStart();
+            }
+        }
+        else {
+            // Go to start screen
+            this.initSceneStart();
+        }
+
+    }
+
+    private void betalAfregningAction()
+    {
+       this.stage.setScene(this.initSceneBetaling());
+    }
+
+
+    // --- Scene: Betaling----------------------------------------------------------------------------------------------
+
+    /**
+     *
+     */
+    private Scene initSceneBetaling()
+    {
+        GridPane paneMaster = new GridPane();
+        Scene sceneBetaling = new Scene(paneMaster);
+        sceneBetaling.getStylesheets().add("gui/sceneBetaling.css");
+        paneMaster.setGridLinesVisible(false);
+        paneMaster.setPadding(new Insets(20));
+        paneMaster.setHgap(10);
+        paneMaster.setVgap(10);
+        paneMaster.getStyleClass().add("paneMaster");
+        // pane.add(element, at col, at ro, extending columns, extending rows)
+
+        Button btnBetalingAfbryd = new Button("Afbryd");
+        paneMaster.add(btnBetalingAfbryd, 0, 0);
+        btnBetalingAfbryd.setOnAction(event -> this.afbrydBetalingAction());
+
+       return sceneBetaling;
+    }
+
+    private void afbrydBetalingAction()
+    {
+        ButtonType btnOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+        ButtonType btnCancel = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
+        String txt = "Igangværende ordre bibeholdes.";
+        Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk, btnCancel);
+        alert.setHeaderText("Afbryd betaling?");
+        alert.setTitle("Advarsel");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == btnOk) {
+            this.stage.setScene(this.sceneSalg);
+        }
+
+
+
+    }
 
 
 }

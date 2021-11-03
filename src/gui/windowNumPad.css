@@ -19,7 +19,7 @@
 }
 
 .btnBack, .btnClear {
-    -fx-font-size: 19pt;
+    -fx-font-size: 17pt;
     -fx-padding: 2;
 }
 
@@ -46,5 +46,5 @@
 
 .btnOk, .btnAnnuller {
     -fx-pref-width: 150;
-    -fx-font-size: 20pt;
+    -fx-font-size: 17pt;
 }

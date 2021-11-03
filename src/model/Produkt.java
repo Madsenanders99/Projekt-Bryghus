@@ -9,7 +9,6 @@ public class Produkt {
 	private String navn;
 	private String beskrivelse;
 	private ArrayList<Produkt> produkter = new ArrayList<>();
-
 	private static AtomicInteger idIncrement = new AtomicInteger();
 
 	public Produkt(String navn) {
