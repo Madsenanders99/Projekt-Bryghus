@@ -18,7 +18,7 @@ public class OrdrelinjeTest {
 
     @Test
     @Order(1)
-    public void test01_getSamletPris() {
+    public void test01_getSamletPrisPrOrdrelinje() {
         Ordre ordre1 = new Ordre (LocalDateTime.of(2021, 10, 29, 10, 0));
         Kategori kategori1 = new Kategori ("Øl");
         Produkt produkt1 = new Produkt ("Klosterbryg");
@@ -36,6 +36,7 @@ public class OrdrelinjeTest {
 
         assertEquals(56.0, ordre1.getOrdrelinjer().get(0).getSamletPris(), 0);
         assertEquals(210.0, ordre1.getOrdrelinjer().get(1).getSamletPris(), 0);
-        assertEquals(114.8, ordre1.getOrdrelinjer().get(2).getSamletPris(), 0);
+        assertEquals(114.8, ordre1.getOrdrelinjer().get(2).getSamletPris(), 01);
     }
+    
 }

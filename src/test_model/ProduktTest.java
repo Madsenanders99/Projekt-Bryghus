@@ -54,4 +54,10 @@ class ProduktTest {
         assertEquals(0, p1.getProdukter().size());
 
     }
+    
+    @Test
+    @Order(4)
+    void test04_createProdukt() {
+    	
+    }
 }
