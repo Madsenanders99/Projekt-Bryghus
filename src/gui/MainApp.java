@@ -435,7 +435,7 @@ public class MainApp extends Application
 
         // --- Legend ---
         GridPane paneOrdreLegend = new GridPane();
-        paneOrdreLegend.setGridLinesVisible(true);
+        paneOrdreLegend.setGridLinesVisible(false);
         paneOrdreLegend.setPadding(new Insets(0, 24, 0, 0));
         paneOrdreLegend.setHgap(10);
         paneOrdreLegend.setVgap(10);
@@ -571,13 +571,30 @@ public class MainApp extends Application
         tmpCol = 0;
         tmpRow = 0;
 
-        Label lblTotal = new Label("Total Kr.");
-        paneTotal.add(lblTotal, tmpCol++, tmpRow);
-        lblTotal.getStyleClass().add("lblTotal");
+        // Kr.
+        Label lblTotalKr = new Label("Total kr.");
+        paneTotal.add(lblTotalKr, tmpCol++, tmpRow);
+        lblTotalKr.getStyleClass().add("lblTotalKr");
 
-        Label lblTotalValue = new Label(String.valueOf(Math.round(this.ordre.findTotalPris() * 100) / 100.0));
-        paneTotal.add(lblTotalValue, tmpCol++, tmpRow);
-        lblTotalValue.getStyleClass().add("lblTotalValue");
+        Label lblTotalKrValue = new Label(String.valueOf(Math.round(this.ordre.findTotalPris() * 100) / 100.0));
+        paneTotal.add(lblTotalKrValue, tmpCol++, tmpRow);
+        lblTotalKrValue.getStyleClass().add("lblTotalKrValue");
+
+        tmpCol = 0;
+        tmpRow++;
+
+        // Klip
+        if (this.aktivPrisliste.getTilladKlip()) {
+            Label lblTotalKlip = new Label("Heraf kan betales med " + this.ordre.findTotalKlip() + " klip kr.");
+            paneTotal.add(lblTotalKlip, tmpCol++, tmpRow);
+            lblTotalKlip.getStyleClass().add("lblTotalKlip");
+
+            Label lblTotalKlipValue = new Label(String.valueOf(Math.round(this.ordre.findTotalKlipKrVærdi() * 100) / 100.0));
+            paneTotal.add(lblTotalKlipValue, tmpCol++, tmpRow);
+            lblTotalKlipValue.getStyleClass().add("lblTotalKlipValue");
+        }
+
+
 
         // --- Afregning ---
         GridPane paneAfregning = new GridPane();
@@ -621,9 +638,19 @@ public class MainApp extends Application
         WindowNumPad numPad = new WindowNumPad("Rediger rabat", this.stage);
         numPad.setValue((int) ol.getRabat());
         numPad.showAndWait();
-        if (numPad.getOkAction() && numPad.getValue() > 0) {
-            ol.setRabat((double) numPad.getValue());
-            this.updateOrdrePane();
+        if (numPad.getOkAction()) {
+            if (numPad.getValue() >= 0 && numPad.getValue() <= 100) {
+                ol.setRabat((double) numPad.getValue());
+                this.updateOrdrePane();
+            }
+            else {
+                ButtonType btnOk = new ButtonType("Yep", ButtonBar.ButtonData.OK_DONE);
+                String txt = "";
+                Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk);
+                alert.setHeaderText("Rabtat skal være et heltal mellem 0 og 100 (inkl.)");
+                alert.setTitle("Ugyldigt input");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         }
     }
 

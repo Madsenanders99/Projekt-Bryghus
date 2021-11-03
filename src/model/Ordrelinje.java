@@ -26,10 +26,15 @@ public class Ordrelinje {
 		return getPris().getPris() * antal * getRegnbarRabat();
 	}
 
+	public double getSamletPrisUdenRabat() {
+		return getPris().getPris() * antal;
+	}
+
 	public int getSamletKlip()
 	{
 		return this.pris.getKlip() * antal;
 	}
+
 
 	public void setPris(Pris pris) {
 		this.pris = pris;

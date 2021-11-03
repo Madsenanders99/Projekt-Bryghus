@@ -87,6 +87,24 @@ public class Ordre {
 		}
 		return endeligPris;
 	}
+
+	public int findTotalKlip()
+	{
+		int totalKlip = 0;
+		for (Ordrelinje ol : this.ordrelinjer) {
+			totalKlip += ol.getSamletKlip();
+		}
+		return totalKlip;
+	}
+
+	public double findTotalKlipKrVærdi()
+	{
+		double totalKlipVaerdi = 0;
+		for (Ordrelinje ol : this.ordrelinjer) {
+			if (ol.getSamletKlip() != 0) totalKlipVaerdi += ol.getSamletPris();
+		}
+		return totalKlipVaerdi;
+	}
 	
 	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
 		Udlejning Ud = new Udlejning( datoStart, datoSlut, ordre);

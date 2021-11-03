@@ -109,7 +109,7 @@ ghfgghf
 }
 
 
-.lblLegendProduktnavn, .lblProduktnavn, .lblTotal {
+.lblLegendProduktnavn, .lblProduktnavn, .lblTotalKr, .lblTotalKlip {
     -fx-pref-width: 4000;
     -fx-min-width: 60;
 }
@@ -135,7 +135,7 @@ ghfgghf
      -fx-min-width: 50;
 }
 
-.lblLegendSamletPris, .lblSamletPris, .lblTotalValue  {
+.lblLegendSamletPris, .lblSamletPris, .lblTotalKrValue, .lblTotalKlipValue  {
     -fx-min-width: 100;
     -fx-padding: 0 10 0 0;
 }
@@ -149,11 +149,16 @@ ghfgghf
     -fx-alignment: baseline-left;
 }
 
-.lblTotal, .lblTotalValue {
+.lblTotalKr, .lblTotalKrValue, .lblTotalKlip, .lblTotalKlipValue  {
     -fx-alignment: baseline-right;
     -fx-font-size: 13pt;
     -fx-font-weight: bold;
 }
+
+.lblTotalKlip, .lblTotalKlipValue {
+    -fx-font-weight: normal;
+}
+
 
 /* --- Afregning --- */
 
