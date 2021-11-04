@@ -22,30 +22,30 @@ public class ControllerTest {
     @Test
     @Order(1)
     public void test01_findIkkeAflevereUdlejninger() {
-        controller.createOrdre(LocalDateTime.of(2021, 10, 25, 10, 0));
-        controller.createKategori ("Øl");
-        Produkt produkt1 = new Produkt("Fustage");
-        controller.createPrisliste("Detailsalg");
-        controller.getAllPrislister().get(0).createPris(produkt1, 300, 0);
-        controller.getAllPrislister().get(0).getPriser().get(0).addKategori(controller.getAllKategorier().get(0));
+        Ordre o = controller.createOrdre(LocalDateTime.now());
+        Kategori k = controller.createKategori ("Øl");
+        Produkt p = new Produkt("Fustage");
+        Prisliste pl = controller.createPrisliste("Detailsalg");
+        Pris pris = controller.getAllPrislister().get(0).createPris(p, 300, 0);
+        controller.getAllPrislister().get(0).getPriser().get(0).addKategori(k);
         controller.getAllPrislister().get(0).getPriser().get(0).setPant(30);
-        controller.getAllOrdre().get(0).createOrdrelinje(controller.getAllKategorier().get(0).getPriser().get(0), 1);
+        controller.getAllOrdre().get(0).createOrdrelinje(pris, 1);
         controller.getAllOrdre().get(0).getUdlejning().setDatoStart(LocalDate.of(2020, 11, 4));
         controller.getAllOrdre().get(0).getUdlejning().setDatoSlut(LocalDate.of(2020, 11, 7));
 
         Produkt produkt2 = new Produkt ("Fustage 2");
-        controller.createOrdre(LocalDateTime.of(2021, 10, 27, 10, 0));
-        controller.getAllPrislister().get(0).createPris(produkt2, 300, 0);
-        controller.getAllPrislister().get(0).getPriser().get(1).addKategori(controller.getAllKategorier().get(0));
+        Ordre o2 = controller.createOrdre(LocalDateTime.now());
+        Pris pris2 = controller.getAllPrislister().get(0).createPris(produkt2, 300, 0);
+        controller.getAllPrislister().get(0).getPriser().get(1).addKategori(k);
         controller.getAllPrislister().get(0).getPriser().get(1).setPant(30);
-        controller.getAllOrdre().get(1).createOrdrelinje(controller.getAllKategorier().get(0).getPriser().get(1), 1);
+        controller.getAllOrdre().get(1).createOrdrelinje(pris2, 1);
 
         ArrayList<Udlejning> ikkeAfleveredeUdlejninger =  new ArrayList<>();
-        ikkeAfleveredeUdlejninger.add(controller.getAllOrdre().get(0).getUdlejning());
+        ikkeAfleveredeUdlejninger.add(o.getUdlejning());
 
-        assertEquals(controller.getAllOrdre().get(0).getUdlejning(), controller.getAllOrdre().get(0).findIkkeAfleveredeUdlejning());
+        assertEquals(o.getUdlejning(), o.findIkkeAfleveredeUdlejning());
 
-        assertNull(controller.getAllOrdre().get(1).findIkkeAfleveredeUdlejning());
+        assertNull(o2.findIkkeAfleveredeUdlejning());
 
         assertEquals(ikkeAfleveredeUdlejninger, controller.findIkkeAflevereUdlejninger());
 
