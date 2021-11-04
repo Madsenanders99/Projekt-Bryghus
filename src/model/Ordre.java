@@ -102,7 +102,7 @@ public class Ordre {
 		return totalKlipVaerdi;
 	}
 	// returner udlejning hvis udlejning ikke er afleveret inden for tidsrummet, returner ellers null
-	public Udlejning findIkkeAfleveredeProdukt() {
+	public Udlejning findIkkeAfleveredeUdlejning() {
 		if (this.getUdlejning() != null) {
 			if (this.getUdlejning().getDatoAfleveret() == null) {
 				long diff = ChronoUnit.DAYS.between(getUdlejning().getDatoStart(), getUdlejning().getDatoSlut());

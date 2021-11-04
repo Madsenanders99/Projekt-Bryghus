@@ -43,9 +43,9 @@ public class ControllerTest {
         ArrayList<Udlejning> ikkeAfleveredeUdlejninger =  new ArrayList<>();
         ikkeAfleveredeUdlejninger.add(controller.getAllOrdre().get(0).getUdlejning());
 
-        assertEquals(controller.getAllOrdre().get(0).getUdlejning(), controller.getAllOrdre().get(0).findIkkeAfleveredeProdukt());
+        assertEquals(controller.getAllOrdre().get(0).getUdlejning(), controller.getAllOrdre().get(0).findIkkeAfleveredeUdlejning());
 
-        assertNull(controller.getAllOrdre().get(1).findIkkeAfleveredeProdukt());
+        assertNull(controller.getAllOrdre().get(1).findIkkeAfleveredeUdlejning());
 
         assertEquals(ikkeAfleveredeUdlejninger, controller.findIkkeAflevereUdlejninger());
 
