@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -62,12 +63,13 @@ public class MainApp extends Application
 
         // -------------------------
         // TEST
-//        ArrayList<Prisliste> prislister = this.controller.getAllPrislister();
-//        selectPrislisteAction(prislister.get(0));
-//        this.ordre = this.controller.getAllOrdre().get(0);
-//        this.betalAfregningAction();
+        ArrayList<Prisliste> prislister = this.controller.getAllPrislister();
+        selectPrislisteAction(prislister.get(0));
+        this.ordre = this.controller.getAllOrdre().get(0);
+        this.betalAfregningAction();
 
-
+        this.paaBeloebetAction();
+        this.udfoerBetalingAction();
         // --------------------------
 
     }
@@ -80,9 +82,12 @@ public class MainApp extends Application
     private void initSceneStart()
     {
         // Reset
-        this.ordre = null;
         this.aktivPrisliste = null;
         this.panesSalgLeft.clear();
+        if (this.ordre != null) {
+            this.controller.removeOrdre(this.ordre);
+            this.ordre = null;
+        }
 
         // Set-up scenePrisliste
         this.initScenePrisliste();
@@ -599,7 +604,7 @@ public class MainApp extends Application
         // --- Afregning ---
         GridPane paneAfregning = new GridPane();
         paneAfregning.setGridLinesVisible(false);
-        paneAfregning.setPadding(new Insets(10, 0, 10, 0));
+        paneAfregning.setPadding(new Insets(10, 0, 0, 0));
         paneAfregning.setHgap(20);
         paneAfregning.setVgap(10);
         paneAfregning.setAlignment(Pos.CENTER);
@@ -865,14 +870,51 @@ public class MainApp extends Application
 
     private void udfoerBetalingAction()
     {
+        double kassebeloeb;
+
+        try {
+            kassebeloeb = Double.parseDouble(this.txtfKassebeloebValue.getText());
+            if (kassebeloeb < 0) {
+                throw new NumberFormatException();
+            }
+        } catch (NumberFormatException nfe) {
+            ButtonType btnOk = new ButtonType("Roger", ButtonBar.ButtonData.OK_DONE);
+            String txt = "";
+            Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk);
+            alert.setHeaderText("Kun positive tal og nul er gyldigt.");
+            alert.setTitle("Ugyldigt input");
+            Optional<ButtonType> result = alert.showAndWait();
+            return;
+        }
+
+        double byttepenge = (Double.parseDouble(this.lblKlipValue.getText()) + kassebeloeb) - this.ordre.findTotalPris();
+        if (byttepenge < 0) {
+            ButtonType btnOk = new ButtonType("Roger", ButtonBar.ButtonData.OK_DONE);
+            String txt = "";
+            Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk);
+            alert.setHeaderText("Kassebeløb skal være min. lig med total beløb.");
+            alert.setTitle("For lavt beløb");
+            Optional<ButtonType> result = alert.showAndWait();
+            return;
+        }
+
+        // Set betalt attribut i ordre.
+        this.ordre.setBetalt(LocalDate.now());
+
         WindowAfregnet wa = new WindowAfregnet("Kasse", this.stage);
         RadioButton rb = (RadioButton) this.tgMetode.getSelectedToggle();
         wa.setTotal(this.roundDouble2String(this.ordre.findTotalPris()));
         wa.setKlippekortBeloeb(this.lblKlipValue.getText());
         wa.setKasseIndMetode(rb.getText());
-        wa.setKasseIndBeloeb(this.txtfKassebeloebValue.getText());
+        wa.setKasseIndBeloeb(this.roundDouble2String(kassebeloeb));
+        wa.setByttepenge(this.roundDouble2String(byttepenge));
         wa.showAndWait();
 
+        // VIGTIGT! Nødvendigt for at ordren ikke slette, ved kald af initSceneStart().
+        this.ordre = null;
+
+        // Gå til startskærm
+        this.initSceneStart();;
     }
 
     private void afbrydBetalingAction()

@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -19,7 +20,7 @@ public class WindowAfregnet extends Stage {
     private Label lblKlippekortBeloeb;
     private Label lblKasseIndMetode;
     private Label lblKasseIndBeloeb;
-    private Label byttePenge;
+    private Label lblByttepengeValue;
 
     /**
 	 *
@@ -63,10 +64,9 @@ public class WindowAfregnet extends Stage {
         this.lblKasseIndBeloeb.setText(beloeb);
     }
 
-
-    public void setByttePenge(String byttePenge)
+    public void setByttepenge(String byttePenge)
     {
-        this.byttePenge.setText(byttePenge);
+        this.lblByttepengeValue.setText(byttePenge);
     }
 
 
@@ -78,67 +78,88 @@ public class WindowAfregnet extends Stage {
     {
         GridPane paneMaster = new GridPane();
         paneWrapper.add(paneMaster, 0, 0);
-        paneMaster.setGridLinesVisible(true);
-        paneMaster.setPadding(new Insets(20));
+        paneMaster.setGridLinesVisible(false);
+        paneMaster.setPadding(new Insets(10, 30, 40, 30));
         paneMaster.setHgap(10);
         paneMaster.setVgap(10);
+        paneMaster.getStyleClass().add("paneMaster");
 
         int masterCol = 0;
         int masterRow = 0;
         int tmpCol = 0;
         int tmpRow = 0;
 
+        // --- Info ---
+        GridPane paneInfo = new GridPane();
+        paneWrapper.add(paneInfo, 0, 0);
+        paneInfo.setGridLinesVisible(false);
+        paneInfo.setPadding(new Insets(20));
+        paneInfo.setHgap(50);
+        paneInfo.setVgap(0);
+        paneMaster.add(paneInfo, 0, masterRow++);
+
         // Total
         Label lblTotal = new Label("Total");
         lblTotal.getStyleClass().add("lblTotal");
-        paneMaster.add(lblTotal, masterCol++, masterRow);
+        paneInfo.add(lblTotal, tmpCol++, tmpRow);
 
         this.lblTotalValue = new Label();
         this.lblTotalValue.getStyleClass().add("lblTotalValue");
         GridPane.setHalignment(this.lblTotalValue, HPos.RIGHT);
-        paneMaster.add(lblTotalValue, masterCol++, masterRow);
+        paneInfo.add(lblTotalValue, tmpCol++, tmpRow);
 
         // Klippekort
-        masterCol = 0;
-        masterRow++;
+        tmpCol = 0;
+        tmpRow++;
 
         Label lblKlippekort = new Label("Klippekort");
         lblKlippekort.getStyleClass().add("lblKlippekort");
-        paneMaster.add(lblKlippekort, masterCol++, masterRow);
+        paneInfo.add(lblKlippekort, tmpCol++, tmpRow);
 
         this.lblKlippekortBeloeb = new Label();
         GridPane.setHalignment(this.lblKlippekortBeloeb, HPos.RIGHT);
         this.lblKlippekortBeloeb.getStyleClass().add("lblKlippekortBeloeb");
-        paneMaster.add(this.lblKlippekortBeloeb, masterCol++, masterRow);
+        paneInfo.add(this.lblKlippekortBeloeb, tmpCol++, tmpRow);
 
         // Kasse ind
-        masterCol = 0;
-        masterRow++;
+        tmpCol = 0;
+        tmpRow++;
 
         this.lblKasseIndMetode = new Label();
         this.lblKasseIndMetode.getStyleClass().add("lblKasseIndMetode");
-        paneMaster.add(this.lblKasseIndMetode, masterCol++, masterRow);
+        paneInfo.add(this.lblKasseIndMetode, tmpCol++, tmpRow);
 
         this.lblKasseIndBeloeb = new Label();
         GridPane.setHalignment(this.lblKasseIndBeloeb, HPos.RIGHT);
         this.lblKasseIndBeloeb.getStyleClass().add("lblKasseIndBeloeb");
-        paneMaster.add(this.lblKasseIndBeloeb, masterCol++, masterRow);
+        paneInfo.add(this.lblKasseIndBeloeb, tmpCol++, tmpRow);
 
+        // Byttepenge
+        tmpCol = 0;
+        tmpRow++;
 
+        GridPane paneByttepenge = new GridPane();
+        paneByttepenge.setPadding(new Insets(10, 0, 0, 0));
+        paneByttepenge.setHgap(50);
+        paneByttepenge.getStyleClass().add("paneByttepenge");
+        paneInfo.add(paneByttepenge, tmpCol++, tmpRow, 2, 1);
 
+        Label lblByttepenge = new Label("Byttepenge");
+        lblByttepenge.getStyleClass().add("lblByttepenge");
+        paneByttepenge.add(lblByttepenge, 0, 0);
 
+        this.lblByttepengeValue = new Label();
+        GridPane.setHalignment(this.lblByttepengeValue, HPos.RIGHT);
+        this.lblByttepengeValue.getStyleClass().add("lblByttepengeValue");
+        paneByttepenge.add(this.lblByttepengeValue, 1, 0);
 
-
-
-
-
-
+        // --- OK ---
+        Button btnOk = new Button("OK");
+        btnOk.getStyleClass().add("btnOk");
+        GridPane.setHalignment(btnOk, HPos.CENTER);
+        paneMaster.add(btnOk, 0, masterRow++);
+        btnOk.setOnAction(event -> this.hide());
 
     }
 
-
-    private void okAction()
-    {
-        this.hide();
-    }
 }

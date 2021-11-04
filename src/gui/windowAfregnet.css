@@ -1,15 +1,29 @@
 
 .paneMaster {
-
-
+    -fx-background-color: #fa364a;
 }
 
-.lblTotal, .lblKlippekort, .lblKasseIndMetode {
+.lblTotal, .lblKlippekort, .lblKasseIndMetode, .lblByttepenge {
     -fx-font-size: 20pt;
 }
 
-.lblTotalValue, .lblKlippekortBeloeb, .lblKasseIndBeloeb {
+.lblTotalValue, .lblKlippekortBeloeb, .lblKasseIndBeloeb, .lblByttepengeValue {
     -fx-font-size: 20pt;
+}
+
+.paneByttepenge {
+    -fx-border-color: #000000;
+    -fx-border-width: 2 0 0 0;
+}
+
+.lblByttepenge, .lblByttepengeValue {
+    -fx-font-weight: bold;
+}
+
+.btnOk {
+    -fx-font-size: 15pt;
+    -fx-pref-width: 150;
+
 }
 
 
