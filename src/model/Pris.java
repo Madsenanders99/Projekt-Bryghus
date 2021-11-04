@@ -11,30 +11,33 @@ public class Pris {
 	private final ArrayList<Kategori> kategorier = new ArrayList<>();
 	private int pant;
 	private boolean afregnesVedReturnering;
+	// Constructor
+	public Pris(Produkt produkt, double pris, int klip) {
+		this.produkt = produkt;
+		this.pris = pris;
+		this.klip = klip;
+	}
+
 
 	public void setPant(int pant) {
 		this.pant = pant;
-		setAfregnesVedReturnering(true);
+		setAfregnesVedReturnering(true); // pant sættes kun hvis det er en udlejning hvor pris betales ved returnering
 	}
 
 	public boolean isAfregnesVedReturnering() {
 		if(getPant() > 0) {
-			return true;
+			setAfregnesVedReturnering(true);
 		} else {
-			return false;
+			setAfregnesVedReturnering(false);
 		}
-		
+		return afregnesVedReturnering;
 	}
 
 	public void setAfregnesVedReturnering(boolean afregnesVedReturnering) {
 		this.afregnesVedReturnering = afregnesVedReturnering;
 	}
 
-	public Pris(Produkt produkt, double pris, int klip) {
-		this.produkt = produkt;
-		this.pris = pris;
-		this.klip = klip;
-	}
+ // 0..* --> Association til Kategori
 	public ArrayList<Kategori> getKategorier () {
 		return new ArrayList<>(kategorier);
 	}
@@ -53,13 +56,16 @@ public class Pris {
 		}
 	}
 
+	// 1 Association til Produkt
 	public Produkt getProdukt() {
 		return produkt;
 	}
+
 	public void setProdukt(Produkt produkt) {
 		this.produkt = produkt;
 	}
 
+	// getters og setters
 	public double getPris() {
 		return pris;
 	}

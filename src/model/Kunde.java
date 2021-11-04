@@ -14,18 +14,13 @@ public class Kunde {
 	private String mail;
 	private final ArrayList<Ordre> ordrer = new ArrayList<>();
 	private static AtomicInteger idIncrement = new AtomicInteger();
-	
+	// Constructor
 	public Kunde(String navn, String adresse) {
 		this.navn = navn;
 		this.adresse = adresse;
 		id = idIncrement.incrementAndGet();
 	}
-	public String getNavn() {
-		return navn;
-	}
-	public String getAdresse() {
-		return adresse;
-	}
+
 	// 0..* Til Ordre association
 	public ArrayList<Ordre> getOrdre() {
 		return new ArrayList<>(ordrer);
@@ -42,6 +37,16 @@ public class Kunde {
 			ordre.setKunde(null);
 		}
 	}
+
+	// setters og getters
+	public String getNavn() {
+		return navn;
+	}
+
+	public String getAdresse() {
+		return adresse;
+	}
+
 
 	public void setId(int id) {
 		this.id = id;

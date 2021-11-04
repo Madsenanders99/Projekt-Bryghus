@@ -16,6 +16,7 @@ public class Ordre {
 	private static AtomicInteger idIncrement = new AtomicInteger();
 	private Udlejning udlejning;
 
+	// Constructor
 	public Ordre (LocalDateTime dato) {
 		this.dato = dato;
 		id = idIncrement.incrementAndGet();
@@ -45,7 +46,7 @@ public class Ordre {
 
 	public Ordrelinje createOrdrelinje(Pris pris, int antal) {
 		Ordrelinje ol = new Ordrelinje(pris, antal);
-		// Ordre tjekker om det er en udlejning
+		// Ordre tjekker om det er en udlejning, afregnesVedReturnering er null hvis det ikke er en udlejning
 		if (ol.getPris().isAfregnesVedReturnering() == true || ol.getPris().isAfregnesVedReturnering() == false) {
 			ol.setErUdlejning(true);
 			this.ordrelinjer.add(ol);
@@ -55,24 +56,22 @@ public class Ordre {
 			this.ordrelinjer.add(ol);
 			return ol;
 		}
-
-
-	public int getId() {
-		return id;
+	// 0..1 Association til Udlejning
+	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
+		Udlejning Ud = new Udlejning( datoStart, datoSlut, ordre);
+		this.setUdlejning(Ud);
+		return Ud;
 	}
 
-	public LocalDateTime getDato() {
-		return dato;
+	public Udlejning getUdlejning() {
+		return udlejning;
 	}
 
-	public LocalDate getBetalt() {
-		return betalt;
+	public void setUdlejning(Udlejning udlejning) {
+		this.udlejning = udlejning;
 	}
 
-	public void setBetalt(LocalDate betalt) {
-		this.betalt = betalt;
-	}
-
+	// finder diverse totale på hele ordren
 	public double findTotalPris() {
 		double endeligPris = 0;
 		for (int i = 0; i < getOrdrelinjer().size(); i++) {
@@ -102,8 +101,8 @@ public class Ordre {
 		}
 		return totalKlipVaerdi;
 	}
-
-	public Udlejning findIkkeAfleveredeProdukt() {
+	// returner udlejning hvis udlejning ikke er afleveret inden for tidsrummet, returner ellers null
+	public Udlejning findIkkeAfleveredeUdlejning() {
 		if (this.getUdlejning() != null) {
 			if (this.getUdlejning().getDatoAfleveret() == null) {
 				long diff = ChronoUnit.DAYS.between(getUdlejning().getDatoStart(), getUdlejning().getDatoSlut());
@@ -117,18 +116,21 @@ public class Ordre {
 		}
 		return null;
 	}
-	// 0..1 Association til Udlejning
-	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
-		Udlejning Ud = new Udlejning( datoStart, datoSlut, ordre);
-		this.setUdlejning(Ud);
-		return Ud;
+
+	public int getId() {
+		return id;
 	}
 
-	public Udlejning getUdlejning() {
-		return udlejning;
+	public LocalDateTime getDato() {
+		return dato;
 	}
 
-	public void setUdlejning(Udlejning udlejning) {
-		this.udlejning = udlejning;
+	public LocalDate getBetalt() {
+		return betalt;
 	}
+
+	public void setBetalt(LocalDate betalt) {
+		this.betalt = betalt;
+	}
+
 }

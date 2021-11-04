@@ -8,7 +8,8 @@ public class Udlejning {
 	private LocalDate datoSlut;
 	private LocalDate datoAfleveret;
 	private Ordre ordre;
-	
+
+	// Constructor
 	public Udlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
 		this.datoStart=datoStart;
 		this.datoSlut=datoSlut;

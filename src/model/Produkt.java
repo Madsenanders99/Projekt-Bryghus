@@ -10,15 +10,11 @@ public class Produkt {
 	private String beskrivelse;
 	private ArrayList<Produkt> produkter = new ArrayList<>();
 	private static AtomicInteger idIncrement = new AtomicInteger();
-
+	// Constructor
 	public Produkt(String navn) {
 		this.navn = navn;
 		id = idIncrement.incrementAndGet();
 		//System.out.println(id);
-	}
-
-	public String getNavn() {
-		return navn;
 	}
 
 	// 0..* association til Produkt
@@ -40,6 +36,11 @@ public class Produkt {
 		if (produkter.contains(produkt)) {
 			produkter.remove(produkt);
 		}
+	}
+
+	// setters og getters
+	public String getNavn() {
+		return navn;
 	}
 
 	public void setNavn(String navn) {
