@@ -103,12 +103,18 @@ public class Ordre {
 	}
 
 	public Udlejning findIkkeAfleveredeProdukt() {
-		long diff = ChronoUnit.DAYS.between(getUdlejning().getDatoStart(), getUdlejning().getDatoSlut());
-		if (diff > 0) {
-			return this.getUdlejning();
-		} else {
-			return null;
+		if (this.getUdlejning() != null) {
+			if (this.getUdlejning().getDatoAfleveret() == null) {
+				long diff = ChronoUnit.DAYS.between(getUdlejning().getDatoStart(), getUdlejning().getDatoSlut());
+				long diff2 = ChronoUnit.DAYS.between(getUdlejning().getDatoStart(), LocalDate.now());
+				if (diff2 > diff) {
+					return this.getUdlejning();
+				} else {
+					return null;
+				}
+			}
 		}
+		return null;
 	}
 	
 	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {

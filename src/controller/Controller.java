@@ -86,6 +86,16 @@ public class Controller {
         return ka;
     }
 
+    public ArrayList<Udlejning> findIkkeAflevereUdlejninger () {
+        ArrayList<Udlejning> ikkeAfleverede = new ArrayList<>();
+        for (int i = 0; i < getAllOrdre().size(); i++) {
+            if (getAllOrdre().get(i).findIkkeAfleveredeProdukt() != null) {
+                ikkeAfleverede.add(getAllOrdre().get(i).getUdlejning());
+            }
+        }
+        return ikkeAfleverede;
+    }
+
     public void createObjects() {
         createPrisliste("Fredagsbar", true);
         createPrisliste("Detailsalg");
