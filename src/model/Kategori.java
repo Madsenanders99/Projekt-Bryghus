@@ -10,7 +10,7 @@ public class Kategori {
 	private String beskrivelse;
 	private final ArrayList<Pris> priser = new ArrayList<>();
 	private static AtomicInteger idIncrement = new AtomicInteger();
-
+	// Constructor
 	public Kategori(String navn) {
 		this.navn = navn;
 		id = idIncrement.incrementAndGet();
@@ -35,10 +35,11 @@ public class Kategori {
 		}
 	}
 
-		public String getNavn() {
+
+	// getters og setters
+	public String getNavn() {
 		return navn;
 	}
-
 
 	public int getId() {
 		return id;
@@ -60,6 +61,8 @@ public class Kategori {
 		this.beskrivelse = beskrivelse;
 	}
 
+
+	// toString metode
 	@Override
 	public String toString() {
 		return navn;

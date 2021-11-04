@@ -7,7 +7,7 @@ public class Prisliste {
 	private String navn;
 	private boolean tilladKlip;
 	private final ArrayList<Pris> priser = new ArrayList<>();
-
+	// Constructor
 	public Prisliste(String navn)
 	{
 		this.navn = navn;
@@ -17,21 +17,6 @@ public class Prisliste {
 	public Prisliste(String navn, boolean tilladKlip)
 	{
 		this.navn = navn;
-		this.tilladKlip = tilladKlip;
-	}
-
-	@Override
-	public String toString() {
-		return navn;
-	}
-
-	public boolean getTilladKlip()
-	{
-		return this.tilladKlip;
-	}
-
-	public void setTilladKlip(boolean tilladKlip)
-	{
 		this.tilladKlip = tilladKlip;
 	}
 
@@ -46,6 +31,17 @@ public class Prisliste {
 		return new ArrayList<>(priser);
 	}
 
+	// setters og getters
+
+	public boolean getTilladKlip()
+	{
+		return this.tilladKlip;
+	}
+
+	public void setTilladKlip(boolean tilladKlip)
+	{
+		this.tilladKlip = tilladKlip;
+	}
 
 	public void setNavn(String navn) {
 		this.navn = navn;
@@ -55,4 +51,9 @@ public class Prisliste {
 		return navn;
 	}
 
+	// toString metode
+	@Override
+	public String toString() {
+		return navn;
+	}
 }
