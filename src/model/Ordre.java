@@ -121,6 +121,7 @@ public class Ordre {
 		return id;
 	}
 
+	// getters og setters
 	public LocalDateTime getDato() {
 		return dato;
 	}

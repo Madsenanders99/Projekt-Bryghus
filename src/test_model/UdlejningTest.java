@@ -21,7 +21,7 @@ public class UdlejningTest {
 
     @Test
     @Order(1)
-    public void test01_findPrisMetoder() {
+    public void test01_findPrisIkkeReturneret() {
         Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 29, 10, 0));
         Kategori kategori1 = new Kategori("Øl");
         Produkt produkt1 = new Produkt("Fustage");
@@ -32,8 +32,36 @@ public class UdlejningTest {
         ordre1.createOrdrelinje(kategori1.getPriser().get(0), 1);
 
         assertEquals(270, ordre1.getUdlejning().findPrisIkkeReturneret());
-        assertEquals(240, ordre1.getUdlejning().findPrisReturneret());
-        assertEquals(-30, ordre1.getUdlejning().findPrisReturneretIkkeÅbnet());
+
     }
 
+    @Test
+    @Order(2)
+    public void test02_findPrisReturneret() {
+        Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 29, 10, 0));
+        Kategori kategori1 = new Kategori("Øl");
+        Produkt produkt1 = new Produkt("Fustage");
+        Prisliste prisliste = new Prisliste("DetailSalg");
+        prisliste.createPris(produkt1, 300, 0);
+        prisliste.getPriser().get(0).addKategori(kategori1);
+        prisliste.getPriser().get(0).setPant(30);
+        ordre1.createOrdrelinje(kategori1.getPriser().get(0), 1);
+
+        assertEquals(240, ordre1.getUdlejning().findPrisReturneret());
+    }
+
+    @Test
+    @Order(3)
+    public void test03_findPrisReturneretIkkeÅbnet() {
+        Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 29, 10, 0));
+        Kategori kategori1 = new Kategori("Øl");
+        Produkt produkt1 = new Produkt("Fustage");
+        Prisliste prisliste = new Prisliste("DetailSalg");
+        prisliste.createPris(produkt1, 300, 0);
+        prisliste.getPriser().get(0).addKategori(kategori1);
+        prisliste.getPriser().get(0).setPant(30);
+        ordre1.createOrdrelinje(kategori1.getPriser().get(0), 1);
+
+        assertEquals(-30, ordre1.getUdlejning().findPrisReturneretIkkeÅbnet());
+    }
 }
