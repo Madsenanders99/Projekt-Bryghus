@@ -20,7 +20,7 @@ public class PrisTest {
 
     @Test
     @Order(1)
-    public void test01_SetPant() {
+    public void test01_SetPantStørreEndNul() {
         controller.createPrisliste("Detailsalg");
 
         Produkt produkt1 = new Produkt ("Fustage");
@@ -31,5 +31,20 @@ public class PrisTest {
 
         assertTrue(controller.getAllPrislister().get(0).getPriser().get(0).isAfregnesVedReturnering());
         assertEquals(30, controller.getAllPrislister().get(0).getPriser().get(0).getPant());
+    }
+    
+    @Test
+    @Order(2)
+    public void test01_SetPantMindreEndNul() {
+        controller.createPrisliste("Detailsalg");
+
+        Produkt produkt1 = new Produkt ("Klosterbryg");
+
+        controller.getAllPrislister().get(0).createPris(produkt1, 36, 0);
+
+        controller.getAllPrislister().get(0).getPriser().get(0).setPant(0);
+        
+        assertFalse(controller.getAllPrislister().get(0).getPriser().get(0).isAfregnesVedReturnering());
+        assertEquals(0, controller.getAllPrislister().get(0).getPriser().get(0).getPant());
     }
 }

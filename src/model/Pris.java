@@ -18,7 +18,12 @@ public class Pris {
 	}
 
 	public boolean isAfregnesVedReturnering() {
-		return afregnesVedReturnering;
+		if(getPant() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	public void setAfregnesVedReturnering(boolean afregnesVedReturnering) {

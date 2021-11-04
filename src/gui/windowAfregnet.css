@@ -1,0 +1,15 @@
+
+.paneMaster {
+
+
+}
+
+.lblTotal, .lblKlippekort, .lblKasseIndMetode {
+    -fx-font-size: 20pt;
+}
+
+.lblTotalValue, .lblKlippekortBeloeb, .lblKasseIndBeloeb {
+    -fx-font-size: 20pt;
+}
+
+

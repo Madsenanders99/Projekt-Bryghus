@@ -2,16 +2,12 @@ package gui;
 
 import controller.Controller;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.*;
 
@@ -31,11 +27,14 @@ public class MainApp extends Application
     private ArrayList<GridPane> panesSalgLeft = new ArrayList<>();
     private GridPane paneOrdre;
     private Ordre ordre;
-    private WindowNumPad windowNumPad;
     private WindowOptions windowOptions;
     private Button btnBack;
     private Button btnAfregningBetal;
     private Prisliste aktivPrisliste;
+    private Label lblKlipValue;
+    private Label lblResterendeValue;
+    private TextField txtfKassebeloebValue;
+    private ToggleGroup tgMetode;
 
     @Override
     public void init() {
@@ -63,10 +62,11 @@ public class MainApp extends Application
 
         // -------------------------
         // TEST
-        //ArrayList<Prisliste> prislister = controller.getAllPrislister();
-        //initSceneSalg(prislister.get(0));
-        //this.betalAfregningAction();
-        //this.koebProdukt(null);
+//        ArrayList<Prisliste> prislister = this.controller.getAllPrislister();
+//        selectPrislisteAction(prislister.get(0));
+//        this.ordre = this.controller.getAllOrdre().get(0);
+//        this.betalAfregningAction();
+
 
         // --------------------------
 
@@ -191,9 +191,9 @@ public class MainApp extends Application
         // pane.add(element, at col, at ro, extending columns, extending rows)
 
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(50);
+        col1.setPercentWidth(45);
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(50);
+        col2.setPercentWidth(55);
         this.paneSalg.getColumnConstraints().addAll(col1, col2);
 
         RowConstraints row1 = new RowConstraints();
@@ -576,7 +576,7 @@ public class MainApp extends Application
         paneTotal.add(lblTotalKr, tmpCol++, tmpRow);
         lblTotalKr.getStyleClass().add("lblTotalKr");
 
-        Label lblTotalKrValue = new Label(String.valueOf(Math.round(this.ordre.findTotalPris() * 100) / 100.0));
+        Label lblTotalKrValue = new Label(this.roundDouble2String(this.ordre.findTotalPris()));
         paneTotal.add(lblTotalKrValue, tmpCol++, tmpRow);
         lblTotalKrValue.getStyleClass().add("lblTotalKrValue");
 
@@ -589,7 +589,7 @@ public class MainApp extends Application
             paneTotal.add(lblTotalKlip, tmpCol++, tmpRow);
             lblTotalKlip.getStyleClass().add("lblTotalKlip");
 
-            Label lblTotalKlipValue = new Label(String.valueOf(Math.round(this.ordre.findTotalKlipKrVærdi() * 100) / 100.0));
+            Label lblTotalKlipValue = new Label(this.roundDouble2String(this.ordre.findTotalKlipKrVærdi()));
             paneTotal.add(lblTotalKlipValue, tmpCol++, tmpRow);
             lblTotalKlipValue.getStyleClass().add("lblTotalKlipValue");
         }
@@ -692,81 +692,236 @@ public class MainApp extends Application
     private Scene initSceneBetaling()
     {
         GridPane paneMaster = new GridPane();
-        Scene sceneBetaling = new Scene(paneMaster);
+        HBox hboxWrapper = new HBox(paneMaster);
+        hboxWrapper.setPadding(new Insets(20));
+        hboxWrapper.setAlignment(Pos.CENTER);
+        hboxWrapper.setFillHeight(false);
+        hboxWrapper.getStyleClass().add("hboxWrapper");
+
+        Scene sceneBetaling = new Scene(hboxWrapper);
         sceneBetaling.getStylesheets().add("gui/sceneBetaling.css");
-        paneMaster.setGridLinesVisible(true);
+        paneMaster.setGridLinesVisible(false);
         paneMaster.setPadding(new Insets(20));
-        paneMaster.setHgap(10);
-        paneMaster.setVgap(10);
-        paneMaster.setAlignment(Pos.CENTER);
+        paneMaster.setHgap(0);
+        paneMaster.setVgap(20);
         paneMaster.getStyleClass().add("paneMaster");
-        // pane.add(element, at col, at ro, extending columns, extending rows)
 
-//        ColumnConstraints col1 = new ColumnConstraints();
-//        col1.setPercentWidth(60);
-//        ColumnConstraints col2 = new ColumnConstraints();
-//        col2.setPercentWidth(40);
-//        paneMaster.getColumnConstraints().addAll(col1, col2);
-
-//        RowConstraints row1 = new RowConstraints();
-//        RowConstraints row2 = new RowConstraints();
-//        row2.setVgrow(Priority.ALWAYS);
-//        this.paneSalg.getRowConstraints().addAll(row1, row2);
+        ColumnConstraints colGrowAlways = new ColumnConstraints();
+        colGrowAlways.setHgrow(Priority.ALWAYS);
+        ColumnConstraints colGrowNever = new ColumnConstraints();
+        colGrowNever.setHgrow(Priority.NEVER);
 
         int masterRow = 0;
         int tmpCol = 0;
         int tmpRow = 0;
 
+        // --- Total ---
+        GridPane paneTotal = new GridPane();
+        paneTotal.setGridLinesVisible(false);
+        paneTotal.setPadding(new Insets(0));
+        paneTotal.getStyleClass().add("paneTotal");
+        paneTotal.getColumnConstraints().addAll(colGrowAlways);
+        paneMaster.add(paneTotal, 0, masterRow++);
+
+        Label lblTotal = new Label("Total kr.");
+        lblTotal.getStyleClass().add("lblTotal");
+        paneTotal.add(lblTotal, tmpCol++, tmpRow);
+
+        Label lblTotalValue = new Label(this.roundDouble2String(this.ordre.findTotalPris()));
+        lblTotalValue.getStyleClass().add("lblTotalValue");
+        paneTotal.add(lblTotalValue, tmpCol++, tmpRow);
+
+        // --- Afregning ---
+        GridPane paneAfregning = new GridPane();
+        paneAfregning.setGridLinesVisible(false);
+        paneAfregning.setPadding(new Insets(10));
+        paneAfregning.setHgap(10);
+        paneAfregning.setVgap(0);
+        paneAfregning.setAlignment(Pos.BASELINE_LEFT);
+        paneAfregning.getColumnConstraints().addAll(colGrowAlways, colGrowNever, colGrowNever);
+        paneAfregning.getStyleClass().add("paneAfregning");
+        paneMaster.add(paneAfregning, 0, masterRow++);
+
+        tmpCol = 0;
+        tmpRow = 0;
+
+        Label lblAfregning = new Label("Afregning");
+        lblAfregning.getStyleClass().add("lblAfregning");
+        paneAfregning.add(lblAfregning, tmpCol, tmpRow++);
+
+        // Klip
+        Label lblKlip = new Label("Klip:");
+        lblKlip.getStyleClass().add("lblKlip");
+        GridPane.setHalignment(lblKlip, HPos.RIGHT);
+        paneAfregning.add(lblKlip, tmpCol++, tmpRow);
+
+        ComboBox cboxKlip = new ComboBox();
+        cboxKlip.getStyleClass().add("cboxKlip");
+        GridPane.setHalignment(cboxKlip, HPos.RIGHT);
+        paneAfregning.add(cboxKlip, tmpCol++, tmpRow);
+        for (int i = 0; i <= this.ordre.findTotalKlip(); i++) {
+            cboxKlip.getItems().add(i);
+        }
+        cboxKlip.setValue(0);
+        cboxKlip.setOnAction(event -> this.updateAfregning((Integer) cboxKlip.getValue()));
+
+
+        this.lblKlipValue = new Label(this.roundDouble2String(0.0));
+        this.lblKlipValue.getStyleClass().add("lblKlipValue");
+        paneAfregning.add(this.lblKlipValue, tmpCol++, tmpRow);
+
+        // Resterende kr.
+        tmpCol = 0;
+        tmpRow++;
+
+        Label lblResterende = new Label("Kroner:");
+        GridPane.setHalignment(lblResterende, HPos.RIGHT);
+        lblResterende.getStyleClass().add("lblResterende");
+        paneAfregning.add(lblResterende, tmpCol++, tmpRow);
+
+
+        this.lblResterendeValue = new Label(this.roundDouble2String(this.ordre.findTotalPris()));
+        this.lblResterendeValue.getStyleClass().add("lblResterendeValue");
+        paneAfregning.add(this.lblResterendeValue, ++tmpCol, tmpRow);
+
+        // --- Kassebeløb ---
+        GridPane paneKasse = new GridPane();
+        paneKasse.setGridLinesVisible(false);
+        paneKasse.setPadding(new Insets(10));
+        paneKasse.setHgap(10);
+        paneKasse.setVgap(0);
+        paneKasse.setAlignment(Pos.BASELINE_LEFT);
+        paneKasse.getColumnConstraints().addAll(colGrowAlways, colGrowNever);
+        paneKasse.getStyleClass().add("paneKasse");
+        paneMaster.add(paneKasse, 0, masterRow++);
+
+        tmpCol = 0;
+        tmpRow = 0;
+
+        Label lblKassebeloeb = new Label("Kasse ind kr.:");
+        GridPane.setHalignment(lblKassebeloeb, HPos.RIGHT);
+        lblKassebeloeb.getStyleClass().add("lblKassebeloeb");
+        paneKasse.add(lblKassebeloeb, tmpCol++, tmpRow);
+
+        Button btnPaaBeloebet = new Button("På beløbet");
+        btnPaaBeloebet.getStyleClass().add("btnPaaBeloebet");
+        paneKasse.add(btnPaaBeloebet, tmpCol++, tmpRow);
+        btnPaaBeloebet.setOnAction(event -> this.paaBeloebetAction());
+
+        this.txtfKassebeloebValue = new TextField();
+        this.txtfKassebeloebValue.getStyleClass().add("txtfKassebeloebValue");
+        paneKasse.add(this.txtfKassebeloebValue, tmpCol++, tmpRow);
+
         // --- Betalingsmetoder ---
-
-
-        Label lblBetalingsmetoder = new Label("Betalingsmetoder:");
-        lblBetalingsmetoder.getStyleClass().add("lblBetalingsmetoder");
-        paneMaster.add(lblBetalingsmetoder, 0, masterRow++);
-
-        // Metode knapper
         GridPane paneBetalingsmetoder = new GridPane();
-        paneBetalingsmetoder.setGridLinesVisible(true);
-        paneBetalingsmetoder.setPadding(new Insets(0, 0, 30, 0));
+        paneBetalingsmetoder.setGridLinesVisible(false);
+        paneBetalingsmetoder.setPadding(new Insets(0));
         paneBetalingsmetoder.setHgap(10);
-        paneBetalingsmetoder.setVgap(10);
+        paneBetalingsmetoder.setVgap(0);
         paneBetalingsmetoder.setAlignment(Pos.CENTER);
         paneBetalingsmetoder.getStyleClass().add("paneBetalingsmetoder");
         paneMaster.add(paneBetalingsmetoder, 0, masterRow++);
 
-        String[] metoder = {"Kontant", "Dankort", "MobilePay", "Klippekort", "Faktura"};
+        tmpCol = 0;
+        tmpRow = 0;
+        String[] metoder = {"Dankort", "MobilePay", "Kontant", "Faktura"};
+
+        this.tgMetode = new ToggleGroup();
 
         for (int i = 0; i < metoder.length; i++) {
-            Button btnMetode = new Button(metoder[i]);
-            btnMetode.getStyleClass().add("btnMetode");
-            paneBetalingsmetoder.add(btnMetode, tmpCol++, tmpRow);
+            RadioButton rbMetode = new RadioButton(metoder[i]);
+            rbMetode.setToggleGroup(this.tgMetode);
+            rbMetode.getStyleClass().add("rbMetode");
+            if (i == 0) rbMetode.setSelected(true);
+            paneBetalingsmetoder.add(rbMetode, tmpCol++, tmpRow);
         }
 
-        // --- Afbryd ---
-        Button btnAfbryd = new Button("Afbryd");
-        btnAfbryd.getStyleClass().add("btnAfbryd");
-        GridPane.setHalignment(btnAfbryd, HPos.CENTER);
-        paneMaster.add(btnAfbryd, 0, masterRow++);
-        btnAfbryd.setOnAction(event -> this.afbrydBetalingAction());
+
+        // --- Udfør / Afbryd ---
+        GridPane paneUdfoerBetaling = new GridPane();
+        paneUdfoerBetaling.setGridLinesVisible(false);
+        paneUdfoerBetaling.setPadding(new Insets(0, 0, 20, 0));
+        paneUdfoerBetaling.setHgap(40);
+        paneUdfoerBetaling.setVgap(0);
+        paneUdfoerBetaling.setAlignment(Pos.CENTER);
+        paneUdfoerBetaling.getStyleClass().add("paneUdfoerBetaling");
+        paneMaster.add(paneUdfoerBetaling, 0, masterRow++);
+
+        tmpCol = 0;
+        tmpRow = 0;
+
+        Button btnUdfoerBetaling = new Button("Udfør");
+        btnUdfoerBetaling.getStyleClass().add("btnUdfoerBetaling");
+        paneUdfoerBetaling.add(btnUdfoerBetaling, tmpCol++, tmpRow);
+        btnUdfoerBetaling.setOnAction(event -> this.udfoerBetalingAction());
+
+        Button btnAfbrydBetaling = new Button("Afbryd");
+        btnAfbrydBetaling.getStyleClass().add("btnAfbrydBetaling");
+        paneUdfoerBetaling.add(btnAfbrydBetaling, tmpCol++, tmpRow);
+        btnAfbrydBetaling.setOnAction(event -> this.afbrydBetalingAction());
 
        return sceneBetaling;
     }
 
+    private void udfoerBetalingAction()
+    {
+        WindowAfregnet wa = new WindowAfregnet("Kasse", this.stage);
+        RadioButton rb = (RadioButton) this.tgMetode.getSelectedToggle();
+        wa.setTotal(this.roundDouble2String(this.ordre.findTotalPris()));
+        wa.setKlippekortBeloeb(this.lblKlipValue.getText());
+        wa.setKasseIndMetode(rb.getText());
+        wa.setKasseIndBeloeb(this.txtfKassebeloebValue.getText());
+        wa.showAndWait();
+
+    }
+
     private void afbrydBetalingAction()
     {
-        ButtonType btnOk = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-        ButtonType btnCancel = new ButtonType("Annuller", ButtonBar.ButtonData.CANCEL_CLOSE);
-        String txt = "Igangværende ordre bibeholdes.";
-        Alert alert = new Alert(Alert.AlertType.WARNING, txt, btnOk, btnCancel);
-        alert.setHeaderText("Afbryd betaling?");
-        alert.setTitle("Advarsel");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == btnOk) {
-            this.stage.setScene(this.sceneSalg);
-            forceWindowRefresh();
-        }
+       this.stage.setScene(this.sceneSalg);
+       forceWindowRefresh();
     }
+
+    private void updateAfregning(int antalKlip)
+    {
+       double klipValue = (this.ordre.findTotalKlipKrVærdi() / this.ordre.findTotalKlip()) * antalKlip;
+       double resterendeValue = this.ordre.findTotalPris() - klipValue;
+       this.lblKlipValue.setText(this.roundDouble2String(klipValue));
+       this.lblResterendeValue.setText(this.roundDouble2String(resterendeValue));
+       this.txtfKassebeloebValue.clear();
+    }
+
+    private void paaBeloebetAction()
+    {
+        this.txtfKassebeloebValue.setText(this.lblResterendeValue.getText());
+
+    }
+
+
+
+    // --- Helper methods ----------------------------------------------------------------------------------------------
+
+    /**
+     * Afrunder double til maks. 2 decimaler.
+     * @param value
+     * @return
+     */
+    private double roundDouble(double value)
+    {
+        return Math.round(value * 100) / 100.0;
+    }
+
+    /**
+     * Afrunder double til maks. 2 decimaler og retunerer som string.
+     * @param value
+     * @return
+     */
+    private String roundDouble2String(double value)
+    {
+        String[] txtA = String.valueOf(this.roundDouble(value)).split("\\.");
+        if (txtA.length > 1) while (txtA[1].length() < 2) txtA[1] += "0";
+        return String.join(".", txtA);
+    }
+
 
 
 }

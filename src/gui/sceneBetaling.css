@@ -1,25 +1,102 @@
 
+.hboxWrapper {
+     -fx-background-color: rgb(255, 255, 255);
+
+}
+
+
 .paneMaster {
-    -fx-background-color: rgb(255, 255, 255);
+    -fx-border-radius: 0;
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-border-width: 1;
+    -fx-background-color: #ffd141;
+
+
+}
+
+/* Total */
+
+.paneTotal {
+}
+
+.lblTotal, .lblTotalValue {
+    -fx-font-size: 26pt;
+    -fx-font-weight: bold;
+    -fx-padding: 0;
+}
+
+.lblTotalValue, .lblKlipValue, .lblResterendeValue {
+    -fx-min-width: 200;
+    -fx-alignment: baseline-right;
+    -fx-font-weight: bold;
+    -fx-padding: 5;
+}
+
+/* Afregning */
+
+.paneAfregning {
+    -fx-background-color: #fedb65;
+}
+
+.lblAfregning {
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+}
+
+.lblKlip, .lblResterende, .lblKassebeloeb  {
+    -fx-font-size: 15pt;
+}
+
+.lblKlipValue, .lblResterendeValue {
+     -fx-font-size: 20pt;
+}
+
+.cboxKlip {
+}
+
+.cboxKlip, .btnPaaBeloebet {
+    -fx-font-size: 13pt;
+    -fx-pref-width: 110;
+}
+
+/* Kasse */
+
+.paneKasse {
+
+    -fx-border-radius: 2;
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-border-width: 1;
+}
+
+.txtfKassebeloebValue {
+    -fx-alignment: baseline-right;
+    -fx-font-weight: bold;
+    -fx-font-size: 20pt;
+    -fx-padding: 5;
+    -fx-pref-width: 200;
+}
+
+
+/* Betalingsmetoder */
+
+.lblBetalingsmetoder {
+    -fx-padding: 30 0 0 0;
+    -fx-font-size: 15pt;
 }
 
 .paneBetalingsmetoder {
-
-
 }
 
-.lblBetalingsmetoder {
-    -fx-font-size: 15pt;
+.rbMetode {
+    -fx-font-size: 13pt;
+    -fx-padding: 10;
 }
 
-.btnMetode {
+
+
+.btnUdfoerBetaling, .btnAfbrydBetaling {
     -fx-pref-width: 125;
-    -fx-pref-height: 75;
-    -fx-font-size: 15pt;
-}
-
-.btnAfbryd {
-    -fx-pref-width: 200;
-    -fx-font-size: 12pt;
+    -fx-pref-height: 50;
+    -fx-font-size: 13pt;
     -fx-padding: 5;
 }
