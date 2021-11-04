@@ -43,6 +43,11 @@ public class Storage {
             ordrer.add(ordre);
         }
     }
+    public void removeOrdre(Ordre ordre) {
+        if (ordrer.contains(ordre)) {
+            ordrer.remove(ordre);
+        }
+    }
 
     public ArrayList<Prisliste> getPrislister() {
         return new ArrayList<Prisliste>(prislister);

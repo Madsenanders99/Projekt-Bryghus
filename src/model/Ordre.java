@@ -45,6 +45,7 @@ public class Ordre {
 
 	public Ordrelinje createOrdrelinje(Pris pris, int antal) {
 		Ordrelinje ol = new Ordrelinje(pris, antal);
+		// Ordre tjekker om det er en udlejning
 		if (ol.getPris().isAfregnesVedReturnering() == true || ol.getPris().isAfregnesVedReturnering() == false) {
 			ol.setErUdlejning(true);
 			this.ordrelinjer.add(ol);
@@ -116,7 +117,7 @@ public class Ordre {
 		}
 		return null;
 	}
-	
+	// 0..1 Association til Udlejning
 	public Udlejning createUdlejning(LocalDate datoStart,LocalDate datoSlut, Ordre ordre) {
 		Udlejning Ud = new Udlejning( datoStart, datoSlut, ordre);
 		this.setUdlejning(Ud);

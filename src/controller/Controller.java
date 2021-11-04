@@ -57,6 +57,10 @@ public class Controller {
         return o;
     }
 
+    public void removeOrdre(Ordre ordre) {
+        storage.removeOrdre(ordre);
+    }
+
     /**
      *
      * @param ordre

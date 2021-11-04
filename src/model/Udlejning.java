@@ -59,7 +59,12 @@ public class Udlejning {
 		return 0;
 	}
 
-	
+	// 1 Association til Ordre
+	Ordre getOrdre() {
+		return ordre;
+	}
+
+	//
 	LocalDate getDatoStart() {
 		return datoStart;
 	}
@@ -69,9 +74,7 @@ public class Udlejning {
 	LocalDate getDatoAfleveret() {
 		return datoAfleveret;
 	}
-	Ordre getOrdre() {
-		return ordre;
-	}
+
 
 	public void setDatoStart(LocalDate datoStart) {
 		this.datoStart = datoStart;
