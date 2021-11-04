@@ -63,13 +63,13 @@ public class MainApp extends Application
 
         // -------------------------
         // TEST
-        ArrayList<Prisliste> prislister = this.controller.getAllPrislister();
-        selectPrislisteAction(prislister.get(0));
-        this.ordre = this.controller.getAllOrdre().get(0);
-        this.betalAfregningAction();
-
-        this.paaBeloebetAction();
-        this.udfoerBetalingAction();
+//        ArrayList<Prisliste> prislister = this.controller.getAllPrislister();
+//        selectPrislisteAction(prislister.get(0));
+//        this.ordre = this.controller.getAllOrdre().get(0);
+//        this.betalAfregningAction();
+//
+//        this.paaBeloebetAction();
+//        this.udfoerBetalingAction();
         // --------------------------
 
     }
