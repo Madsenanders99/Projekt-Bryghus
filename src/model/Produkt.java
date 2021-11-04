@@ -17,26 +17,6 @@ public class Produkt {
 		//System.out.println(id);
 	}
 
-	// 0..* association til Produkt
-	public ArrayList<Produkt> getProdukter() {
-		return new ArrayList<>(produkter);
-	}
-
-	public Produkt createProdukt (String navn) {
-		Produkt produkt = new Produkt (navn);
-		produkter.add(produkt);
-		return produkt;
-	}
-	public void addProdukt(Produkt produkt) {
-		if (!produkter.contains(produkt)) {
-			produkter.add(produkt);
-		}
-	}
-	public void removeProdukt (Produkt produkt) {
-		if (produkter.contains(produkt)) {
-			produkter.remove(produkt);
-		}
-	}
 
 	// setters og getters
 	public String getNavn() {

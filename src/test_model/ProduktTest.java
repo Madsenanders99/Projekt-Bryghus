@@ -30,34 +30,4 @@ class ProduktTest {
         assertEquals("navn3", p3.getNavn());
 
     }
-
-    @Test
-    @Order(2)
-    void test02_addProdukt() {
-        Produkt p1 = new Produkt("navn1");
-        Produkt p2 = new Produkt("navn2");
-
-        p1.addProdukt(p2);
-        assertEquals(p1.getProdukter().get(0), p2);
-
-
-    }
-
-    @Test
-    @Order(3)
-    void test03_removeProdukt() {
-        Produkt p1 = new Produkt("navn1");
-        Produkt p2 = new Produkt("navn2");
-
-        p1.addProdukt(p2);
-        p1.removeProdukt(p2);
-        assertEquals(0, p1.getProdukter().size());
-
-    }
-    
-    @Test
-    @Order(4)
-    void test04_createProdukt() {
-    	
-    }
 }

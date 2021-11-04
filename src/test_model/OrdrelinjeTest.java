@@ -23,20 +23,20 @@ public class OrdrelinjeTest {
         Kategori kategori1 = new Kategori ("Øl");
         Produkt produkt1 = new Produkt ("Klosterbryg");
         Prisliste prisliste = new Prisliste ("Fredagsbar");
-        prisliste.createPris(produkt1, 70.0, 2);
-        prisliste.getPriser().get(0).addKategori(kategori1);
-        ordre1.createOrdrelinje(kategori1.getPriser().get(0), 1);
-        ordre1.getOrdrelinjer().get(0).setRabat(20.0);
+        Pris pris1 = prisliste.createPris(produkt1, 70.0, 2);
+        pris1.addKategori(kategori1);
+        Ordrelinje ol1 = ordre1.createOrdrelinje(pris1, 1);
+        ol1.setRabat(20.0);
 
-        ordre1.createOrdrelinje(kategori1.getPriser().get(0), 3);
+        Ordrelinje ol2 = ordre1.createOrdrelinje(pris1, 3);
 
-        ordre1.createOrdrelinje(kategori1.getPriser().get(0), 2);
+        Ordrelinje ol3 = ordre1.createOrdrelinje(pris1, 2);
 
-        ordre1.getOrdrelinjer().get(2).setRabat(18.0);
+        ol3.setRabat(18.0);
 
-        assertEquals(56.0, ordre1.getOrdrelinjer().get(0).getSamletPris(), 0);
-        assertEquals(210.0, ordre1.getOrdrelinjer().get(1).getSamletPris(), 0);
-        assertEquals(114.8, ordre1.getOrdrelinjer().get(2).getSamletPris(), 01);
+        assertEquals(56.0,  ol1.getSamletPris(), 0);
+        assertEquals(210.0, ol2.getSamletPris(), 0);
+        assertEquals(114.8, ol3.getSamletPris(), 01);
     }
     
 }

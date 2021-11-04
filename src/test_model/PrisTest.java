@@ -21,30 +21,30 @@ public class PrisTest {
     @Test
     @Order(1)
     public void test01_SetPantStørreEndNul() {
-        controller.createPrisliste("Detailsalg");
+        Prisliste pl = controller.createPrisliste("Detailsalg");
 
         Produkt produkt1 = new Produkt ("Fustage");
 
-        controller.getAllPrislister().get(0).createPris(produkt1, 600, 0);
+        Pris pris = pl.createPris(produkt1, 600, 0);
 
-        controller.getAllPrislister().get(0).getPriser().get(0).setPant(30);
+        pris.setPant(30);
 
-        assertTrue(controller.getAllPrislister().get(0).getPriser().get(0).isAfregnesVedReturnering());
-        assertEquals(30, controller.getAllPrislister().get(0).getPriser().get(0).getPant());
+        assertTrue(pris.isAfregnesVedReturnering());
+        assertEquals(30, pris.getPant());
     }
     
     @Test
     @Order(2)
     public void test01_SetPantMindreEndNul() {
-        controller.createPrisliste("Detailsalg");
+        Prisliste pl = controller.createPrisliste("Detailsalg");
 
-        Produkt produkt1 = new Produkt ("Klosterbryg");
+        Produkt produkt1 = new Produkt ("Fustage");
 
-        controller.getAllPrislister().get(0).createPris(produkt1, 36, 0);
+        Pris pris = pl.createPris(produkt1, 600, 0);
 
-        controller.getAllPrislister().get(0).getPriser().get(0).setPant(0);
-        
-        assertFalse(controller.getAllPrislister().get(0).getPriser().get(0).isAfregnesVedReturnering());
-        assertEquals(0, controller.getAllPrislister().get(0).getPriser().get(0).getPant());
+        pris.setPant(0);
+
+        assertFalse(pris.isAfregnesVedReturnering());
+        assertEquals(0, pris.getPant());
     }
 }

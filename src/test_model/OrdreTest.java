@@ -26,7 +26,6 @@ class OrdreTest {
 
 		assertEquals(1, ordre1.getId());
 		assertEquals(2, ordre2.getId());
-		assertNotEquals(1, ordre2.getId());
 	}
 
 	// TC1
@@ -78,7 +77,7 @@ class OrdreTest {
 	// TC3
 	@Test
 	@Order(5)
-	public void test03_createOrdrelinjerGetPriserPrisLigMedGetOrdrelinjerPris() {
+	public void test03_createOrdrelinjerGetPriser() {
 		Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 29, 10, 0));
 		Kategori kategori1 = new Kategori("Øl");
 		Produkt produkt1 = new Produkt("Klosterbryg");
@@ -163,11 +162,11 @@ class OrdreTest {
 		Produkt produkt1 = new Produkt("Klosterbryg");
 		Produkt produkt2 = new Produkt("Celebration");
 
-		prisliste.createPris(produkt1, 70.0, 2);
-		prisliste.createPris(produkt2, 70.0, 2);
+		Pris pris1 = prisliste.createPris(produkt1, 70.0, 2);
+		Pris pris2 = prisliste.createPris(produkt2, 70.0, 2);
 
-		prisliste.getPriser().get(0).addKategori(kategori1);
-		prisliste.getPriser().get(1).addKategori(kategori2);
+		pris1.addKategori(kategori1);
+		pris2.addKategori(kategori2);
 
 		Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 25, 10, 0));
 		ordre1.createOrdrelinje(kategori1.getPriser().get(0), 2);
@@ -187,11 +186,11 @@ class OrdreTest {
 		Produkt produkt1 = new Produkt("Klosterbryg");
 		Produkt produkt2 = new Produkt("Celebration");
 
-		prisliste.createPris(produkt1, 70.0, 2);
-		prisliste.createPris(produkt2, 70.0, 2);
+		Pris pris1 = prisliste.createPris(produkt1, 70.0, 2);
+		Pris pris2 = prisliste.createPris(produkt2, 70.0, 2);
 
-		prisliste.getPriser().get(0).addKategori(kategori1);
-		prisliste.getPriser().get(1).addKategori(kategori2);
+		pris1.addKategori(kategori1);
+		pris2.addKategori(kategori2);
 
 		Ordre ordre1 = new Ordre(LocalDateTime.of(2021, 10, 25, 10, 0));
 		ordre1.createOrdrelinje(kategori1.getPriser().get(0), 2);
