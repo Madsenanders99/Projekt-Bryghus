@@ -42,7 +42,7 @@ ghfgghf
     -fx-min-width: 100;
     -fx-wrap-text: true;
     -fx-text-alignment: center;
-    -fx-background-color: rgb(75, 75, 255);
+    -fx-background-color: #6cc5e9;
 }
 
 /* --- Produkter --------------------------------------------------------------------------------------------------- */
@@ -60,7 +60,7 @@ ghfgghf
     -fx-font-size: 15pt;
     -fx-text-alignment: center;
     -fx-padding: 5 10;
-    -fx-background-color: rgb(75, 255, 75);
+    -fx-background-color: #00ce7d;
 }
 
 

@@ -35,9 +35,9 @@ public class WindowOptions extends Stage {
 		this.initOwner(owner);
 		this.initStyle(StageStyle.UTILITY);
 		this.initModality(Modality.APPLICATION_MODAL);
-		this.setMinWidth(1000); // 1000
+		this.setMinWidth(900); // 1000
 		this.setMinHeight(400);
-		this.setWidth(1200);
+		this.setWidth(1100);
 		this.setHeight(600);
 		this.setResizable(false);
 
